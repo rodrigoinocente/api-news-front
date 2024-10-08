@@ -14,3 +14,8 @@ export interface INews {
     name: string;
     username: string;
   }
+
+  export interface TextLimitProps {
+    text: string;
+    limit: number;
+  }

@@ -8,15 +8,24 @@ export const CardContainer = styled.section`
     gap: 1rem;
     width: 100%;
     box-shadow: #0d0d0e5c 0px 7px 29px 0px;
-    border-radius: 1rem;
+    border-radius: .5rem;
     padding: 1rem;
 
 `
 export const CardBody = styled.article`
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
     gap: 1rem;
+
+
+    div{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        
+    }
 
     h2{
         margin-bottom: 1rem;
@@ -24,6 +33,7 @@ export const CardBody = styled.article`
 
     img{
         width: 40%;
+        border-radius: .5rem;
         /* object-fit: cover;
         object-position: center; */
     }
