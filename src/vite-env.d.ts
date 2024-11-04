@@ -8,6 +8,7 @@ export interface INews {
     user: IUser;
     likeCount: number;
     commentCount: number;
+    top?: boolean
   }
   
   export interface IUser {

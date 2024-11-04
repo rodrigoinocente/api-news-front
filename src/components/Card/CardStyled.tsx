@@ -9,41 +9,45 @@ export const CardContainer = styled.section`
     width: 100%;
     box-shadow: #0d0d0e5c 0px 7px 29px 0px;
     border-radius: .5rem;
-    padding: 1rem;
-
 `
 export const CardBody = styled.article`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1rem;
-
-
+    display: flex; 
+    width: 100%;
+    height: 100%;
+   
     div{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        
-    }
-
-    h2{
-        margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem;
+      width: 100%;
     }
 
     img{
-        width: 40%;
-        border-radius: .5rem;
-        /* object-fit: cover;
-        object-position: center; */
+        width: 30%;
+        border-radius: 0 .3rem .3rem 0;
+        object-fit: cover;
     }
 `
+export const CardHeader = styled.article<{ top?: boolean }>`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-size: ${(props) => (props.top ? "1.5rem" : "1rem")};
 
+    h2{
+        margin-bottom: 1rem;
+        font-size: ${(props) => (props.top ? "2.3rem" : "1.5rem")};
+        width: 100%;
+        text-align: center;
+    }
+    
+`
 export const CardFooter = styled.section`
 display: flex;
 gap: 1rem;
 
-div{
+section{
     display: flex;
     align-items: center;
     gap: .2rem
