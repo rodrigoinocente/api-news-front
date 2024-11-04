@@ -1,13 +1,7 @@
-import { GlobalStyled } from './GlogalStyled';
-import {Home} from './pages/Home/Home';
+import { Outlet } from 'react-router-dom';
 
 function App() {
-  return (
-    <>
-    <GlobalStyled/>
-    <Home/>
-    </>
-  );
+  return <Outlet/>
 }
 
 export default App;

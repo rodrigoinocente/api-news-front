@@ -1,5 +1,4 @@
 import { Card } from "../../components/Card/Card";
-import { Navbar } from "../../components/Navbar/Navbar";
 import { HomeBody, HomeHeader } from "./HomeStyled";
 import { getAllNews, getTopNews } from "../../service/newsService";
 import { useEffect, useState } from "react";
@@ -24,7 +23,6 @@ export function Home() {
 
     return (
         <>
-            <Navbar />
             <HomeHeader>
                 {newsTop && (
                     <Card
