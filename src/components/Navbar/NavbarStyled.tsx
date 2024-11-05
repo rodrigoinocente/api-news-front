@@ -21,16 +21,24 @@ export const InputSpace = styled.div`
     justify-content: space-between;
     margin-left: 1rem;
 
+    button{
+    border: none;
+    cursor: pointer;
+    }
+
     img {
     width: 1.8rem;
-    margin-top: 5px;
+    margin: -15px 5px 0 0 ;
     position: absolute;
     top: 1;
     right: 0;
     z-index: 10;
     color: #757575;
-    padding: .3rem;
     border: none;
+    transition: transform 0.7s ease;
+        &:hover{
+            transform: rotate(360deg);
+        }
     }
 
     input {
@@ -47,6 +55,7 @@ export const InputSpace = styled.div`
         &:focus {
             border: 2px solid #16151536;
             width: 20vw;
+            background-color: #f9f6f620;
         }    
     }
 `
@@ -84,4 +93,12 @@ export const Button = styled.button`
             box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
             background-color: #25252528;
         }
+`
+
+export const ErrorSpan = styled.span`
+    display: flex;
+    justify-content: flex-end;
+    color: #cd0d0dd9;
+    font-size: .8rem;
+    margin-bottom: 0;
 `

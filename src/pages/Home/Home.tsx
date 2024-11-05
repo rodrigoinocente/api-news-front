@@ -46,9 +46,8 @@ export function Home() {
                         banner={news.banner}
                         user={news.user}
                         likeCount={news.likeCount}
-                        commentCount={news.commentCount} _id={news._id} />
-
-
+                        commentCount={news.commentCount} _id={news._id}
+                    />
                 })}
             </HomeBody>
         </>

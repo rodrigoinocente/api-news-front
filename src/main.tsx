@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: "/search",
+        path: "/search/:title",
         element: <Search />
       }
     ]
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GlobalStyled/>
+    <GlobalStyled />
     <RouterProvider router={router} />
   </StrictMode>,
 )

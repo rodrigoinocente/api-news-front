@@ -9,6 +9,7 @@ export const GlobalStyled = createGlobalStyle`
 
 body {
   background-color: #f5f5f5;
+  padding-top: 4rem;
 }
 
 code {
@@ -16,5 +17,3 @@ code {
     monospace;
 }
 `
-
-

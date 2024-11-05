@@ -20,3 +20,7 @@ export interface INews {
     text: string;
     limit: number;
   }
+      
+  interface SearchNews {
+    title: string;
+}
