@@ -19,7 +19,6 @@ export function Home() {
     useEffect(() => {
         findNews()
     }, [])
-    console.log("newsTop: ", newsTop);
 
     return (
         <>
