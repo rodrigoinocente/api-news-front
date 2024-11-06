@@ -9,6 +9,7 @@ export const CardContainer = styled.section`
     width: 100%;
     box-shadow: #0d0d0e5c 0px 7px 29px 0px;
     border-radius: .5rem;
+    background-color: #fff;
 `
 export const CardBody = styled.article`
     display: flex; 

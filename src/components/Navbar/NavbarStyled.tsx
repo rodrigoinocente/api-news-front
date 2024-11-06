@@ -77,24 +77,6 @@ export const ImageLogo = styled.img`
     object-fit: cover;
     cursor: pointer;
 `
-
-export const Button = styled.button`
-    border: 2px solid #16151536;
-    font-size: 1rem;
-    padding: .4rem;
-    cursor: pointer;
-    border-radius: 1rem;
-    width: 10vw ;
-    font-weight: 500;
-    letter-spacing: .1rem;
-    transition: all .6s ease-in-out;
-
-        &:hover {
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 4px;
-            background-color: #25252528;
-        }
-`
-
 export const ErrorSpan = styled.span`
     display: flex;
     justify-content: flex-end;

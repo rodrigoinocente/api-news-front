@@ -1,11 +1,12 @@
 import { Link, Outlet, useNavigate } from "react-router-dom"
 import logo from "../../images/icons/icon-logo.png"
 import lupa from "../../images/icons/icon-lupa.png"
-import { Button, ErrorSpan, ImageLogo, InputSpace, Nav } from "./NavbarStyled"
+import { ErrorSpan, ImageLogo, InputSpace, Nav } from "./NavbarStyled"
 import { useForm } from "react-hook-form"
-import { SearchNews } from "../../vite-env"
+import { ISearchNews } from "../../vite-env"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Button } from "../Button/Button"
 
 const searchSchema = z.object({
     title: z.string()
@@ -14,18 +15,15 @@ const searchSchema = z.object({
 })
 
 export function Navbar() {
-    const { register, handleSubmit, reset, formState: { errors }, } = useForm<SearchNews>({ resolver: zodResolver(searchSchema) });
+    const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
     const navigate = useNavigate()
 
-    function onSearch(data: SearchNews) {
+    function onSearch(data: ISearchNews) {
         const { title } = data
         navigate(`/search/${title}`)
         reset()
     }
 
-    function goAuth(){
-        navigate("/auth")
-    }
     return (
         <>
             <Nav>
@@ -42,8 +40,9 @@ export function Navbar() {
                 <Link to="/">
                     <ImageLogo src={logo} alt="Logo News" />
                 </Link>
-
-                <Button onClick={goAuth}>Loggin</Button>
+                <Link to="auth">
+                    <Button type="button" text="Entrar"></Button>
+                </Link>
             </Nav>
             <Outlet />
         </>
