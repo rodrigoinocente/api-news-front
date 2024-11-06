@@ -33,11 +33,11 @@ export const CardHeader = styled.article<{ $top?: boolean }>`
     display: flex;
     flex-direction: column;
     width: 100%;
-    font-size: ${(props) => (props.$top ? "1.5rem" : "1rem")};
+    font-size: ${(props) => (props.$top ? "1.3rem" : "1rem")};
 
     h2{
         margin-bottom: 1rem;
-        font-size: ${(props) => (props.$top ? "2.3rem" : "1.5rem")};
+        font-size: ${(props) => (props.$top ? "2.1rem" : "1.5rem")};
         width: 100%;
         text-align: center;
     }

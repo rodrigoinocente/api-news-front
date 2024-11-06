@@ -22,6 +22,10 @@ export function Navbar() {
         navigate(`/search/${title}`)
         reset()
     }
+
+    function goAuth(){
+        navigate("/auth")
+    }
     return (
         <>
             <Nav>
@@ -39,7 +43,7 @@ export function Navbar() {
                     <ImageLogo src={logo} alt="Logo News" />
                 </Link>
 
-                <Button>Loggin</Button>
+                <Button onClick={goAuth}>Loggin</Button>
             </Nav>
             <Outlet />
         </>

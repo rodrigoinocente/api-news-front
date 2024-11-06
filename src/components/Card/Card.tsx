@@ -4,12 +4,12 @@ import like from "../../images/icons/icon-like.png"
 import comments from "../../images/icons/icon-comments.png"
 import { TextLimit } from "../TextLimit/TextLimit";
 
-export function Card({ title, text, banner, likeCount, commentCount }: INews) {
+export function Card({ title, text, banner, likeCount, commentCount, top }: INews) {
     return (
         <CardContainer>
             <CardBody >
                 <div>
-                    <CardHeader >
+                    <CardHeader $top={top}>
                         <h2>{title}</h2>
                         <TextLimit text={text} limit={255} />
                     </CardHeader>
