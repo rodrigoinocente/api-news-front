@@ -20,16 +20,21 @@ export const Section = styled.section<{ type?: string }>`
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 400px;
+    height: auto;
+    min-height: 420px;
     padding: 2rem;
     gap: 1rem;
     border-radius: 7px;
-    background-color: ${(props)=>(props.type === "signin" ? "grey": "white")};
+    background-color: ${(props)=>(props.type === "signin" ? "#bebcbc": "white")};
     color: ${(props)=>(props.type === "signup" ? "grey": "white")};
 
     h2{
         font-size: 2rem;
         text-align: center;
+    }
+
+    span{
+        margin-top: -10px;
     }
 
     button{

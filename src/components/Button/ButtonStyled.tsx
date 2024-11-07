@@ -1,7 +1,9 @@
 import styled from "styled-components"
 
 export const ButtonSpace = styled.button`
-    border: 2px solid #16151536;
+    color: #4d4c4c;
+    font-weight: 600;
+    border: 1.5px solid #16151536;
     font-size: 1rem;
     padding: .4rem 2rem;
     cursor: pointer;

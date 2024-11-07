@@ -4,15 +4,10 @@ import lupa from "../../images/icons/icon-lupa.png"
 import { ErrorSpan, ImageLogo, InputSpace, Nav } from "./NavbarStyled"
 import { useForm } from "react-hook-form"
 import { ISearchNews } from "../../vite-env"
-import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../Button/Button"
+import { searchSchema } from "../../schemas/searchSchema"
 
-const searchSchema = z.object({
-    title: z.string()
-        .min(1, { message: "A pesquisa não pode ser vazia" })
-        .refine(value => !/^\s*$/.test(value), { message: "A pesquisa não pode ser vazia" }),
-})
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });

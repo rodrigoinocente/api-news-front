@@ -80,7 +80,7 @@ export const ImageLogo = styled.img`
 export const ErrorSpan = styled.span`
     display: flex;
     justify-content: flex-end;
-    color: #cd0d0dd9;
+    color: #b30505;
     font-size: .8rem;
     margin-bottom: 0;
 `
