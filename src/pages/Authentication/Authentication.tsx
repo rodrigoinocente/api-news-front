@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { signinSchema } from "../../schemas/signinSchema";
 import { ErrorSpan } from "../../components/Navbar/NavbarStyled";
 import { signupSchema } from "../../schemas/signupSchema";
+import { singin, singup } from "../../service/userService";
 
 export function Authentication() {
     const {
@@ -18,11 +19,23 @@ export function Authentication() {
         handleSubmit: handleSubmitSignup,
         formState: { errors: errorsSignup }, } = useForm<AuthData>({ resolver: zodResolver(signupSchema) });
 
-    function inHandleSubmit(data: AuthData) {
+    async function inHandleSubmit(data: AuthData) {
+        try {
+            const response = await singin(data)
+            console.log("Response: ", response);
+        } catch (error: unknown) {
+            console.log(error);
+        }
         console.log("Signin Data:", data);
     }
 
-    function upHandleSubmit(data: AuthData) {
+    async function upHandleSubmit(data: AuthData) {
+        try {
+            const response = await singup(data)
+            console.log("Response: ", response);
+        } catch (error: unknown) {
+            console.log(error);
+        }
         console.log("Signup Data:", data);
     }
 
@@ -47,7 +60,7 @@ export function Authentication() {
                     <h2>Cadastrar</h2>
 
                     <form onSubmit={handleSubmitSignup(upHandleSubmit)}>
-                        
+
                         <Input type="text" placeholder="Nome" name="name" register={registerSignup} />
                         {errorsSignup.name && <ErrorSpan>{errorsSignup.name.message}</ErrorSpan>}
 
