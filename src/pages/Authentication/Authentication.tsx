@@ -8,6 +8,8 @@ import { signinSchema } from "../../schemas/signinSchema";
 import { ErrorSpan } from "../../components/Navbar/NavbarStyled";
 import { signupSchema } from "../../schemas/signupSchema";
 import { singin, singup } from "../../service/userService";
+import Cookies from "js-cookie"
+import { useNavigate } from "react-router-dom";
 
 export function Authentication() {
     const {
@@ -18,25 +20,26 @@ export function Authentication() {
         register: registerSignup,
         handleSubmit: handleSubmitSignup,
         formState: { errors: errorsSignup }, } = useForm<AuthData>({ resolver: zodResolver(signupSchema) });
-
+        const navigate = useNavigate()
+        
     async function inHandleSubmit(data: AuthData) {
         try {
             const response = await singin(data)
-            console.log("Response: ", response);
+            Cookies.set("token", response.data.token, { expires: 1 })
+            navigate("/")
         } catch (error: unknown) {
             console.log(error);
         }
-        console.log("Signin Data:", data);
     }
 
     async function upHandleSubmit(data: AuthData) {
         try {
             const response = await singup(data)
-            console.log("Response: ", response);
+            Cookies.set("token", response.data.token, { expires: 1 })
+            navigate("/")
         } catch (error: unknown) {
             console.log(error);
         }
-        console.log("Signup Data:", data);
     }
 
     return (

@@ -84,3 +84,30 @@ export const ErrorSpan = styled.span`
     font-size: .8rem;
     margin-bottom: 0;
 `
+
+export const UserLoggedSpace = styled.section`
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    gap: .1rem;
+    margin-top: .5rem;
+
+    h4{
+        font-size: 1.3rem;
+        color: #757575;
+        transition: all .3s;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+    h4:hover{
+        color: black;
+    }
+    button{
+        background: none;   
+        border: none;       
+        cursor: pointer;     
+        align-self: flex-end;
+        font-size: 1rem;
+        color: black;
+    }
+`
