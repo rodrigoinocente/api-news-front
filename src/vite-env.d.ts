@@ -31,3 +31,12 @@ export interface AuthData {
   password: string;
   confirmPassword?: string;
 }
+
+export interface UserContextProps {
+  user: IUser | null;
+  setUser: (user: IUser | null) => void;
+}
+
+export interface UserProviderProps {
+  children: ReactNode;
+}

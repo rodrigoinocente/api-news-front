@@ -3,31 +3,21 @@ import logo from "../../images/icons/icon-logo.png"
 import lupa from "../../images/icons/icon-lupa.png"
 import { ErrorSpan, ImageLogo, InputSpace, Nav, UserLoggedSpace } from "./NavbarStyled"
 import { useForm } from "react-hook-form"
-import { ISearchNews, IUser } from "../../vite-env"
+import { ISearchNews } from "../../vite-env"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../Button/Button"
 import { searchSchema } from "../../schemas/searchSchema"
-import { userLogged } from "../../service/userService"
-import { useEffect, useState } from "react"
 import Cookies from "js-cookie"
+import { useUser } from "../../Context/userCustomHook"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
     const navigate = useNavigate()
-    const [user, setUser] = useState<IUser | null>(null)
+    const { user, setUser } = useUser()
 
     function onSearch(data: ISearchNews) {
         navigate(`/search/${data.title}`);
         reset();
-    }
-
-    async function findUserLogged() {
-        try {
-            const response = await userLogged()
-            setUser(response.data)
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     function signout() {
@@ -35,10 +25,6 @@ export function Navbar() {
         setUser(null)
         navigate("/")
     }
-
-    useEffect(() => {
-        if (Cookies.get("token")) findUserLogged()
-    }, [])
 
     return (
         <>
@@ -59,7 +45,9 @@ export function Navbar() {
 
                 {user ? (
                     <UserLoggedSpace>
-                        <h4>{`Olá, ${user.name}`}</h4>
+                        <Link to="/profile">
+                            <h4>{`Olá, ${user.name}`}</h4>
+                        </Link>
 
                         <button onClick={signout}>sair</button>
                     </UserLoggedSpace>

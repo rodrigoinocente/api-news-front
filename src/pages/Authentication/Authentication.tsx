@@ -7,9 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { signinSchema } from "../../schemas/signinSchema";
 import { ErrorSpan } from "../../components/Navbar/NavbarStyled";
 import { signupSchema } from "../../schemas/signupSchema";
-import { singin, singup } from "../../service/userService";
+import { singin, singup, userLogged } from "../../service/userService";
 import Cookies from "js-cookie"
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../Context/userCustomHook";
 
 export function Authentication() {
     const {
@@ -20,12 +21,24 @@ export function Authentication() {
         register: registerSignup,
         handleSubmit: handleSubmitSignup,
         formState: { errors: errorsSignup }, } = useForm<AuthData>({ resolver: zodResolver(signupSchema) });
-        const navigate = useNavigate()
-        
+    const navigate = useNavigate()
+
+    const { setUser } = useUser()
+
+    async function findUserLogged() {
+        try {
+            const response = await userLogged()
+            setUser(response.data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async function inHandleSubmit(data: AuthData) {
         try {
             const response = await singin(data)
             Cookies.set("token", response.data.token, { expires: 1 })
+            findUserLogged()
             navigate("/")
         } catch (error: unknown) {
             console.log(error);
@@ -36,6 +49,7 @@ export function Authentication() {
         try {
             const response = await singup(data)
             Cookies.set("token", response.data.token, { expires: 1 })
+            findUserLogged()
             navigate("/")
         } catch (error: unknown) {
             console.log(error);

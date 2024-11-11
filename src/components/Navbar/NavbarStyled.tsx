@@ -110,4 +110,7 @@ export const UserLoggedSpace = styled.section`
         font-size: 1rem;
         color: black;
     }
+    a {
+    text-decoration: none;
+    }
 `

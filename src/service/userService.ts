@@ -5,7 +5,6 @@ import Cookies from "js-cookie"
 const baseUrl = "https://api-news-pzgk.onrender.com"
 
 export function singup(data: AuthData) {
-
     delete data.confirmPassword
     const body = {
         ...data,

@@ -6,6 +6,8 @@ import { Home } from './pages/Home/Home.tsx'
 import { Search } from './pages/Search/Search.tsx'
 import { GlobalStyled } from './GlogalStyled.tsx'
 import { Authentication } from './pages/Authentication/Authentication.tsx'
+import { UserProvider } from './Context/UserContext.tsx'
+import { Profile } from './pages/Profile/Profile.tsx'
 
 const router = createBrowserRouter([
   {
@@ -26,12 +28,18 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <Authentication />
+  },
+  {
+    path: "/profile",
+    element: <Profile />
   }
 ])
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GlobalStyled />
-    <RouterProvider router={router} />
+    <UserProvider >
+      <RouterProvider router={router} />
+    </UserProvider>
   </StrictMode>,
 )
