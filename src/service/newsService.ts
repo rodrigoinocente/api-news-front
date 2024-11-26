@@ -1,18 +1,18 @@
 import axios from "axios"
 
-const baseUrl = "https://api-news-pzgk.onrender.com"
+const baseUrl = "http://localhost:3000"
 
 export function getAllNews() {
-    const response = axios.get(`${baseUrl}/news/findAll`)
+    const response = axios.get(`${baseUrl}/newsPublic/findAll`)
     return response
 }
 
 export function getTopNews() {
-    const response = axios.get(`${baseUrl}/news/top`)
+    const response = axios.get(`${baseUrl}/newsPublic/top`)
     return response
 }
 
 export function searchNews(title: string) {
-    const response = axios.get(`${baseUrl}/news/search?title=${title}`)
+    const response = axios.get(`${baseUrl}/newsPublic/search?title=${title}`)
     return response
 }

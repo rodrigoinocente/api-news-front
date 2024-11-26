@@ -1,27 +1,17 @@
-import { INews } from "../../vite-env";
+import { ICardNews } from "../../vite-env";
 import { CardBody, CardContainer, CardFooter, CardHeader } from "./CardStyled";
-import like from "../../images/icons/icon-like.png"
-import comments from "../../images/icons/icon-comments.png"
-import { TextLimit } from "../TextLimit/TextLimit";
 
-export function Card({ title, text, banner, likeCount, commentCount, top }: INews) {
+export function Card({ title, subtitle, category, banner }: ICardNews) {
     return (
         <CardContainer>
             <CardBody >
                 <div>
-                    <CardHeader $top={top}>
+                    <CardHeader>
                         <h2>{title}</h2>
-                        <TextLimit text={text} limit={255} />
+                        <p>{subtitle}</p>
                     </CardHeader>
                     <CardFooter>
-                        <section>
-                            <img src={like} alt="Icone do Like" />
-                            <span>{likeCount}</span>
-                        </section>
-                        <section>
-                            <img src={comments} alt="Icone dos Comentários" />
-                            <span>{commentCount}</span>
-                        </section>
+                            <span>#{category}</span>
                     </CardFooter>
                 </div>
                 <img src={banner} alt="Imagem da Notícia" />

@@ -1,14 +1,16 @@
 /// <reference types="vite/client" />
 
 export interface INews {
-  _id: string;
+  _id: Types.ObjectId;
   title: string;
-  text: string;
+  content: string;
+  subtitle: string;
   banner: string;
-  user: IUser;
-  likeCount: number;
+  authorId: IUser;
+  category: string;
+  tags: [string];
   commentCount: number;
-  top?: boolean
+  publishedAt: Date;
 }
 
 export interface IUser {
@@ -39,4 +41,12 @@ export interface UserContextProps {
 
 export interface UserProviderProps {
   children: ReactNode;
+}
+
+export interface ICardNews {
+  title: string;
+  subtitle: string;
+  banner: string;
+  category: string;
+  _id: string;
 }

@@ -30,17 +30,16 @@ export const CardBody = styled.article`
         object-fit: cover;
     }
 `
-export const CardHeader = styled.article<{ $top?: boolean }>`
+export const CardHeader = styled.article`
     display: flex;
     flex-direction: column;
     width: 100%;
-    font-size: ${(props) => (props.$top ? "1.3rem" : "1rem")};
+    margin-bottom: 1rem;
 
     h2{
-        margin-bottom: 1rem;
-        font-size: ${(props) => (props.$top ? "2.1rem" : "1.5rem")};
+        margin-bottom: 2rem;
+        font-size: 1.5rem;
         width: 100%;
-        text-align: center;
     }
     
 `
@@ -48,13 +47,10 @@ export const CardFooter = styled.section`
 display: flex;
 gap: 1rem;
 
-section{
+span{
     display: flex;
     align-items: center;
-    gap: .2rem
-}
-
-img{
-    width: 1rem;
+    gap: .2rem;
+    color: grey;
 }
 `
