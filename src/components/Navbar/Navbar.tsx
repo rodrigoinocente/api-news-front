@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom"
-import logo from "../../images/icons/icon-logo.png"
 import lupa from "../../images/icons/icon-lupa.png"
-import { ErrorSpan, ImageLogo, InputSpace, Nav, UserLoggedSpace } from "./NavbarStyled"
+import menu from "../../images/icons/icon-menu.png"
+import { ErrorSpan, InputSpace, MenuNav, Nav, RightNav, UserLoggedSpace } from "./NavbarStyled"
 import { useForm } from "react-hook-form"
 import { ISearchNews } from "../../vite-env"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -9,11 +9,25 @@ import { Button } from "../Button/Button"
 import { searchSchema } from "../../schemas/searchSchema"
 import Cookies from "js-cookie"
 import { useUser } from "../../Context/userCustomHook"
+import { useEffect } from "react"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
     const navigate = useNavigate()
     const { user, setUser } = useUser()
+
+    function CurrentDate() {
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleDateString('pt-BR', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        })
+        const formattedDateWithCapitalizedWeekday =
+            formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
+        return <p>{formattedDateWithCapitalizedWeekday}</p>;
+    }
 
     function onSearch(data: ISearchNews) {
         navigate(`/search/${data.title}`);
@@ -26,39 +40,48 @@ export function Navbar() {
         navigate("/")
     }
 
+    useEffect(() => {
+        CurrentDate()
+    }, [])
+
     return (
         <>
             <Nav>
-                <form onSubmit={handleSubmit(onSearch)}>
-                    <InputSpace>
-                        <input {...register("title")} type="text" placeholder="Buscar" />
-                        <button type="submit">
-                            <img className="icon-lupa" src={lupa} alt="Logo Lupa" />
-                        </button>
-                    </InputSpace>
-                    {errors.title && <ErrorSpan>{errors.title.message}</ErrorSpan>}
-                </form>
+                <MenuNav>
+                    <img src={menu} alt="Menu" />
+                    <span>MENU</span>
+                </MenuNav>
 
-                <Link to="/">
-                    <ImageLogo src={logo} alt="Logo News" />
-                </Link>
+                <CurrentDate />
+                
+                <RightNav>
+                    <form onSubmit={handleSubmit(onSearch)}>
+                        <InputSpace>
+                            <input {...register("title")} type="text" placeholder="Buscar" />
+                            <button type="submit">
+                                <img className="icon-lupa" src={lupa} alt="Logo Lupa" />
+                            </button>
+                        </InputSpace>
+                        {errors.title && <ErrorSpan>{errors.title.message}</ErrorSpan>}
+                    </form>
+                    {user ? (
+                        <UserLoggedSpace>
+                            <Link to="/profile">
+                                <h4>{`Olá, ${user.name}`}</h4>
+                            </Link>
 
-                {user ? (
-                    <UserLoggedSpace>
-                        <Link to="/profile">
-                            <h4>{`Olá, ${user.name}`}</h4>
+                            <button onClick={signout}>sair</button>
+                        </UserLoggedSpace>
+
+                    ) :
+                        <Link to="auth">
+                            <Button type="button" text="Entrar"></Button>
                         </Link>
-
-                        <button onClick={signout}>sair</button>
-                    </UserLoggedSpace>
-
-                ) :
-                    <Link to="auth">
-                        <Button type="button" text="Entrar"></Button>
-                    </Link>
-                }
+                    }
+                </RightNav>
             </Nav>
             <Outlet />
         </>
     )
-} 
+}
+//TODO: MELHORAR ORGANIZAÇÃO DA ESTILIZAÇÃO
