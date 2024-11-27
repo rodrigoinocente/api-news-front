@@ -84,4 +84,3 @@ export function Navbar() {
         </>
     )
 }
-//TODO: MELHORAR ORGANIZAÇÃO DA ESTILIZAÇÃO

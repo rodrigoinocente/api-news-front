@@ -4,6 +4,7 @@ import { getAllNews } from "../../service/newsService";
 import { useEffect, useState } from "react";
 import { INews } from "../../vite-env";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
+import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 
 export function Home() {
     const [news, setNews] = useState([])
@@ -27,6 +28,7 @@ export function Home() {
 
     return (
         <>
+        <NavbarHome/>
             {loading ? <Spinner /> : (
                 <>
                     <HomeBody>

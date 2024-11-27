@@ -10,6 +10,7 @@ export const Nav = styled.nav`
     top: 0;
     background-color: #fff;
     z-index: 1;
+    border-bottom: 1px dashed #c5c2c2;
 
     p {
         transform: translateX(50%);
