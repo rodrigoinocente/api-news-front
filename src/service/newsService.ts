@@ -16,3 +16,8 @@ export function searchNews(title: string) {
     const response = axios.get(`${baseUrl}/newsPublic/search?title=${title}`)
     return response
 }
+
+export function getNewsByCategory(category: string) {
+    const response = axios.get(`${baseUrl}/newsPublic/category/${category}`)
+    return response
+}

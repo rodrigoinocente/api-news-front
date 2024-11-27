@@ -8,6 +8,7 @@ import { GlobalStyled } from './GlogalStyled.tsx'
 import { Authentication } from './pages/Authentication/Authentication.tsx'
 import { UserProvider } from './Context/UserContext.tsx'
 import { Profile } from './pages/Profile/Profile.tsx'
+import { Category } from './pages/Category/Category.tsx'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />
+  },
+  {
+    path: "/category/:category",
+    element: <Category />
   }
 ])
 

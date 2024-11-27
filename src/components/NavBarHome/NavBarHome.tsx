@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/icons/icon-logo.svg"
 import { ButtonCategory, NavHome } from "./NavBarHomeStyled";
 
@@ -16,7 +16,9 @@ export function NavbarHome() {
         <>
             <NavHome>
                 <div>
+                    <Link to="/">
                     <img src={logo} alt="" />
+                    </Link>
                 </div>
 
                 <ButtonCategory>
