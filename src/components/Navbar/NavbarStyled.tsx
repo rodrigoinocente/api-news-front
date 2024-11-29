@@ -13,7 +13,7 @@ export const Nav = styled.nav`
     border-bottom: 1px dashed #c5c2c2;
 
     p {
-        transform: translateX(50%);
+        transform: translateX(42%);
         font-size: .8rem;
         color: #575555;
     }

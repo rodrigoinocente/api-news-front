@@ -17,7 +17,7 @@ export function searchNews(title: string) {
     return response
 }
 
-export function getNewsByCategory(category: string) {
-    const response = axios.get(`${baseUrl}/newsPublic/category/${category}`)
-    return response
+export function getNewsByCategory(category: string, limit: number, offset: number,) {
+    const response = axios.get(`${baseUrl}/newsPublic/category/${category}`, { params: { limit, offset } });
+    return response;
 }
