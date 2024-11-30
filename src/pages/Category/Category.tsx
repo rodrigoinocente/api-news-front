@@ -7,6 +7,7 @@ import { Card } from "../../components/Card/Card";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 import { CategoryBody } from "./CategoryStyled";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
+import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton";
 
 export function Category() {
     const { category } = useParams<{ category: string }>()
@@ -80,6 +81,7 @@ export function Category() {
                 {isLoading && <Spinner />}
                 {!hasMore && <span>Não há mais notícias.</span>}
             </CategoryBody>
+            <ScrollToTopButton />
         </>
     )
 }
