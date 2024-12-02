@@ -17,11 +17,11 @@ export const CardBody = styled.article`
     height: 100%;
    
     div{
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1rem;
-      width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1rem;
+        width: 100%;
     }
 
     img{
@@ -44,13 +44,13 @@ export const CardHeader = styled.article`
     
 `
 export const CardFooter = styled.section`
-display: flex;
-gap: 1rem;
-
-span{
     display: flex;
-    align-items: center;
-    gap: .2rem;
-    color: grey;
-}
+    gap: 1rem;
+
+    span {
+        display: flex;
+        align-items: center;
+        gap: .2rem;
+        color: grey;
+    }
 `
