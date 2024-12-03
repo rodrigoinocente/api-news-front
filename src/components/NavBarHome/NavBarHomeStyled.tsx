@@ -4,7 +4,6 @@ export const NavHome = styled.nav`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
     margin: .5rem 0 1rem 0;
  `
 
@@ -17,6 +16,7 @@ export const LogoBanner = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;    
+        background-size: cover;
     }
 
     img {
