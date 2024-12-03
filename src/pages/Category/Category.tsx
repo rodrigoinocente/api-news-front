@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getNewsByCategory } from "../../service/newsService";
 import { useParams } from "react-router-dom";
-import { INews } from "../../vite-env";
+import { CategoryType, INews } from "../../vite-env";
 import { Card } from "../../components/Card/Card";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 import { BodyHead, CardsHead, LastNewsCard, LoadCard } from "./CategoryStyled";
@@ -16,8 +16,6 @@ import politica from "../../images/banners/politica.jpg";
 import saude from "../../images/banners/saude.jpg";
 import arte from "../../images/banners/arte.jpg";
 import { useBackground } from "../../Context/useBackgroundCustomHook";
-
-type CategoryType = "Tecnologia" | "Esportes" | "Ciência" | "Política" | "Saúde" | "Arte" | "Outros"
 
 export function Category() {
     const { category } = useParams<{ category: CategoryType }>()

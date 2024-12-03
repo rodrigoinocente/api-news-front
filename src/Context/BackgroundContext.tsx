@@ -1,11 +1,7 @@
 import React, { createContext, useState } from "react";
+import { IBackgroundContextType } from "../vite-env";
 
-type BackgroundContextType = {
-    bgImage: string | null
-    updateBackground: (image: string | null) => void
-}
-
-export const BackgroundContext = createContext<BackgroundContextType | undefined>(undefined)
+export const BackgroundContext = createContext<IBackgroundContextType | undefined>(undefined)
 
 export const BackgroundProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [bgImage, setBgImage] = useState<string | null>(null)

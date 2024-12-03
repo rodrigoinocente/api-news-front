@@ -50,3 +50,10 @@ export interface ICardNews {
   category: string;
   _id: string;
 }
+
+export type CategoryType = "Tecnologia" | "Esportes" | "Ciência" | "Política" | "Saúde" | "Arte" | "Outros"
+
+export interface IBackgroundContextType {
+  bgImage: string | null
+  updateBackground: (image: string | null) => void
+}
