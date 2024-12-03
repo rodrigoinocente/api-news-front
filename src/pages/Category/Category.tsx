@@ -9,14 +9,34 @@ import { BodyHead, CardsHead, LastNewsCard, LoadCard } from "./CategoryStyled";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CardBanner } from "../../components/CardBanner/CardBanner";
+import tecnologia from "../../images/banners/tecnologia.jpg";
+import esportes from "../../images/banners/esporte.jpg";
+import ciencia from "../../images/banners/ciencia.jpg";
+import politica from "../../images/banners/politica.jpg";
+import saude from "../../images/banners/saude.jpg";
+import arte from "../../images/banners/arte.jpg";
+import { useBackground } from "../../Context/useBackgroundCustomHook";
+
+type CategoryType = "Tecnologia" | "Esportes" | "Ciência" | "Política" | "Saúde" | "Arte" | "Outros"
 
 export function Category() {
-    const { category } = useParams<{ category: string }>()
+    const { category } = useParams<{ category: CategoryType }>()
     const [news, setNews] = useState<INews[]>([])
     const [hasMore, setHasMore] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
     const [offset, setOffset] = useState(0)
     const limit = 10
+    const { updateBackground } = useBackground()
+
+    const categoryBackgrounds = {
+        Tecnologia: tecnologia,
+        Esportes: esportes,
+        Ciência: ciencia,
+        Política: politica,
+        Saúde: saude,
+        Arte: arte,
+        Outros: null
+    }
 
     const loadNews = async (category: string, offset: number) => {
         try {
@@ -42,24 +62,25 @@ export function Category() {
             setNews([])
             setOffset(0)
             setHasMore(true)
+            updateBackground(categoryBackgrounds[category])
             loadNews(category, 0)
         }
     }, [category])
 
     useEffect(() => {
         const handleScroll = () => {
-            const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+            const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
             if (!isLoading && hasMore && scrollHeight - scrollTop <= clientHeight + 100) {
                 loadNews(category as string, offset)
             }
-        };
+        }
 
         window.addEventListener("scroll", handleScroll)
 
         return () => {
             window.removeEventListener("scroll", handleScroll)
-        };
+        }
     }, [isLoading, hasMore, offset, category])
     
     return (

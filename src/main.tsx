@@ -9,6 +9,7 @@ import { Authentication } from './pages/Authentication/Authentication.tsx'
 import { UserProvider } from './Context/UserContext.tsx'
 import { Profile } from './pages/Profile/Profile.tsx'
 import { Category } from './pages/Category/Category.tsx'
+import { BackgroundProvider } from './Context/BackgroundContext.tsx'
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GlobalStyled />
     <UserProvider >
-      <RouterProvider router={router} />
+      <BackgroundProvider>
+        <RouterProvider router={router} />
+      </BackgroundProvider>
     </UserProvider>
   </StrictMode>,
 )

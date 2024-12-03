@@ -6,6 +6,24 @@ export const NavHome = styled.nav`
     align-items: center;
     gap: 1rem;
     margin: .5rem 0 1rem 0;
+ `
+
+export const LogoBanner = styled.div`
+    width:100%;
+    
+    div {
+        height: 8rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;    
+    }
+
+    img {
+        padding: 1.5rem;
+        background-color: #fff;
+        border-radius: 0 10px 0 10px;
+    }
 `
 
 export const ButtonCategory = styled.div`
