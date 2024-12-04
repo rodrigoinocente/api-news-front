@@ -10,6 +10,7 @@ import { UserProvider } from './Context/UserContext.tsx'
 import { Profile } from './pages/Profile/Profile.tsx'
 import { Category } from './pages/Category/Category.tsx'
 import { BackgroundProvider } from './Context/BackgroundContext.tsx'
+import { News } from './pages/News/News.tsx'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/category/:category",
     element: <Category />
+  },
+  {
+    path: "/news/:newsId",
+    element: <News />
   }
 ])
 

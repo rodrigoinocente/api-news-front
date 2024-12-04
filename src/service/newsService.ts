@@ -21,3 +21,8 @@ export function getNewsByCategory(category: string, limit: number, offset: numbe
     const response = axios.get(`${baseUrl}/newsPublic/category/${category}`, { params: { limit, offset } });
     return response;
 }
+
+export function getNewsById(newsId: string) {
+    const response = axios.get(`${baseUrl}/newsPublic/id/${newsId}`)
+    return response
+}

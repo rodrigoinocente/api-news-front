@@ -7,6 +7,7 @@ export const CardContainer = styled.section`
     width: 20rem;
     height: 23rem;
     background-color: #fff;
+    cursor: pointer;
 
     img {
         width: 100%;
