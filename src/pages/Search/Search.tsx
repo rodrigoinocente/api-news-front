@@ -12,8 +12,7 @@ export function Search() {
     useEffect(() => {
         async function search() {
             try {
-                const newsResponse
-                    = await searchNews(title || "")
+                const newsResponse = await searchNews(title as string)
                 setNews(newsResponse.data)
             } catch (err) {
                 console.log(err);
@@ -31,14 +30,14 @@ export function Search() {
             </TextResults>
             <ContainerResults>
                 <SearchNews>
-                    {news && news.map((news: INews) => {
-                        return <Card title={news.title}
-                            key={news._id}
-                            text={news.text}
-                            banner={news.banner}
-                            user={news.user}
-                            likeCount={news.likeCount}
-                            commentCount={news.commentCount} _id={news._id}
+                    {news && news.map((newsItem: INews) => {
+                        return <Card
+                            title={newsItem.title}
+                            key={newsItem._id}
+                            subtitle={newsItem.subtitle}
+                            banner={newsItem.banner}
+                            category={newsItem.category}
+                            _id={newsItem._id}
                         />
                     })}
                 </SearchNews>
