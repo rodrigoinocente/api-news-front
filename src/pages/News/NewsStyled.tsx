@@ -31,6 +31,14 @@ export const NewsHead = styled.div`
         width: 100%;
         margin: 2rem 0 2rem ;
     }
+
+    figcaption {
+        margin-top: -2.5rem;
+        font-size: .8rem;
+        color: #4f5257;
+        text-align: end;
+        margin-right: 1rem;
+    }
     
 `
 

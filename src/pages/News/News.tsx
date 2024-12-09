@@ -38,7 +38,11 @@ export function News() {
                         <h1>{news.title}</h1>
                         <p className="subtitle">{news.subtitle}</p>
                         <p className="author">Por: {news.authorId.name}</p>
-                        <img src={news.banner} alt="Imagem da notícia" />
+                        
+                        <figure>
+                        <img src={news.banner} alt={news.bannerAlt} />
+                        <figcaption>{news.bannerFigcaption}</figcaption>
+                        </figure>
                     </NewsHead>
                     <NewsContent>
                         <div dangerouslySetInnerHTML={{ __html: news.content }} />
