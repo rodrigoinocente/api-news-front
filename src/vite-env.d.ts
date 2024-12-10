@@ -8,16 +8,21 @@ export interface INews {
   banner: string;
   bannerAlt: string;
   bannerFigcaption: string;
-  authorId: IUser;
+  authorId: IJournalis;
   category: string;
   tags: [string];
   commentCount: number;
   publishedAt: Date;
 }
 
-export interface IUser {
+export interface IJournalist {
+  _id: Types.ObjectId;
   name: string;
-  username: string;
+  bio: string;
+  profilePicture: string;
+  active: boolean;
+  email: string;
+  createdAt: Date;
 }
 
 export interface ITextLimitProps {

@@ -19,7 +19,6 @@ export const NewsHead = styled.div`
     
     h1 {
         line-height: 1.3; 
-        align-self: self-start;
     }
 
     .subtitle {
@@ -28,18 +27,56 @@ export const NewsHead = styled.div`
     }
 
     img {
+        display: flex;
         width: 100%;
-        margin: 2rem 0 2rem ;
+        margin: 0rem 0 2rem ;
     }
 
     figcaption {
-        margin-top: -2.5rem;
+        margin-top: -2rem;
         font-size: .8rem;
         color: #4f5257;
         text-align: end;
         margin-right: 1rem;
     }
     
+`
+
+export const JournalistSection = styled.section`
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+
+    img {
+        width: 70px;
+        height: 70px;
+        border-radius: 10%;
+        object-fit: cover;
+        margin-top: 1rem;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+
+    p {
+        margin-bottom: 1rem;
+        span {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+    }
+
+    span {
+        font-size: 0.8rem;
+        color: #3a3939;
+    }
 `
 
 export const NewsContent = styled.div`

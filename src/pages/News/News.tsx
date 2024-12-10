@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { NewsBoby, NewsContent, NewsHead } from "./NewsStyled";
+import { JournalistSection, NewsBoby, NewsContent, NewsHead } from "./NewsStyled";
 import { getNewsById } from "../../service/newsService";
 import { useEffect, useState } from "react";
 import { INews } from "../../vite-env";
@@ -37,11 +37,18 @@ export function News() {
                     <NewsHead>
                         <h1>{news.title}</h1>
                         <p className="subtitle">{news.subtitle}</p>
-                        <p className="author">Por: {news.authorId.name}</p>
-                        
+
+                        <JournalistSection>
+                            <img src={news.authorId.profilePicture} alt="Foto do Jornalista" />
+                            <div>
+                                <p>Por: <span>{news.authorId.name}</span></p>
+                                <span>10/12/2024 05h17</span>
+                            </div>
+                        </JournalistSection>
+
                         <figure>
-                        <img src={news.banner} alt={news.bannerAlt} />
-                        <figcaption>{news.bannerFigcaption}</figcaption>
+                            <img src={news.banner} alt={news.bannerAlt} />
+                            <figcaption>{news.bannerFigcaption}</figcaption>
                         </figure>
                     </NewsHead>
                     <NewsContent>
