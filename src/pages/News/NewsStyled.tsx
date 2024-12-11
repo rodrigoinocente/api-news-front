@@ -44,24 +44,20 @@ export const NewsHead = styled.div`
 
 export const JournalistSection = styled.section`
     display: flex;
-    flex-direction: row;
     gap: 1rem;
     align-items: center;
-
+    
     img {
         width: 70px;
         height: 70px;
         border-radius: 10%;
         object-fit: cover;
-        margin-top: 1rem;
+        margin-top: 1rem;   
     }
 
     div {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 0.3rem;
     }
 
     p {
@@ -70,12 +66,6 @@ export const JournalistSection = styled.section`
             font-weight: bold;
             font-size: 1.1rem;
         }
-
-    }
-
-    span {
-        font-size: 0.8rem;
-        color: #3a3939;
     }
 `
 

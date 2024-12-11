@@ -13,6 +13,7 @@ export interface INews {
   tags: [string];
   commentCount: number;
   publishedAt: Date;
+  edited: Date;
 }
 
 export interface IJournalist {
@@ -23,11 +24,6 @@ export interface IJournalist {
   active: boolean;
   email: string;
   createdAt: Date;
-}
-
-export interface ITextLimitProps {
-  text: string;
-  limit: number;
 }
 
 export interface ISearchNews {
@@ -54,8 +50,10 @@ export interface ICardNews {
   title: string;
   subtitle: string;
   banner: string;
-  category: string;
   _id: string;
+  publishedAt: Date;
+  edited?: Date | null;
+  type: "card" | "full";
 }
 
 export type CategoryType = "Tecnologia" | "Esportes" | "Ciência" | "Política" | "Saúde" | "Arte" | "Outros"

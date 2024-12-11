@@ -25,10 +25,10 @@ export function Home() {
     useEffect(() => {
         findNews()
     }, [])
-
+    console.log(news);
     return (
         <>
-        <NavbarHome/>
+            <NavbarHome />
             {loading ? <Spinner /> : (
                 <>
                     <HomeBody>
@@ -38,8 +38,10 @@ export function Home() {
                                 key={news._id}
                                 subtitle={news.subtitle}
                                 banner={news.banner}
-                                category={news.category}
                                 _id={news._id}
+                                publishedAt={news.publishedAt}
+                                edited={news.edited}
+                                type="card"
                             />
                         })}
                     </HomeBody>

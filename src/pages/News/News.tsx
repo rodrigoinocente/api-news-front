@@ -6,6 +6,7 @@ import { INews } from "../../vite-env";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 import { useBackground } from "../../Context/useBackgroundCustomHook";
+import { NewsTimestamps } from "../../components/NewsTimestamps/NewsTimestamps";
 
 export function News() {
     const { newsId } = useParams<{ newsId: string }>()
@@ -42,7 +43,11 @@ export function News() {
                             <img src={news.authorId.profilePicture} alt="Foto do Jornalista" />
                             <div>
                                 <p>Por: <span>{news.authorId.name}</span></p>
-                                <span>10/12/2024 05h17</span>
+                                    <NewsTimestamps
+                                        publishedAt={news.publishedAt}
+                                        edited={news.edited}
+                                        type="full"
+                                    />  
                             </div>
                         </JournalistSection>
 

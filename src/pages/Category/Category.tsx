@@ -95,7 +95,6 @@ export function Category() {
                                 key={newsItem._id}
                                 subtitle={newsItem.subtitle}
                                 banner={newsItem.banner}
-                                category={newsItem.category}
                                 _id={newsItem._id} />
                         ))
                     )}
@@ -109,8 +108,8 @@ export function Category() {
                             key={news[0]._id}
                             subtitle={news[0].subtitle}
                             banner={news[0].banner}
-                            category={news[0].category}
-                            _id={news[0]._id} />
+                            _id={news[0]._id}
+                        />
                     )}
                 </LastNewsCard>
             </BodyHead>
@@ -123,11 +122,13 @@ export function Category() {
                             key={newsItem._id}
                             subtitle={newsItem.subtitle}
                             banner={newsItem.banner}
-                            category={newsItem.category}
                             _id={newsItem._id}
+                            publishedAt={newsItem.publishedAt}
+                            edited={newsItem.edited}
+                            type="card"
                         />
                     ))
-                )}  
+                )}
             </LoadCard>
 
             {isLoading && <Spinner />}

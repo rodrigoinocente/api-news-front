@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ICardNews } from "../../vite-env";
 import { CardContainer, CardInfo } from "./CardBannerStyled";
 
-export function CardBanner({ title, subtitle, banner, _id }: ICardNews) {
+export function CardBanner({ title, subtitle, banner, _id }: Omit<ICardNews, "publishedAt" | "edited" | "type">) {
     const navigate = useNavigate();
 
     const handleClick = () => {

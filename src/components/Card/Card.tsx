@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { ICardNews } from "../../vite-env";
-import { CardBody, CardContainer, CardFooter, CardHeader } from "./CardStyled";
+import { CardBody, CardContainer, CardHeader } from "./CardStyled";
+import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
 
-export function Card({ title, subtitle, category, banner, _id }: ICardNews) {
+export function Card({ title, subtitle, banner, _id, publishedAt, edited, type }: ICardNews) {
 
     const navigate = useNavigate();
 
@@ -17,9 +18,11 @@ export function Card({ title, subtitle, category, banner, _id }: ICardNews) {
                         <h2>{title}</h2>
                         <p>{subtitle}</p>
                     </CardHeader>
-                    <CardFooter>
-                            <span>#{category}</span>
-                    </CardFooter>
+                    <NewsTimestamps
+                        publishedAt={publishedAt}
+                        edited={edited}
+                        type={type}
+                    />
                 </div>
                 <img src={banner} alt="Imagem da Notícia" />
             </CardBody>
