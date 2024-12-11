@@ -1,10 +1,5 @@
+import { NewsTimestampsProps } from "../../vite-env"
 import { TimeStyled } from "./NewsTimestampsStyled"
-
-interface NewsTimestampsProps {
-    publishedAt: Date
-    edited?: Date | null
-    type: "card" | "full"
-}
 
 export function NewsTimestamps({ publishedAt, edited, type }: NewsTimestampsProps) {
     const formatDate = (dateString: Date): string => {

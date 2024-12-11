@@ -62,3 +62,9 @@ export interface IBackgroundContextType {
   bgImage: string | null
   updateBackground: (image: string | null) => void
 }
+
+export interface NewsTimestampsProps {
+  publishedAt: Date
+  edited?: Date | null
+  type: "card" | "full"
+}
