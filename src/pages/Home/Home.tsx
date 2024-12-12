@@ -25,7 +25,7 @@ export function Home() {
     useEffect(() => {
         findNews()
     }, [])
-    console.log(news);
+
     return (
         <>
             <NavbarHome />
