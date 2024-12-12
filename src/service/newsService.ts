@@ -26,3 +26,13 @@ export function getNewsById(newsId: string) {
     const response = axios.get(`${baseUrl}/newsPublic/id/${newsId}`)
     return response
 }
+
+export function getNewsByJournalist(journalistId: string, limit: number, offset: number) {
+    const response = axios.get(`${baseUrl}/newsPublic/newsByJournalist/${journalistId}`, { params: { limit, offset } })
+    return response
+}
+
+export function getJournalistById(journalistId: string) {
+    const response = axios.get(`${baseUrl}/newsPublic/journalist/${journalistId}`)
+    return response
+}
