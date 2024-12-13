@@ -39,7 +39,6 @@ export const NewsHead = styled.div`
         text-align: end;
         margin-right: 1rem;
     }
-    
 `
 
 export const JournalistSection = styled.section`
@@ -52,7 +51,14 @@ export const JournalistSection = styled.section`
         height: 70px;
         border-radius: 10%;
         object-fit: cover;
-        margin-top: 1rem;   
+        margin-top: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        cursor: pointer;
+        transition: transform 0.5s ease;
+
+        &:hover {
+            transform: scale(1.2);
+        }
     }
 
     div {
@@ -65,6 +71,11 @@ export const JournalistSection = styled.section`
         span {
             font-weight: bold;
             font-size: 1.1rem;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+            }
         }
     }
 `

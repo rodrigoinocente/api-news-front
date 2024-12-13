@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { JournalistSection, NewsBoby, NewsContent, NewsHead } from "./NewsStyled";
 import { getNewsById } from "../../service/newsService";
 import { useEffect, useState } from "react";
@@ -12,6 +12,7 @@ export function News() {
     const { newsId } = useParams<{ newsId: string }>()
     const [news, setNews] = useState<INews | null>(null)
     const { updateBackground } = useBackground()
+    const navigate = useNavigate()
 
     const findNews = async () => {
         if (!newsId) return console.error("newsId is undefined")
@@ -22,6 +23,10 @@ export function News() {
         } catch (error) {
             console.error("Erro ao carregar notícias:", error)
         }
+    }
+
+    const handleClick = () => {
+        navigate(`/newsByJournalist/${news?.authorId._id}`);
     }
 
     useEffect(() => {
@@ -40,9 +45,9 @@ export function News() {
                         <p className="subtitle">{news.subtitle}</p>
 
                         <JournalistSection>
-                            <img src={news.authorId.profilePicture} alt="Foto do Jornalista" />
+                            <img src={news.authorId.profilePicture} alt="Foto do Jornalista" onClick={handleClick} />
                             <div>
-                                <p>Por: <span>{news.authorId.name}</span></p>
+                                <p>Por: <span onClick={handleClick}>{news.authorId.name}</span></p>
                                     <NewsTimestamps
                                         publishedAt={news.publishedAt}
                                         edited={news.edited}

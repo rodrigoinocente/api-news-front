@@ -22,6 +22,7 @@ export const CardBody = styled.article`
         flex-direction: column;
         justify-content: space-between;
         padding: 1rem;
+        width: 100%;
     }
 
     img{
