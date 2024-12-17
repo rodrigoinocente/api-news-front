@@ -18,11 +18,15 @@ export function Card({ title, subtitle, banner, _id, publishedAt, edited, type }
                         <h2>{title}</h2>
                         <p>{subtitle}</p>
                     </CardHeader>
-                    <NewsTimestamps
-                        publishedAt={publishedAt}
-                        edited={edited}
-                        type={type}
-                    />
+
+                    {publishedAt && (
+                        <NewsTimestamps
+                            publishedAt={publishedAt}
+                            edited={edited}
+                            type={type}
+                        />
+                    )}
+
                 </div>
                 <img src={banner} alt="Imagem da Notícia" />
             </CardBody>

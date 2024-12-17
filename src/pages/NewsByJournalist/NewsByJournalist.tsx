@@ -1,22 +1,35 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getJournalistById, getNewsByJournalist } from "../../service/newsService"
-import { IJournalist, INews } from "../../vite-env"
+import { IColumn, IJournalist, INews } from "../../vite-env"
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner"
 import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton"
 import { Card } from "../../components/Card/Card"
 import { Navbar } from "../../components/Navbar/Navbar"
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome"
-import { JournlisSection, LoadCard } from "./NewsByJournalistStyled"
+import { Column, InfoHead, JournlisSection, LastNewsCard, LoadCard } from "./NewsByJournalistStyled"
+import { getColumnByJournalist } from "../../service/columnService"
+import { CardColumn } from "../../components/CardColumn/CardColumn"
+import { CardBanner } from "../../components/CardBanner/CardBanner"
 
 export function NewsByJournalist() {
     const { journalistId } = useParams<{ journalistId: string }>()
     const [news, setNews] = useState<INews[]>([])
     const [journalist, setJournalist] = useState<IJournalist | null>(null)
+    const [column, setColumn] = useState<IColumn[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [hasMore, setHasMore] = useState(true)
     const [offset, setOffset] = useState(0)
     const limit = 10
+
+    const loadColumn = async (journalistId: string) => {
+        try {
+            const newsResponse = await getColumnByJournalist(journalistId, 5, 0)
+            setColumn(newsResponse.data.column)
+        } catch (error) {
+            console.log("Erro ao carregar coluna:", error);
+        }
+    }
 
     const loadJournalist = async (journalistId: string) => {
         try {
@@ -52,6 +65,7 @@ export function NewsByJournalist() {
             setOffset(0)
             setHasMore(true)
             loadJournalist(journalistId)
+            loadColumn(journalistId)
             loadNews(journalistId, 0)
         }
     }, [journalistId])
@@ -88,12 +102,44 @@ export function NewsByJournalist() {
                 </JournlisSection>
             )}
 
-            <LoadCard>
+            <InfoHead>
+                <LastNewsCard>
+                    <mark>ÚLTIMA NOTÍCIA</mark>
+                    {news.length && (
+                        <CardBanner
+                            title={news[0].title}
+                            key={news[0]._id}
+                            subtitle={news[0].subtitle}
+                            banner={news[0].banner}
+                            _id={news[0]._id}
+                        />
+                    )}
+                </LastNewsCard>
+                <Column>
+                    <h3>Coluna</h3>
 
-                <mark>Publicações</mark>
+                    {column.length && (
+                        column.map((columnItem) => (
+                            <CardColumn
+                                title={columnItem.title}
+                                key={columnItem._id}
+                                _id={columnItem._id}
+                                publishedAt={columnItem.publishedAt}
+                                type="card"
+                            />
+                        ))
+                    )}
+
+                    <span>Ver mais</span>
+
+                </Column>
+            </InfoHead>
+
+            <LoadCard>
+                <span>Publicações</span>
 
                 {news.length && (
-                    news.map((newsItem) => (
+                    news.slice(1).map((newsItem) => (
                         <Card
                             title={newsItem.title}
                             key={newsItem._id}

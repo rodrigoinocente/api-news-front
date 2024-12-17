@@ -56,6 +56,15 @@ export interface ICardNews {
   type: "card" | "full";
 }
 
+export interface ICardColumn {
+  title: string;
+  _id: string;
+  publishedAt: Date;
+  edited?: Date | null;
+  type: "card" | "full";
+}
+
+
 export type CategoryType = "Tecnologia" | "Esportes" | "Ciência" | "Política" | "Saúde" | "Arte" | "Outros"
 
 export interface IBackgroundContextType {
@@ -67,4 +76,19 @@ export interface NewsTimestampsProps {
   publishedAt: Date
   edited?: Date | null
   type: "card" | "full"
+}
+
+export interface IColumn {
+  _id: Types.ObjectId;
+  title: string;
+  content: string;
+  subtitle: string;
+  banner: string;
+  bannerAlt: string;
+  bannerFigcaption: string;
+  authorId: Types.ObjectId;
+  tags: [string];
+  category: string;
+  publishedAt: Date;
+  edited: Date;
 }
