@@ -11,21 +11,35 @@ import { Column, InfoHead, JournlisSection, LastNewsCard, LoadCard } from "./New
 import { getColumnByJournalist } from "../../service/columnService"
 import { CardColumn } from "../../components/CardColumn/CardColumn"
 import { CardBanner } from "../../components/CardBanner/CardBanner"
+import arrowDown from "../../images/icons/icon-arrowDown.png"
 
 export function NewsByJournalist() {
     const { journalistId } = useParams<{ journalistId: string }>()
-    const [news, setNews] = useState<INews[]>([])
     const [journalist, setJournalist] = useState<IJournalist | null>(null)
+    const [news, setNews] = useState<INews[]>([])
     const [column, setColumn] = useState<IColumn[]>([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [hasMore, setHasMore] = useState(true)
-    const [offset, setOffset] = useState(0)
-    const limit = 10
 
-    const loadColumn = async (journalistId: string) => {
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [hasMoreColumn, setHasMoreColumn] = useState(true)
+    const [hasMoreNews, setHasMoreNews] = useState(true)
+
+    const [offsetNews, setOffsetNews] = useState(0)
+    const [offsetColumn, setOffsetColumn] = useState(0)
+
+    const limitNews = 10
+    const limitColumn = 4
+
+    const loadColumn = async (journalistId: string, offsetColumn: number) => {
         try {
-            const newsResponse = await getColumnByJournalist(journalistId, 5, 0)
-            setColumn(newsResponse.data.column)
+            const columnResponse = await getColumnByJournalist(journalistId, limitColumn, offsetColumn)
+            if (offsetColumn === 0)
+                setColumn(columnResponse.data.column)
+            else
+                setColumn(column.concat(columnResponse.data.column))
+
+            setOffsetColumn(columnResponse.data.nextOffset)
+            setHasMoreColumn(columnResponse.data.hasMore)
         } catch (error) {
             console.log("Erro ao carregar coluna:", error);
         }
@@ -40,18 +54,18 @@ export function NewsByJournalist() {
         }
     }
 
-    const loadNews = async (journalistId: string, offset: number) => {
+    const loadNews = async (journalistId: string, offsetNews: number) => {
         try {
             setIsLoading(true)
-            const newsResponse = await getNewsByJournalist(journalistId, limit, offset)
+            const newsResponse = await getNewsByJournalist(journalistId, limitNews, offsetNews)
 
-            if (offset === 0)
+            if (offsetNews === 0)
                 setNews(newsResponse.data.news)
             else
                 setNews(news.concat(newsResponse.data.news))
 
-            setOffset(newsResponse.data.nextOffset)
-            setHasMore(newsResponse.data.hasMore)
+            setOffsetNews(newsResponse.data.nextOffset)
+            setHasMoreNews(newsResponse.data.hasMore)
         } catch (error) {
             console.error("Erro ao carregar notícias:", error)
         } finally {
@@ -61,11 +75,8 @@ export function NewsByJournalist() {
 
     useEffect(() => {
         if (journalistId) {
-            setNews([])
-            setOffset(0)
-            setHasMore(true)
             loadJournalist(journalistId)
-            loadColumn(journalistId)
+            loadColumn(journalistId, 0)
             loadNews(journalistId, 0)
         }
     }, [journalistId])
@@ -74,8 +85,8 @@ export function NewsByJournalist() {
         const handleScroll = () => {
             const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
-            if (!isLoading && hasMore && scrollHeight - scrollTop <= clientHeight + 100) {
-                loadNews(journalistId as string, offset)
+            if (!isLoading && hasMoreNews && scrollHeight - scrollTop <= clientHeight + 100) {
+                loadNews(journalistId as string, offsetNews)
             }
         }
 
@@ -84,7 +95,7 @@ export function NewsByJournalist() {
         return () => {
             window.removeEventListener("scroll", handleScroll)
         }
-    }, [isLoading, hasMore, offset, journalistId])
+    }, [isLoading, hasMoreNews, offsetNews, journalistId])
 
     return (
         <>
@@ -129,9 +140,11 @@ export function NewsByJournalist() {
                             />
                         ))
                     )}
-
-                    <span>Ver mais</span>
-
+                    {hasMoreColumn && (
+                        <img src={arrowDown} alt="Imagem de uma seta para baixo. Para carregamento de mais Colunas"
+                            onClick={() => loadColumn(journalistId as string, offsetColumn)} />
+                    )}
+                    {!hasMoreColumn && <span>Não há mais Coluna.</span>}
                 </Column>
             </InfoHead>
 
@@ -156,7 +169,7 @@ export function NewsByJournalist() {
             </LoadCard>
 
             {isLoading && <Spinner />}
-            {!hasMore && <span>Não há mais notícias.</span>}
+            {!hasMoreNews && <span>Não há mais notícias.</span>}
             <ScrollToTopButton />
         </>
     )

@@ -24,6 +24,7 @@ export const JournlisSection = styled.section`
 export const InfoHead = styled.div`
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     gap: 8rem;
     margin-bottom: 4rem;
 `
@@ -39,6 +40,20 @@ export const Column = styled.div`
         text-align: center;
         background: #E4E4E4;
         padding: .5rem;
+    }
+
+    img {
+        cursor: pointer;
+        width: 3rem;
+        margin: 0 auto;
+        position: relative;
+        margin-top: -25px;
+        background-color: #ffffff;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+        transform: scale(1.2);
+        }
     }
 `
 
