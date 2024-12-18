@@ -32,7 +32,6 @@ export const InfoHead = styled.div`
 export const Column = styled.div`
     display: flex;
     flex-direction: column;
-    gap: .7rem;
 
     h3 {
         font-size: 1.8rem;

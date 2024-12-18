@@ -7,6 +7,7 @@ export const CardContainer = styled.div`
     max-width: 40rem;
     border-bottom: 1px solid #ddd;
     padding: 5px 0;
+    margin-bottom: .7rem;
     
     &:last-child {
         border-bottom: none;

@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getNewsByCategory } from "../../service/newsService";
 import { useParams } from "react-router-dom";
-import { CategoryType, INews } from "../../vite-env";
+import { CategoryType, ICardColumn, INews } from "../../vite-env";
 import { Card } from "../../components/Card/Card";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
-import { BodyHead, CardsHead, LastNewsCard, LoadCard } from "./CategoryStyled";
+import { BodyHead, CardsHead, Column, LastNewsCard, LoadCard, NewsAndColumn } from "./CategoryStyled";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CardBanner } from "../../components/CardBanner/CardBanner";
@@ -16,14 +16,20 @@ import politica from "../../images/banners/politica.jpg";
 import saude from "../../images/banners/saude.jpg";
 import arte from "../../images/banners/arte.jpg";
 import { useBackground } from "../../Context/useBackgroundCustomHook";
+import { getColumnByCategory } from "../../service/columnService";
+import { CardColumn } from "../../components/CardColumn/CardColumn";
+import { Button } from "../../components/Button/Button";
 
 export function Category() {
     const { category } = useParams<{ category: CategoryType }>()
+
     const [news, setNews] = useState<INews[]>([])
-    const [hasMore, setHasMore] = useState(true)
+    const [column, setColumn] = useState<ICardColumn[]>([])
+    const [hasMoreNews, setHasMoreNews] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
     const [offset, setOffset] = useState(0)
-    const limit = 10
+    const limitNews = 10
+    const limitColumn = 3
     const { updateBackground } = useBackground()
 
     const categoryBackgrounds = {
@@ -39,7 +45,7 @@ export function Category() {
     const loadNews = async (category: string, offset: number) => {
         try {
             setIsLoading(true)
-            const newsResponse = await getNewsByCategory(category, limit, offset)
+            const newsResponse = await getNewsByCategory(category, limitNews, offset)
 
             if (offset === 0)
                 setNews(newsResponse.data.news)
@@ -47,9 +53,22 @@ export function Category() {
                 setNews(news.concat(newsResponse.data.news))
 
             setOffset(newsResponse.data.nextOffset)
-            setHasMore(newsResponse.data.hasMore)
+            setHasMoreNews(newsResponse.data.hasMore)
         } catch (error) {
             console.error("Erro ao carregar notícias:", error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
+
+    const loadColumn = async (category: string, offset: number) => {
+        try {
+            setIsLoading(true)
+            const columnResponse = await getColumnByCategory(category, limitColumn, offset)
+            setColumn(columnResponse.data.column)
+
+        } catch (error) {
+            console.error("Erro ao carregar coluna:", error)
         } finally {
             setIsLoading(false)
         }
@@ -58,9 +77,11 @@ export function Category() {
     useEffect(() => {
         if (category) {
             setNews([])
+            setColumn([])
             setOffset(0)
-            setHasMore(true)
+            setHasMoreNews(true)
             updateBackground(categoryBackgrounds[category])
+            loadColumn(category, 0)
             loadNews(category, 0)
         }
     }, [category])
@@ -69,7 +90,7 @@ export function Category() {
         const handleScroll = () => {
             const { scrollTop, clientHeight, scrollHeight } = document.documentElement
 
-            if (!isLoading && hasMore && scrollHeight - scrollTop <= clientHeight + 100) {
+            if (!isLoading && hasMoreNews && scrollHeight - scrollTop <= clientHeight + 100) {
                 loadNews(category as string, offset)
             }
         }
@@ -79,13 +100,45 @@ export function Category() {
         return () => {
             window.removeEventListener("scroll", handleScroll)
         }
-    }, [isLoading, hasMore, offset, category])
-    
+    }, [isLoading, hasMoreNews, offset, category])
+    console.log("COLUMN: ", column);
+    console.log("HasMOre: ", hasMoreNews);
     return (
         <>
             <Navbar />
             <NavbarHome />
+
             <BodyHead>
+                <NewsAndColumn>
+                    <LastNewsCard>
+                        <mark>ÚLTIMA NOTÍCIA</mark>
+                        {news.length > 0 && (
+                            <CardBanner
+                                title={news[0].title}
+                                key={news[0]._id}
+                                subtitle={news[0].subtitle}
+                                banner={news[0].banner}
+                                _id={news[0]._id}
+                            />
+                        )}
+                    </LastNewsCard>
+
+                    <Column>
+                        <h4>Coluna</h4>
+                        {column.length && (
+                            column.map((columnItem) => (
+                                <CardColumn
+                                    key={columnItem._id}
+                                    _id={columnItem._id}
+                                    title={columnItem.title}
+                                    publishedAt={columnItem.publishedAt}
+                                    type="card"
+                                />
+                            ))
+                        )}
+                        <Button type="button" text={"Ver mais"} />
+                    </Column>
+                </NewsAndColumn>
 
                 <CardsHead>
                     {news.length > 1 && (
@@ -99,19 +152,6 @@ export function Category() {
                         ))
                     )}
                 </CardsHead>
-
-                <LastNewsCard>
-                    <mark>ÚLTIMA NOTÍCIA</mark>
-                    {news.length > 0 && (
-                        <CardBanner
-                            title={news[0].title}
-                            key={news[0]._id}
-                            subtitle={news[0].subtitle}
-                            banner={news[0].banner}
-                            _id={news[0]._id}
-                        />
-                    )}
-                </LastNewsCard>
             </BodyHead>
 
             <LoadCard>
@@ -132,7 +172,7 @@ export function Category() {
             </LoadCard>
 
             {isLoading && <Spinner />}
-            {!hasMore && <span>Não há mais notícias.</span>}
+            {!hasMoreNews && <span>Não há mais notícias.</span>}
             <ScrollToTopButton />
         </>
     )
