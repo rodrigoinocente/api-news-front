@@ -7,7 +7,7 @@ export function CardColumn({ title, _id, publishedAt, type }: ICardColumn) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/${_id}`);
+        navigate(`/column/${_id}`);
     };
 
     return (

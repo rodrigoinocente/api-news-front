@@ -11,3 +11,8 @@ export function getColumnByCategory(category: string, limit: number, offset: num
     const response = axios.get(`${baseUrl}/columnPublic/columnByCategory/${category}`, { params: { limit, offset } })
     return response
 }
+
+export function getColumnById(columnId: string) {
+    const response = axios.get(`${baseUrl}/columnPublic/id/${columnId}`)
+    return response
+}

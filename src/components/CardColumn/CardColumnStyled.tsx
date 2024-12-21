@@ -8,6 +8,7 @@ export const CardContainer = styled.div`
     border-bottom: 1px solid #ddd;
     padding: 5px 0;
     margin-bottom: .7rem;
+    cursor: pointer;
     
     &:last-child {
         border-bottom: none;

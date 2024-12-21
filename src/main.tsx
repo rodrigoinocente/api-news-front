@@ -12,6 +12,7 @@ import { Category } from './pages/Category/Category.tsx'
 import { BackgroundProvider } from './Context/BackgroundContext.tsx'
 import { News } from './pages/News/News.tsx'
 import { NewsByJournalist } from './pages/NewsByJournalist/NewsByJournalist.tsx'
+import { Column } from './pages/Column/Column.tsx'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/newsByJournalist/:journalistId",
     element: <NewsByJournalist />
+  },
+  {
+    path: "/column/:columnId",
+    element: <Column />
   }
 ])
 
