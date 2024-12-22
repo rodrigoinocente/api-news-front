@@ -92,3 +92,17 @@ export interface IColumn {
   publishedAt: Date;
   edited: Date;
 }
+
+export interface IJournalistSection {
+  profilePicture: string;
+  journalistName: string;
+  journalistId: IJournalist;
+  publishedAt: Date;
+  edited: Date;
+}
+
+export interface IContentRead {
+  publication: INews | IColumn;
+  journalist: IJournalist;
+  type: "news" | "column";
+}

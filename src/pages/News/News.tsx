@@ -1,18 +1,17 @@
-import { useNavigate, useParams } from "react-router-dom"
-import { JournalistSection, NewsBoby, NewsContent, NewsHead } from "./NewsStyled";
+import { useParams } from "react-router-dom"
 import { getNewsById } from "../../service/newsService";
 import { useEffect, useState } from "react";
-import { INews } from "../../vite-env";
+import { IJournalist, INews } from "../../vite-env";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 import { useBackground } from "../../Context/useBackgroundCustomHook";
-import { NewsTimestamps } from "../../components/NewsTimestamps/NewsTimestamps";
+import { ContentRead } from "../../components/ContentReader/ContentReader";
 
 export function News() {
     const { newsId } = useParams<{ newsId: string }>()
-    const [news, setNews] = useState<INews | null>(null)
+    const [news, setNews] = useState<INews | null>()
+    const [journalist, setJournalist] = useState<IJournalist | null>(null)
     const { updateBackground } = useBackground()
-    const navigate = useNavigate()
 
     const findNews = async () => {
         if (!newsId) return console.error("newsId is undefined")
@@ -20,13 +19,10 @@ export function News() {
         try {
             const newsResponse = await getNewsById(newsId)
             setNews(newsResponse.data)
+            setJournalist(newsResponse.data.authorId)
         } catch (error) {
             console.error("Erro ao carregar notícias:", error)
         }
-    }
-
-    const handleClick = () => {
-        navigate(`/newsByJournalist/${news?.authorId._id}`);
     }
 
     useEffect(() => {
@@ -38,33 +34,12 @@ export function News() {
         <>
             <Navbar />
             <NavbarHome />
-            {news && (
-                <NewsBoby>
-                    <NewsHead>
-                        <h1>{news.title}</h1>
-                        <p className="subtitle">{news.subtitle}</p>
-
-                        <JournalistSection>
-                            <img src={news.authorId.profilePicture} alt="Foto do Jornalista" onClick={handleClick} />
-                            <div>
-                                <p>Por: <span onClick={handleClick}>{news.authorId.name}</span></p>
-                                    <NewsTimestamps
-                                        publishedAt={news.publishedAt}
-                                        edited={news.edited}
-                                        type="full"
-                                    />  
-                            </div>
-                        </JournalistSection>
-
-                        <figure>
-                            <img src={news.banner} alt={news.bannerAlt} />
-                            <figcaption>{news.bannerFigcaption}</figcaption>
-                        </figure>
-                    </NewsHead>
-                    <NewsContent>
-                        <div dangerouslySetInnerHTML={{ __html: news.content }} />
-                    </NewsContent>
-                </NewsBoby>
+            {news && journalist && (
+                <ContentRead
+                    publication={news}
+                    journalist={journalist}
+                    type="news"
+                />
             )}
         </>
     )
