@@ -53,7 +53,6 @@ export interface ICardNews {
   _id: string;
   publishedAt: Date;
   edited?: Date | null;
-  type: "card" | "full";
 }
 
 export interface ICardColumn {
@@ -61,7 +60,6 @@ export interface ICardColumn {
   _id: string;
   publishedAt: Date;
   edited?: Date | null;
-  type: "card" | "full";
 }
 
 

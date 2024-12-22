@@ -3,7 +3,7 @@ import { ICardNews } from "../../vite-env";
 import { CardBody, CardContainer, CardHeader } from "./CardStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
 
-export function Card({ title, subtitle, banner, _id, publishedAt, edited, type }: ICardNews) {
+export function Card({ title, subtitle, banner, _id, publishedAt, edited }: ICardNews) {
 
     const navigate = useNavigate();
 
@@ -19,14 +19,11 @@ export function Card({ title, subtitle, banner, _id, publishedAt, edited, type }
                         <p>{subtitle}</p>
                     </CardHeader>
 
-                    {publishedAt && (
                         <NewsTimestamps
                             publishedAt={publishedAt}
                             edited={edited}
-                            type={type}
+                            type= "card"
                         />
-                    )}
-
                 </div>
                 <img src={banner} alt="Imagem da Notícia" />
             </CardBody>

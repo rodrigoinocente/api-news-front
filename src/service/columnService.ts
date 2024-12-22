@@ -7,8 +7,8 @@ export function getColumnByJournalist(journalistId: string, limit: number, offse
     return response
 }
 
-export function getColumnByCategory(category: string, limit: number, offset: number) {
-    const response = axios.get(`${baseUrl}/columnPublic/columnByCategory/${category}`, { params: { limit, offset } })
+export function getColumnByCategory(category: string, limit: number, offset: number, forWideCard: boolean) {
+    const response = axios.get(`${baseUrl}/columnPublic/columnByCategory/${category}`, { params: { limit, offset, forWideCard } })
     return response
 }
 

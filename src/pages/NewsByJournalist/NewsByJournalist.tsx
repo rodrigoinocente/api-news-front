@@ -136,7 +136,6 @@ export function NewsByJournalist() {
                                 key={columnItem._id}
                                 _id={columnItem._id}
                                 publishedAt={columnItem.publishedAt}
-                                type="card"
                             />
                         ))
                     )}
@@ -161,7 +160,6 @@ export function NewsByJournalist() {
                             _id={newsItem._id}
                             publishedAt={newsItem.publishedAt}
                             edited={newsItem.edited}
-                            type="card"
                         />
                     ))
                 )}

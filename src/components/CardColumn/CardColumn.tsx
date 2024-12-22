@@ -3,7 +3,7 @@ import { ICardColumn } from "../../vite-env";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
 import { CardContainer } from "./CardColumnStyled";
 
-export function CardColumn({ title, _id, publishedAt, type }: ICardColumn) {
+export function CardColumn({ title, _id, publishedAt }: ICardColumn) {
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -17,7 +17,7 @@ export function CardColumn({ title, _id, publishedAt, type }: ICardColumn) {
             {publishedAt && (
                 <NewsTimestamps
                     publishedAt={publishedAt}
-                    type={type}
+                    type="card"
                 />
             )}
         </CardContainer>

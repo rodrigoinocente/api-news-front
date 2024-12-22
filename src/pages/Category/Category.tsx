@@ -64,7 +64,7 @@ export function Category() {
     const loadColumn = async (category: string, offset: number) => {
         try {
             setIsLoading(true)
-            const columnResponse = await getColumnByCategory(category, limitColumn, offset)
+            const columnResponse = await getColumnByCategory(category, limitColumn, offset, false)
             setColumn(columnResponse.data.column)
 
         } catch (error) {
@@ -102,7 +102,6 @@ export function Category() {
         }
     }, [isLoading, hasMoreNews, offset, category])
     console.log("COLUMN: ", column);
-    console.log("HasMOre: ", hasMoreNews);
     return (
         <>
             <Navbar />
@@ -132,7 +131,6 @@ export function Category() {
                                     _id={columnItem._id}
                                     title={columnItem.title}
                                     publishedAt={columnItem.publishedAt}
-                                    type="card"
                                 />
                             ))
                         )}
@@ -165,7 +163,6 @@ export function Category() {
                             _id={newsItem._id}
                             publishedAt={newsItem.publishedAt}
                             edited={newsItem.edited}
-                            type="card"
                         />
                     ))
                 )}
