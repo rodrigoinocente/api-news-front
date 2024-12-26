@@ -46,13 +46,17 @@ export interface UserProviderProps {
   children: ReactNode;
 }
 
-export interface ICardNews {
+export interface ICard {
   title: string;
   subtitle: string;
   banner: string;
   _id: string;
   publishedAt: Date;
   edited?: Date | null;
+  type: "news" | "column";
+  journalistProfile?: string;
+  journalistName?: string;
+  category?: string;
 }
 
 export interface ICardColumn {

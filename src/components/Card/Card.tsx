@@ -1,33 +1,48 @@
 import { useNavigate } from "react-router-dom";
-import { ICardNews } from "../../vite-env";
-import { CardBody, CardContainer, CardHeader } from "./CardStyled";
+import { ICard } from "../../vite-env";
+import { CardBody, CardInfo, FooterCard } from "./CardStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
 
-export function Card({ title, subtitle, banner, _id, publishedAt, edited }: ICardNews) {
-
-    const navigate = useNavigate();
+export function Card({ title, subtitle, banner, _id, publishedAt, edited, journalistProfile, journalistName, type }: ICard) {
+    const navigate = useNavigate()
 
     const handleClick = () => {
-        navigate(`/news/${_id}`);
-    };
+        if (type === "column") {
+            navigate(`/column/${_id}`)
+            return
+        } 
+            navigate(`/news/${_id}`)
+    }
+
     return (
-        <CardContainer onClick={handleClick}>
-            <CardBody >
-                <div>
-                    <CardHeader>
-                        <h2>{title}</h2>
-                        <p>{subtitle}</p>
-                    </CardHeader>
+        <CardBody onClick={handleClick}>
+            {type === "column" && (
+                <p className="column">COLUNA</p>
+            )}
 
-                        <NewsTimestamps
-                            publishedAt={publishedAt}
-                            edited={edited}
-                            type= "card"
-                        />
-                </div>
-                <img src={banner} alt="Imagem da Notícia" />
-            </CardBody>
+            <CardInfo>
+                <h2>{title}</h2>
+                <p>{subtitle}</p>
 
-        </CardContainer>
+                <FooterCard>
+                    <NewsTimestamps
+                        publishedAt={publishedAt}
+                        edited={edited}
+                        type="card"
+                    />
+
+                    {type === "column" && (
+                        <div className="journalist">
+
+                            <p>Por:  <span>{journalistName}</span></p>
+                            <img src={journalistProfile} alt="Foto do jornalista" />
+                        </div>
+                    )}
+
+                </FooterCard>
+            </CardInfo>
+            <img src={banner} alt="Imagem da Notícia" />
+        </CardBody>
+
     )
 }

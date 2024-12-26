@@ -39,8 +39,8 @@ export const Column = styled.div`
         font-size: 1.5rem;
         white-space: 1rem;
         letter-spacing: .1rem;
-        color: #434343;
-        background-color: yellow;
+        color: #fff;
+        background-color: #6d84eb;
         padding: .3rem;
         width: 7rem;
         margin-bottom: 1rem;

@@ -8,11 +8,12 @@ import { GlobalStyled } from './GlogalStyled.tsx'
 import { Authentication } from './pages/Authentication/Authentication.tsx'
 import { UserProvider } from './Context/UserContext.tsx'
 import { Profile } from './pages/Profile/Profile.tsx'
-import { Category } from './pages/Category/Category.tsx'
+import { NewsbyCategory } from './pages/NewsbyCategory/NewsbyCategory.tsx'
 import { BackgroundProvider } from './Context/BackgroundContext.tsx'
 import { News } from './pages/News/News.tsx'
 import { NewsByJournalist } from './pages/NewsByJournalist/NewsByJournalist.tsx'
 import { Column } from './pages/Column/Column.tsx'
+import { ColumnbyCategory } from './pages/ColumnbyCategory/ColumnbyCategory.tsx'
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/category/:category",
-    element: <Category />
+    element: <NewsbyCategory />
   },
   {
     path: "/news/:newsId",
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "/column/:columnId",
     element: <Column />
+  },
+  {
+    path: "/columnByCategory/:category",
+    element: <ColumnbyCategory />
   }
 ])
 

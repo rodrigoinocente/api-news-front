@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getNewsByCategory } from "../../service/newsService";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CategoryType, ICardColumn, INews } from "../../vite-env";
 import { Card } from "../../components/Card/Card";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
-import { BodyHead, CardsHead, Column, LastNewsCard, LoadCard, NewsAndColumn } from "./CategoryStyled";
+import { BodyHead, CardsHead, Column, LastNewsCard, LoadCard, NewsAndColumn } from "./NewsbyCategoryStyled";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CardBanner } from "../../components/CardBanner/CardBanner";
@@ -20,7 +20,7 @@ import { getColumnByCategory } from "../../service/columnService";
 import { CardColumn } from "../../components/CardColumn/CardColumn";
 import { Button } from "../../components/Button/Button";
 
-export function Category() {
+export function NewsbyCategory() {
     const { category } = useParams<{ category: CategoryType }>()
 
     const [news, setNews] = useState<INews[]>([])
@@ -31,6 +31,7 @@ export function Category() {
     const limitNews = 10
     const limitColumn = 3
     const { updateBackground } = useBackground()
+    const navigate = useNavigate()
 
     const categoryBackgrounds = {
         Tecnologia: tecnologia,
@@ -74,6 +75,10 @@ export function Category() {
         }
     }
 
+    const handleClick = () => {
+        navigate(`/columnByCategory/${category}`)
+    }
+
     useEffect(() => {
         if (category) {
             setNews([])
@@ -101,7 +106,7 @@ export function Category() {
             window.removeEventListener("scroll", handleScroll)
         }
     }, [isLoading, hasMoreNews, offset, category])
-    console.log("COLUMN: ", column);
+
     return (
         <>
             <Navbar />
@@ -134,7 +139,7 @@ export function Category() {
                                 />
                             ))
                         )}
-                        <Button type="button" text={"Ver mais"} />
+                        <Button type="button" text={"Ver mais"} onClick={handleClick} />
                     </Column>
                 </NewsAndColumn>
 
@@ -163,6 +168,7 @@ export function Category() {
                             _id={newsItem._id}
                             publishedAt={newsItem.publishedAt}
                             edited={newsItem.edited}
+                            type="news"
                         />
                     ))
                 )}
