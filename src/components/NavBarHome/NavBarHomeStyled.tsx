@@ -9,6 +9,7 @@ export const NavHome = styled.nav`
 
 export const LogoBanner = styled.div`
     width:100%;
+    cursor: pointer;
     
     div {
         height: 8rem;

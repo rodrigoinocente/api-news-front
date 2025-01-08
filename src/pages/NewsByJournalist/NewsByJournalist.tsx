@@ -160,6 +160,7 @@ export function NewsByJournalist() {
                             _id={newsItem._id}
                             publishedAt={newsItem.publishedAt}
                             edited={newsItem.edited}
+                            type="news"
                         />
                     ))
                 )}

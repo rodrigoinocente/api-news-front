@@ -9,12 +9,6 @@ import { BodyHead, CardsHead, Column, LastNewsCard, LoadCard, NewsAndColumn } fr
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CardBanner } from "../../components/CardBanner/CardBanner";
-import tecnologia from "../../images/banners/tecnologia.jpg";
-import esportes from "../../images/banners/esporte.jpg";
-import ciencia from "../../images/banners/ciencia.jpg";
-import politica from "../../images/banners/politica.jpg";
-import saude from "../../images/banners/saude.jpg";
-import arte from "../../images/banners/arte.jpg";
 import { useBackground } from "../../Context/useBackgroundCustomHook";
 import { getColumnByCategory } from "../../service/columnService";
 import { CardColumn } from "../../components/CardColumn/CardColumn";
@@ -32,16 +26,6 @@ export function NewsbyCategory() {
     const limitColumn = 3
     const { updateBackground } = useBackground()
     const navigate = useNavigate()
-
-    const categoryBackgrounds = {
-        Tecnologia: tecnologia,
-        Esportes: esportes,
-        Ciência: ciencia,
-        Política: politica,
-        Saúde: saude,
-        Arte: arte,
-        Outros: null
-    }
 
     const loadNews = async (category: string, offset: number) => {
         try {
@@ -85,7 +69,7 @@ export function NewsbyCategory() {
             setColumn([])
             setOffset(0)
             setHasMoreNews(true)
-            updateBackground(categoryBackgrounds[category])
+            updateBackground(category)
             loadColumn(category, 0)
             loadNews(category, 0)
         }
