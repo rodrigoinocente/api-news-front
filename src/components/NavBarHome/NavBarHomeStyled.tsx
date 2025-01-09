@@ -5,12 +5,12 @@ export const NavHome = styled.nav`
     flex-direction: column;
     align-items: center;
     margin: .5rem 0 1rem 0;
- `
+`
 
 export const LogoBanner = styled.div`
-    width:100%;
+    width: 100%;
     cursor: pointer;
-    
+
     div {
         height: 8rem;
         width: 100%;
@@ -41,10 +41,17 @@ export const ButtonCategory = styled.div`
         background: none;
         padding: .5rem;
         transition: all 0.5s ease;
+        letter-spacing: .03rem;
 
-        &:hover{
+        &:hover {
             background: #000;
             color: #fff;
+        }
+
+        &.active {
+            background: #000;
+            color: #fff;
+            font-weight: bold;
         }
     }
 `
