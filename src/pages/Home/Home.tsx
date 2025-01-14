@@ -1,29 +1,33 @@
-import { Card } from "../../components/Card/Card";
-import { HomeBody } from "./HomeStyled";
-import { getAllNews } from "../../service/newsService";
+import { HeaderSection, HomeBody, LittleBanner } from "./HomeStyled";
+import { getDataHome } from "../../service/newsService";
 import { useEffect, useState } from "react";
-import { INews } from "../../vite-env";
+import { IDataHome } from "../../vite-env";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
+import { CardBanner } from "../../components/CardBanner/CardBanner";
+import { ColumnList } from "../../components/ColumnList/ColumnList";
 
 export function Home() {
-    const [news, setNews] = useState([])
+    const [data, setData] = useState<IDataHome>({ newsFull: [], newsMini: [], column: [] })
     const [loading, setLoading] = useState(true)
 
-    async function findNews() {
+    async function findDataHome() {
         try {
-            const newsResponse = await getAllNews()
-            setNews(newsResponse.data.news)
-
+            const newsResponse = await getDataHome()
+            setData({
+                newsFull: newsResponse.data[0].newsFull,
+                newsMini: newsResponse.data[0].newsMini,
+                column: newsResponse.data[1].column,
+            })
         } catch (error) {
             console.error("Error fetching news:", error);
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
     }
 
     useEffect(() => {
-        findNews()
+        findDataHome()
     }, [])
 
     return (
@@ -32,18 +36,33 @@ export function Home() {
             {loading ? <Spinner /> : (
                 <>
                     <HomeBody>
-                        {news.map((news: INews) => {
-                            return <Card
-                                title={news.title}
-                                key={news._id}
-                                subtitle={news.subtitle}
-                                banner={news.banner}
-                                _id={news._id}
-                                publishedAt={news.publishedAt}
-                                edited={news.edited}
-                                type="card"
-                            />
-                        })}
+
+                        <HeaderSection>
+                            {data.newsFull && (
+                                <CardBanner
+                                    news={data.newsFull[0]}
+                                    key={data.newsFull[0]._id}
+                                    type="full"
+                                />
+                            )}
+
+                            {data.column && (
+                                <ColumnList
+                                    title="ÚLTIMAS COLUNAS"
+                                    columns={data.column}
+                                />
+                            )}
+                        </HeaderSection>
+
+                        <LittleBanner>
+                            {data.newsMini.slice(0, 3).map((newsItem) => (
+                                <CardBanner
+                                    news={newsItem}
+                                    key={newsItem._id}
+                                />
+                            ))}
+                        </ LittleBanner>
+
                     </HomeBody>
                 </>
             )}

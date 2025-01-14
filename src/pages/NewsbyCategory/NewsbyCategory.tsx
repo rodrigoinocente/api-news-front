@@ -102,11 +102,8 @@ export function NewsbyCategory() {
                         <mark>ÚLTIMA NOTÍCIA</mark>
                         {news.length > 0 && (
                             <CardBanner
-                                title={news[0].title}
+                                news={news[0]}
                                 key={news[0]._id}
-                                subtitle={news[0].subtitle}
-                                banner={news[0].banner}
-                                _id={news[0]._id}
                             />
                         )}
                     </LastNewsCard>
@@ -131,11 +128,9 @@ export function NewsbyCategory() {
                     {news.length > 1 && (
                         news.slice(1, 5).map((newsItem) => (
                             <CardBanner
-                                title={newsItem.title}
+                                news={newsItem}
                                 key={newsItem._id}
-                                subtitle={newsItem.subtitle}
-                                banner={newsItem.banner}
-                                _id={newsItem._id} />
+                            />
                         ))
                     )}
                 </CardsHead>

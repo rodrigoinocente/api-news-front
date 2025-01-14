@@ -4,19 +4,18 @@ export const CardContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 20rem;
-    height: 23rem;
+    width: 100%;
+    height: 100%;
     background-color: #fff;
     cursor: pointer;
 
     img {
         width: 100%;
-        height: 12rem;
         object-fit: cover;
     }
 `
 
-export const CardInfo = styled.footer`
+export const TitlePosition = styled.div<{ type?: string }>`
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -26,12 +25,15 @@ export const CardInfo = styled.footer`
         position: relative;
         top: -35px;
         left: -10px;
+        letter-spacing: .04rem;
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: ${(props)=>(props.type === "full" ? "2rem": "1.2rem")};
         background-color: #fff;
-        padding: .5rem;
+        padding: .5rem 1rem;
     }
+`
 
+export const SubtitlePosition = styled.footer`
     span {
         position: relative;
         top: -25px;

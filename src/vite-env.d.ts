@@ -108,3 +108,20 @@ export interface IContentRead {
   journalist: IJournalist;
   type: "news" | "column";
 }
+
+export interface IDataHome {
+  newsFull: INews[];
+  newsMini: INews[];
+  column: IColumn[];
+}
+
+export interface CardBannerProps {
+    type?: "full" | "";
+    news:
+    {
+        _id: string;
+        banner: string;
+        title: string;
+        subtitle?: string;
+    }
+}

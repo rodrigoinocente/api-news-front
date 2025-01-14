@@ -2,8 +2,8 @@ import axios from "axios"
 
 const baseUrl = "http://localhost:3000"
 
-export function getAllNews() {
-    const response = axios.get(`${baseUrl}/newsPublic/findAll`)
+export function getDataHome() {
+    const response = axios.get(`${baseUrl}/newsPublic/home`)
     return response
 }
 

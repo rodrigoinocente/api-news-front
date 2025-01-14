@@ -1,21 +1,27 @@
 import { useNavigate } from "react-router-dom";
-import { ICardNews } from "../../vite-env";
-import { CardContainer, CardInfo } from "./CardBannerStyled";
+import { CardBannerProps } from "../../vite-env";
+import { CardContainer, SubtitlePosition, TitlePosition } from "./CardBannerStyled";
 
-export function CardBanner({ title, subtitle, banner, _id }: Omit<ICardNews, "publishedAt" | "edited" | "type">) {
-    const navigate = useNavigate();
+
+export function CardBanner({ news, type }: CardBannerProps) {
+    const navigate = useNavigate()
 
     const handleClick = () => {
-        navigate(`/news/${_id}`);
-    };
+        navigate(`/news/${news._id}`)
+    }
 
     return (
-        <CardContainer onClick={handleClick}>
-            <img src={banner} alt="Imagem da Notícia" />
-            <CardInfo>
-                <p>{title}</p>
-                <span>{subtitle}</span>
-            </CardInfo>
+        <CardContainer onClick={handleClick} >
+            <img src={news.banner} alt="Imagem da Notícia" />
+            <TitlePosition type={type}>
+                <p>{news.title}</p>
+            </TitlePosition>
+
+            {news.subtitle && (
+                <SubtitlePosition>
+                    <span>{news.subtitle}</span>
+                </SubtitlePosition>
+            )}
         </CardContainer>
     )
 }
