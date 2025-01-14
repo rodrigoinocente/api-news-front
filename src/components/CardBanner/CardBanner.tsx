@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { CardBannerProps } from "../../vite-env";
-import { CardContainer, SubtitlePosition, TitlePosition } from "./CardBannerStyled";
+import { CardContainer, InfoPosition } from "./CardBannerStyled";
+import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
 
 
 export function CardBanner({ news, type }: CardBannerProps) {
@@ -13,15 +14,20 @@ export function CardBanner({ news, type }: CardBannerProps) {
     return (
         <CardContainer onClick={handleClick} >
             <img src={news.banner} alt="Imagem da Notícia" />
-            <TitlePosition type={type}>
-                <p>{news.title}</p>
-            </TitlePosition>
 
-            {news.subtitle && (
-                <SubtitlePosition>
-                    <span>{news.subtitle}</span>
-                </SubtitlePosition>
-            )}
+            <InfoPosition type={type}>
+                <h2>{news.title}</h2>
+
+                {news.subtitle && (
+                        <p>{news.subtitle}</p>
+                )}
+
+                    <NewsTimestamps
+                        publishedAt={news.publishedAt}
+                        type="card"
+                    />
+            </InfoPosition>
+
         </CardContainer>
     )
 }

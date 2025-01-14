@@ -116,12 +116,13 @@ export interface IDataHome {
 }
 
 export interface CardBannerProps {
-    type?: "full" | "";
+    type?: "bigTitle" | "";
     news:
     {
         _id: string;
         banner: string;
         title: string;
         subtitle?: string;
+        publishedAt: Date;
     }
 }

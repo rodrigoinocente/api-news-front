@@ -42,7 +42,7 @@ export function Home() {
                                 <CardBanner
                                     news={data.newsFull[0]}
                                     key={data.newsFull[0]._id}
-                                    type="full"
+                                    type="bigTitle"
                                 />
                             )}
 

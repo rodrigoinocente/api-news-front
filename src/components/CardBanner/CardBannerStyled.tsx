@@ -1,12 +1,9 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     width: 100%;
-    height: 100%;
-    background-color: #fff;
+    height: auto;
+    margin-bottom: -1rem;
     cursor: pointer;
 
     img {
@@ -15,29 +12,24 @@ export const CardContainer = styled.section`
     }
 `
 
-export const TitlePosition = styled.div<{ type?: string }>`
-    flex-grow: 1;
+export const InfoPosition = styled.div<{ type?: string }>`
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    
-    p {
-        position: relative;
-        top: -35px;
-        left: -10px;
+    gap: .7rem;
+    width: 95%;
+    position: relative;
+    top: ${(props)=>(props.type === "bigTitle" ? "-45px": "-30px")};
+    right: -10px;
+
+
+    h2 {
         letter-spacing: .04rem;
-        font-weight: bold;
-        font-size: ${(props)=>(props.type === "full" ? "2rem": "1.2rem")};
+        font-size: ${(props)=>(props.type === "bigTitle" ? "2rem": "1.2rem")};
         background-color: #fff;
         padding: .5rem 1rem;
     }
-`
 
-export const SubtitlePosition = styled.footer`
-    span {
-        position: relative;
-        top: -25px;
-        font-size: 1rem;
+    p {
         color: #555;
     }
 `
