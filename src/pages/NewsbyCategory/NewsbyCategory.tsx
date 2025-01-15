@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CategoryType, ICardColumn, INews } from "../../vite-env";
 import { Card } from "../../components/Card/Card";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
-import { BodyHead, CardsHead, Column, LastNewsCard, LoadCard, NewsAndColumn } from "./NewsbyCategoryStyled";
+import { BodyHead, CardsHead, Column, LoadCard, NewsAndColumn } from "./NewsbyCategoryStyled";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CardBanner } from "../../components/CardBanner/CardBanner";
@@ -98,15 +98,15 @@ export function NewsbyCategory() {
 
             <BodyHead>
                 <NewsAndColumn>
-                    <LastNewsCard>
-                        <mark>ÚLTIMA NOTÍCIA</mark>
+
                         {news.length > 0 && (
                             <CardBanner
                                 news={news[0]}
                                 key={news[0]._id}
+                                type="grey"
+                                cardTitle="ÚLTIMA NOTÍCIA"
                             />
                         )}
-                    </LastNewsCard>
 
                     <Column>
                         <h4>Coluna</h4>

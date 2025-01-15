@@ -53,21 +53,6 @@ export const Column = styled.div`
     }
 `
 
-export const LastNewsCard = styled.div`
-    justify-items: center;    
-    
-    section {
-        padding: 1rem;
-        background-color: #E4E4E4;
-    }
-
-    mark {
-        margin-left: -9rem;
-        text-align: justify;
-        padding: .5rem;
-    }
-`
-
 export const LoadCard = styled.div`
     display: flex;
     flex-direction: column;

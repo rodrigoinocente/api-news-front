@@ -1,14 +1,24 @@
 import styled from "styled-components";
 
-export const CardContainer = styled.section`
-    width: 100%;
-    height: auto;
-    margin-bottom: -1rem;
+export const CardContainer = styled.section<{ type?: string }>`
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
-
+    background-color: ${(props)=>(props.type === "grey" ? "#E4E4E4" : "transparent")};
+    padding: ${(props)=>(props.type === "grey" ? " 1rem " : "")};
+    
     img {
         width: 100%;
         object-fit: cover;
+    }
+`
+
+export const CardTitle = styled.div`
+    margin-bottom: 1rem;
+    margin-top: -25px;
+    
+    mark {
+        padding: .5rem; 
     }
 `
 
@@ -16,12 +26,9 @@ export const InfoPosition = styled.div<{ type?: string }>`
     display: flex;
     flex-direction: column;
     gap: .7rem;
-    width: 95%;
-    position: relative;
-    top: ${(props)=>(props.type === "bigTitle" ? "-45px": "-30px")};
-    right: -10px;
-
-
+    margin: ${(props)=>(props.type === "bigTitle" ? "-35px 0 0 25px": "-25px 0 0 10px")};
+    width: 90%;
+    
     h2 {
         letter-spacing: .04rem;
         font-size: ${(props)=>(props.type === "bigTitle" ? "2rem": "1.2rem")};
@@ -31,5 +38,5 @@ export const InfoPosition = styled.div<{ type?: string }>`
 
     p {
         color: #555;
-    }
+    }   
 `

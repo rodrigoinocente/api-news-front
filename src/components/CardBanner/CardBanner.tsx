@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { CardBannerProps } from "../../vite-env";
-import { CardContainer, InfoPosition } from "./CardBannerStyled";
+import { CardContainer, CardTitle, InfoPosition } from "./CardBannerStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
 
 
-export function CardBanner({ news, type }: CardBannerProps) {
+export function CardBanner({ news, type, cardTitle }: CardBannerProps) {
     const navigate = useNavigate()
 
     const handleClick = () => {
@@ -12,7 +12,12 @@ export function CardBanner({ news, type }: CardBannerProps) {
     }
 
     return (
-        <CardContainer onClick={handleClick} >
+        <CardContainer onClick={handleClick} type={type}>
+            {cardTitle && (
+                <CardTitle>
+                    <mark>{cardTitle}</mark>
+                </CardTitle>
+            )}
             <img src={news.banner} alt="Imagem da Notícia" />
 
             <InfoPosition type={type}>
