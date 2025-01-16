@@ -116,8 +116,10 @@ export interface IDataHome {
 }
 
 export interface CardBannerProps {
+  maxSubtitleLength?: number;
+  maxTitleLength?: number;
   cardTitle?: string;
-  type?: "bigTitle" | "grey";
+  type?: "bigTitle" | "grey" | "noSubtitle";
   news:
   {
     _id: string;

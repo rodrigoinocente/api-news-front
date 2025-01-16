@@ -59,6 +59,8 @@ export function Home() {
                                 <CardBanner
                                     news={newsItem}
                                     key={newsItem._id}
+                                    maxTitleLength={69}
+                                    type="noSubtitle"
                                 />
                             ))}
                         </ LittleBanner>

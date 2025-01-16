@@ -6,24 +6,24 @@ export const HomeBody = styled.section`
     justify-content: center;
     margin: 0 auto;
     max-width: 80%;
+    gap: 1rem;
 `
 
 export const HeaderSection = styled.div`
     display: grid;
     grid-template-columns: 2fr 1fr;
-    justify-items: start;
-    align-items: start;    
-    justify-items: center;
+    align-items: start;     
     gap: 3rem;
     margin: 0 auto;
     border-bottom: 1px solid #CECECE;
-    margin-bottom: 1rem;
+    padding-bottom: 1.5rem;
 `
 
 export const LittleBanner = styled.div`
     display: flex;
+    justify-content: space-between;
     gap: 2rem;
     border-bottom: 1px solid #CECECE;
     margin: .5rem 0;
-    width: 100%;
+    padding-bottom: 1rem;
 `

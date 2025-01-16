@@ -99,14 +99,14 @@ export function NewsbyCategory() {
             <BodyHead>
                 <NewsAndColumn>
 
-                        {news.length > 0 && (
-                            <CardBanner
-                                news={news[0]}
-                                key={news[0]._id}
-                                type="grey"
-                                cardTitle="ÚLTIMA NOTÍCIA"
-                            />
-                        )}
+                    {news.length > 0 && (
+                        <CardBanner
+                            news={news[0]}
+                            key={news[0]._id}
+                            type="grey"
+                            cardTitle="ÚLTIMA NOTÍCIA"
+                        />
+                    )}
 
                     <Column>
                         <h4>Coluna</h4>
@@ -130,6 +130,8 @@ export function NewsbyCategory() {
                             <CardBanner
                                 news={newsItem}
                                 key={newsItem._id}
+                                maxTitleLength={69}
+                                maxSubtitleLength={100}
                             />
                         ))
                     )}

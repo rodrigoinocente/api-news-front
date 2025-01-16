@@ -13,9 +13,9 @@ export const BodyHead = styled.div`
 export const CardsHead = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1rem 3.5rem;
+    grid-gap: 1.5rem 3rem;
     margin: 0 auto;
-    padding: 1rem; 
+    padding: 2rem; 
 `
 
 export const NewsAndColumn = styled.div`
@@ -24,7 +24,7 @@ export const NewsAndColumn = styled.div`
     align-items: center;
     gap: 2rem;
     border-right: 1px dashed #c5c2c2;
-    padding: 1.5rem;
+    padding: 2rem;
 `
 export const Column = styled.div`
     border: 1px solid black;

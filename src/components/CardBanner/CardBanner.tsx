@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { CardBannerProps } from "../../vite-env";
 import { CardContainer, CardTitle, InfoPosition } from "./CardBannerStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
+import { reduceText } from "../../utils/textUtils";
 
-
-export function CardBanner({ news, type, cardTitle }: CardBannerProps) {
+export function CardBanner({ news, type, cardTitle, maxTitleLength, maxSubtitleLength }: CardBannerProps) {
     const navigate = useNavigate()
 
     const handleClick = () => {
@@ -21,16 +21,22 @@ export function CardBanner({ news, type, cardTitle }: CardBannerProps) {
             <img src={news.banner} alt="Imagem da Notícia" />
 
             <InfoPosition type={type}>
-                <h2>{news.title}</h2>
-
-                {news.subtitle && (
-                        <p>{news.subtitle}</p>
+                {maxTitleLength ? (
+                    <h2>{reduceText(news.title, maxTitleLength)}</h2>
+                ) : (
+                    <h2>{news.title}</h2>
                 )}
 
-                    <NewsTimestamps
-                        publishedAt={news.publishedAt}
-                        type="card"
-                    />
+                {news.subtitle && maxSubtitleLength ? (
+                    <p>{reduceText(news.subtitle, maxSubtitleLength)}</p>
+                ) : (
+                    <p>{news.subtitle}</p>
+                )}
+
+                <NewsTimestamps
+                    publishedAt={news.publishedAt}
+                    type="card"
+                />
             </InfoPosition>
 
         </CardContainer>
