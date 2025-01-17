@@ -12,6 +12,10 @@ export const CardContainer = styled.section<{ type?: string }>`
         aspect-ratio: 7/4;
         object-fit: cover;
         }
+
+        &:hover h2 {
+        transform: translateY(-5px);
+    }
 `
 
 export const CardTitle = styled.div`
@@ -35,6 +39,7 @@ export const InfoPosition = styled.div<{ type?: string }>`
         font-size: ${(props) => (props.type === "bigTitle" ? "2rem" : "1.2rem")};
         background-color: #fff;
         padding: .5rem 1rem;
+        transition: transform 1s ease;
     }
 
     p {

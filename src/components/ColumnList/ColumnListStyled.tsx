@@ -11,6 +11,6 @@ export const ColumnListContainer = styled.section`
         background-color: yellow;
         width: fit-content;
         padding: .5rem;
-        margin-bottom: 1rem;
+        margin: 0 0 .5rem 1rem;
     }
 `

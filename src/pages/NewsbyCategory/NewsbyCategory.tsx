@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { getNewsByCategory } from "../../service/newsService";
 import { useNavigate, useParams } from "react-router-dom";
-import { CategoryType, ICardColumn, INews } from "../../vite-env";
+import { CategoryType, IColumn, INews } from "../../vite-env";
 import { Card } from "../../components/Card/Card";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 import { BodyHead, CardsHead, Column, LoadCard, NewsAndColumn } from "./NewsbyCategoryStyled";
@@ -11,14 +11,14 @@ import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTo
 import { CardBanner } from "../../components/CardBanner/CardBanner";
 import { useBackground } from "../../Context/useBackgroundCustomHook";
 import { getColumnByCategory } from "../../service/columnService";
-import { CardColumn } from "../../components/CardColumn/CardColumn";
 import { Button } from "../../components/Button/Button";
+import { ColumnList } from "../../components/ColumnList/ColumnList";
 
 export function NewsbyCategory() {
     const { category } = useParams<{ category: CategoryType }>()
 
     const [news, setNews] = useState<INews[]>([])
-    const [column, setColumn] = useState<ICardColumn[]>([])
+    const [column, setColumn] = useState<IColumn[]>([])
     const [hasMoreNews, setHasMoreNews] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
     const [offset, setOffset] = useState(0)
@@ -108,20 +108,12 @@ export function NewsbyCategory() {
                         />
                     )}
 
-                    <Column>
-                        <h4>Coluna</h4>
-                        {column.length && (
-                            column.map((columnItem) => (
-                                <CardColumn
-                                    key={columnItem._id}
-                                    _id={columnItem._id}
-                                    title={columnItem.title}
-                                    publishedAt={columnItem.publishedAt}
-                                />
-                            ))
-                        )}
-                        <Button type="button" text={"Ver mais"} onClick={handleClick} />
-                    </Column>
+                    <ColumnList
+                        columns={column}
+                        title="COLUNA"
+                    />
+                    <Button type="button" text={"Ver mais"} onClick={handleClick} />
+
                 </NewsAndColumn>
 
                 <CardsHead>

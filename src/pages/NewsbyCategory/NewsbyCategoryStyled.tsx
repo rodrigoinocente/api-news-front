@@ -25,31 +25,10 @@ export const NewsAndColumn = styled.div`
     gap: 2rem;
     border-right: 1px dashed #c5c2c2;
     padding: 2rem;
-`
-export const Column = styled.div`
-    border: 1px solid black;
-    padding: 1rem;
-    border-radius: 10px;
-
-    h4 {
-        position: relative;
-        margin-top: -30px;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 1.5rem;
-        white-space: 1rem;
-        letter-spacing: .1rem;
-        color: #fff;
-        background-color: #6d84eb;
-        padding: .3rem;
-        width: 7rem;
-        margin-bottom: 1rem;
-    }
 
     button {
-        position: absolute;
-        margin-left: 150px;
-        border-radius: 5px;
+        align-self: flex-start;
+        margin-top: -2rem;
     }
 `
 
