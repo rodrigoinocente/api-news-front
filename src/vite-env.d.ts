@@ -112,6 +112,8 @@ export interface IContentRead {
 export interface IDataHome {
   newsFull: INews[];
   newsMini: INews[];
+  newsMiniThirdPart: INews[];
+  newsFullThirdPart: INews[];
   column: IColumn[];
 }
 

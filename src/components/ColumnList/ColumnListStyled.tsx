@@ -5,7 +5,6 @@ export const ColumnListContainer = styled.section`
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    cursor: pointer;
 
     mark {
         background-color: yellow;

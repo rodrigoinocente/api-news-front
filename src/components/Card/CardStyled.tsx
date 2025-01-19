@@ -4,7 +4,8 @@ export const CardBody = styled.article`
     display: flex; 
     width: 100%;
     height: 220px;
-    box-shadow: #0d0d0e5c 0px 7px 29px 0px;
+    border: solid 1px #CECECE;
+    /* box-shadow: #0d0d0e5c 0px 7px 29px 0px; */
     border-radius: .5rem;
     cursor: pointer;
     

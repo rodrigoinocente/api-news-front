@@ -1,4 +1,4 @@
-import { HeaderSection, HomeBody, LittleBanner } from "./HomeStyled";
+import { BannerList, HeaderSection, HomeBody, LittleBanner, ThirdPart } from "./HomeStyled";
 import { getDataHome } from "../../service/newsService";
 import { useEffect, useState } from "react";
 import { IDataHome } from "../../vite-env";
@@ -6,9 +6,11 @@ import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 import { CardBanner } from "../../components/CardBanner/CardBanner";
 import { ColumnList } from "../../components/ColumnList/ColumnList";
+import { NewsList } from "../../components/NewsList/NewsList";
+import { Card } from "../../components/Card/Card";
 
 export function Home() {
-    const [data, setData] = useState<IDataHome>({ newsFull: [], newsMini: [], column: [] })
+    const [data, setData] = useState<IDataHome>({ newsFull: [], newsMini: [], newsMiniThirdPart: [], newsFullThirdPart: [], column: [] })
     const [loading, setLoading] = useState(true)
 
     async function findDataHome() {
@@ -17,6 +19,8 @@ export function Home() {
             setData({
                 newsFull: newsResponse.data[0].newsFull,
                 newsMini: newsResponse.data[0].newsMini,
+                newsMiniThirdPart: newsResponse.data[0].newsMiniThirdPart,
+                newsFullThirdPart: newsResponse.data[0].newsFullThirdPart,
                 column: newsResponse.data[1].column,
             })
         } catch (error) {
@@ -64,6 +68,34 @@ export function Home() {
                                 />
                             ))}
                         </ LittleBanner>
+
+                        <ThirdPart>
+                            <div className="newsList">
+                            <NewsList
+                                news={data.newsMiniThirdPart}
+                                title="MUNDO"
+                            />
+
+                            </div>
+
+                        <BannerList>
+                            {data && (
+                                data.newsFullThirdPart.map((newsItem) => {
+                                    return (
+                                        <Card
+                                            _id={newsItem._id}
+                                            banner={newsItem.banner}
+                                            publishedAt={newsItem.publishedAt}
+                                            subtitle={newsItem.subtitle}
+                                            title={newsItem.title}
+                                            type="news"
+                                        />
+                                    )
+                                })
+                            )}
+                        </BannerList>
+
+                        </ThirdPart>
 
                     </HomeBody>
                 </>

@@ -27,3 +27,20 @@ export const LittleBanner = styled.div`
     margin: .5rem 0;
     padding-bottom: 1rem;
 `
+
+export const ThirdPart = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+
+    .newsList {
+        border-right: solid 1px #CECECE;
+        padding-right: 1rem;
+    }
+`
+
+export const BannerList = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`
