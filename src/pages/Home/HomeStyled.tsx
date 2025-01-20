@@ -20,9 +20,9 @@ export const HeaderSection = styled.div`
 `
 
 export const LittleBanner = styled.div`
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0 2rem;
     border-bottom: 1px solid #CECECE;
     margin: .5rem 0;
     padding-bottom: 1rem;

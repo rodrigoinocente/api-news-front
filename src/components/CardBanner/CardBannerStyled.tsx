@@ -6,14 +6,20 @@ export const CardContainer = styled.section<{ type?: string }>`
     cursor: pointer;
     background-color: ${(props) => (props.type === "grey" ? "#E4E4E4" : "transparent")};
     padding: ${(props) => (props.type === "grey" ? " 1rem " : "")};
-    
+    overflow: hidden;
+
     img {
         width: 100%;
         aspect-ratio: 7/4;
         object-fit: cover;
-        }
+        transition: transform 0.5s ease;
+    }
 
-        &:hover h2 {
+    &:hover img {
+        transform: scale(1.07);
+    }
+    
+    &:hover h2 {
         transform: translateY(-5px);
     }
 `
@@ -23,6 +29,9 @@ export const CardTitle = styled.div`
     margin-top: -25px;
     
     mark {
+        position: absolute;
+        z-index: 1;
+        margin-top: -1rem;
         padding: .5rem; 
     }
 `
