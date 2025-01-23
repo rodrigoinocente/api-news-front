@@ -19,7 +19,7 @@ export function NewsList({ title, news }: NewsListListProps) {
         <NewsListContainer>
             <mark>{title}</mark>
             {news.map((newsItem) => (
-                <CardItem onClick={() => handleClick(newsItem._id)}>
+                <CardItem onClick={() => handleClick(newsItem._id)} key={newsItem._id}>
                     <h2>{newsItem.title}</h2>
                     <p>{newsItem.subtitle}</p>
 

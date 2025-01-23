@@ -114,6 +114,7 @@ export interface IDataHome {
   newsMini: INews[];
   newsMiniThirdPart: INews[];
   newsFullThirdPart: INews[];
+  newsVerticalCard: INews[];
   column: IColumn[];
 }
 

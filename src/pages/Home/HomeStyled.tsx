@@ -32,6 +32,9 @@ export const ThirdPart = styled.div`
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
+    border-bottom: 1px solid #CECECE;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 
     .newsList {
         border-right: solid 1px #CECECE;
@@ -42,5 +45,15 @@ export const ThirdPart = styled.div`
 export const BannerList = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 1rem;
+    margin-bottom: 1rem;
+`
+
+export const FourthPart = styled.div`
+    display: flex;
+    justify-content: space-between;
+
+    gap: 4rem;
+    margin-bottom: 2rem;
 `
