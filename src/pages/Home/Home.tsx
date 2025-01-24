@@ -1,4 +1,4 @@
-import { BannerList, FourthPart, HeaderSection, HomeBody, LittleBanner, ThirdPart } from "./HomeStyled";
+import { BannerList, FifthPart, FourthPart, HeaderSection, HomeBody, LittleBanner, ThirdPart } from "./HomeStyled";
 import { getDataHome } from "../../service/newsService";
 import { useEffect, useState } from "react";
 import { IDataHome } from "../../vite-env";
@@ -9,6 +9,7 @@ import { ColumnList } from "../../components/ColumnList/ColumnList";
 import { NewsList } from "../../components/NewsList/NewsList";
 import { Card } from "../../components/Card/Card";
 import { VerticalCard } from "../../components/VerticalCard/VerticalCard";
+import { FakeNewsCard } from "../../components/ImageCard/FakeNewsCard";
 
 export function Home() {
     const [data, setData] = useState<IDataHome>(
@@ -18,7 +19,6 @@ export function Home() {
     async function findDataHome() {
         try {
             const newsResponse = await getDataHome()
-            console.log(newsResponse.data);
             setData({
                 newsFull: newsResponse.data[0].newsFull,
                 newsMini: newsResponse.data[0].newsMini,
@@ -37,7 +37,7 @@ export function Home() {
     useEffect(() => {
         findDataHome()
     }, [])
-
+    console.log(data.newsVerticalCard);
     return (
         <>
             <NavbarHome />
@@ -102,6 +102,35 @@ export function Home() {
 
                     <FourthPart>
                         {data && (
+                            <>
+                                <div id="topFake">
+                                    <h4>RADAR FAKE NEWS</h4>
+                                    <p>Ver mais</p>
+                                </div>
+
+                                <div id="gridFake">
+                                    <FakeNewsCard
+                                        news={data.newsVerticalCard[0]}
+                                        type="bigTitle"
+                                    />
+
+                                    <div id="vertical">
+                                        {data.newsVerticalCard.slice(1, 4).map((newsItem, index) => {
+                                            return (
+                                                <FakeNewsCard
+                                                    key={index}
+                                                    news={newsItem}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </FourthPart>
+
+                    <FifthPart>
+                        {data && (
                             data.newsVerticalCard.map((newsItem) => {
                                 return (
                                     <VerticalCard
@@ -112,11 +141,12 @@ export function Home() {
                             })
                         )}
 
-                    </FourthPart>
+                    </FifthPart>
 
                 </HomeBody>
             )}
         </>
     )
 }
-//TODO: NA PARTE 'VIDEOS' DO FIGMA, SUBISTITUIR POR UM BANNER. PENSAR EM COMO ESTILIZAR ELE. FourthPart VIRA FIFTH  
+//TODO: CONTINUAR COM A SESSÃO DE FAKE NEWS. ADICIONAR PROPS DE BIGTITLE APARA AJUSTAR O TAMANHO
+//      DO TITILE, PADDING. ADICIONAR UM TITULO, ALGO DO TIPO "STOP FAKE NEWS" OU "RADAR FAKE NEWS"

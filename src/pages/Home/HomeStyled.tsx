@@ -51,6 +51,57 @@ export const BannerList = styled.div`
 `
 
 export const FourthPart = styled.div`
+    margin-bottom: 1rem;
+    padding-bottom: 2rem;
+    border-bottom: dashed 2px #CECECE;
+
+    #topFake {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #E2E2E2;
+        padding: .5rem;
+        margin-bottom: 1rem;
+
+        h4 {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        p {
+            color: #0876FF;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+
+    }
+    
+
+    #gridFake {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 2rem;
+        /* align-items: center; */
+        height: 30rem;
+    }
+
+
+
+    #vertical {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        justify-content: space-around;
+        width: 100%;
+        padding-left: 1rem;
+        border-left: solid 1px #CECECE;
+
+    }
+`
+
+export const FifthPart = styled.div`
     display: flex;
     justify-content: space-between;
 
