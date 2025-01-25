@@ -51,9 +51,10 @@ export const BannerList = styled.div`
 `
 
 export const FourthPart = styled.div`
-    margin-bottom: 1rem;
     padding-bottom: 2rem;
-    border-bottom: dashed 2px #CECECE;
+    width: 90%;
+    align-self: center;
+
 
     #topFake {
         display: flex;
@@ -73,20 +74,13 @@ export const FourthPart = styled.div`
             font-weight: bold;
             cursor: pointer;
         }
-
-
     }
     
-
     #gridFake {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        grid-gap: 2rem;
-        /* align-items: center; */
+        display: flex;
         height: 30rem;
+        gap: 3rem;
     }
-
-
 
     #vertical {
         display: flex;
@@ -94,17 +88,17 @@ export const FourthPart = styled.div`
         align-items: center;
         gap: 1rem;
         justify-content: space-around;
-        width: 100%;
+        width: 25rem;
         padding-left: 1rem;
         border-left: solid 1px #CECECE;
-
     }
 `
 
 export const FifthPart = styled.div`
     display: flex;
     justify-content: space-between;
-
+    border-top: dashed 2px #CECECE;
+    padding-top: 2rem;
     gap: 4rem;
     margin-bottom: 2rem;
 `

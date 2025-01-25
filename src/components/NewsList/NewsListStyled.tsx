@@ -30,16 +30,21 @@ export const CardItem = styled.div`
         margin-top: .5rem;
     }
 
-    h2 {
-        transition: color 0.3s ease;
-    }
-
-    &:hover h2 {
-       color: #888686;
+    h2, p {
+        transition: all 0.3s ease;
     }
 
     p {
         margin-bottom: -.5rem;
         color: #555;
     }
+
+    &:hover h2 {
+       text-shadow: 1px 1px 0px black;
+    }
+
+    &:hover p {
+       color: #000;
+    }
+   
 `
