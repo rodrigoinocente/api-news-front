@@ -1,4 +1,4 @@
-import { BannerList, FifthPart, FourthPart, HeaderSection, HomeBody, LittleBanner, ThirdPart } from "./HomeStyled";
+import { BannerList, FakeNewsSection, FifthPart, HeaderSection, HomeBody, LittleBanner, ThirdPart } from "./HomeStyled";
 import { getDataHome } from "../../service/newsService";
 import { useEffect, useState } from "react";
 import { IDataHome } from "../../vite-env";
@@ -13,18 +13,19 @@ import { FakeNewsCard } from "../../components/ImageCard/FakeNewsCard";
 
 export function Home() {
     const [data, setData] = useState<IDataHome>(
-        { newsFull: [], newsMini: [], newsMiniThirdPart: [], newsFullThirdPart: [], newsVerticalCard: [], column: [] })
+        { bigHome: [], littleBanner: [], thirdPartLittle: [], thirdPartWithBanner: [], fakeNewsSection: [], fifthPart: [], column: [] })
     const [loading, setLoading] = useState(true)
 
     async function findDataHome() {
         try {
             const newsResponse = await getDataHome()
             setData({
-                newsFull: newsResponse.data[0].newsFull,
-                newsMini: newsResponse.data[0].newsMini,
-                newsMiniThirdPart: newsResponse.data[0].newsMiniThirdPart,
-                newsFullThirdPart: newsResponse.data[0].newsFullThirdPart,
-                newsVerticalCard: newsResponse.data[0].newsVerticalCard,
+                bigHome: newsResponse.data[0].bigHome,
+                littleBanner: newsResponse.data[0].littleBanner,
+                thirdPartLittle: newsResponse.data[0].thirdPartLittle,
+                thirdPartWithBanner: newsResponse.data[0].thirdPartWithBanner,
+                fakeNewsSection: newsResponse.data[0].fakeNewsSection,
+                fifthPart: newsResponse.data[0].fifthPart,
                 column: newsResponse.data[1].column,
             })
         } catch (error) {
@@ -37,7 +38,7 @@ export function Home() {
     useEffect(() => {
         findDataHome()
     }, [])
-    console.log(data.newsVerticalCard);
+
     return (
         <>
             <NavbarHome />
@@ -45,10 +46,10 @@ export function Home() {
                 <HomeBody>
 
                     <HeaderSection>
-                        {data.newsFull && (
+                        {data.bigHome && (
                             <CardBanner
-                                news={data.newsFull[0]}
-                                key={data.newsFull[0]._id}
+                                news={data.bigHome[0]}
+                                key={data.bigHome[0]._id}
                                 type="bigTitle"
                             />
                         )}
@@ -62,10 +63,10 @@ export function Home() {
                     </HeaderSection>
 
                     <LittleBanner>
-                        {data.newsMini.slice(0, 3).map((newsItem) => (
+                        {data.littleBanner.map((listItem) => (
                             <CardBanner
-                                news={newsItem}
-                                key={newsItem._id}
+                                news={listItem}
+                                key={listItem._id}
                                 maxTitleLength={69}
                                 type="noSubtitle"
                             />
@@ -75,7 +76,7 @@ export function Home() {
                     <ThirdPart>
                         <div className="newsList">
                             <NewsList
-                                news={data.newsMiniThirdPart}
+                                news={data.thirdPartLittle}
                                 title="MUNDO"
                             />
 
@@ -83,7 +84,7 @@ export function Home() {
 
                         <BannerList>
                             {data && (
-                                data.newsFullThirdPart.map((newsItem) => {
+                                data.thirdPartWithBanner.map((newsItem) => {
                                     return (
                                         <Card
                                             key={newsItem._id}
@@ -100,7 +101,7 @@ export function Home() {
                         </BannerList>
                     </ThirdPart>
 
-                    <FourthPart>
+                    <FakeNewsSection>
                         {data && (
                             <>
                                 <div id="topFake">
@@ -110,12 +111,12 @@ export function Home() {
 
                                 <div id="gridFake">
                                     <FakeNewsCard
-                                        news={data.newsVerticalCard[0]}
+                                        news={data.fakeNewsSection[0]}
                                         type="bigTitle"
                                     />
 
                                     <div id="vertical">
-                                        {data.newsVerticalCard.slice(1, 4).map((newsItem, index) => {
+                                        {data.fakeNewsSection.slice(1).map((newsItem, index) => {
                                             return (
                                                 <FakeNewsCard
                                                     key={index}
@@ -127,11 +128,11 @@ export function Home() {
                                 </div>
                             </>
                         )}
-                    </FourthPart>
+                    </FakeNewsSection>
 
                     <FifthPart>
                         {data && (
-                            data.newsVerticalCard.map((newsItem) => {
+                            data.fifthPart.map((newsItem) => {
                                 return (
                                     <VerticalCard
                                         news={newsItem}

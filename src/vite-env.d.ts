@@ -110,11 +110,12 @@ export interface IContentRead {
 }
 
 export interface IDataHome {
-  newsFull: INews[];
-  newsMini: INews[];
-  newsMiniThirdPart: INews[];
-  newsFullThirdPart: INews[];
-  newsVerticalCard: INews[];
+  bigHome: INews[];
+  littleBanner: INews[];
+  thirdPartLittle: INews[];
+  thirdPartWithBanner: INews[];
+  fakeNewsSection: INews[];
+  fifthPart: INews[];
   column: IColumn[];
 }
 

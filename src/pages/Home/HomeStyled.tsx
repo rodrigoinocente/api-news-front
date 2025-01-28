@@ -50,7 +50,7 @@ export const BannerList = styled.div`
     margin-bottom: 1rem;
 `
 
-export const FourthPart = styled.div`
+export const FakeNewsSection = styled.div`
     padding-bottom: 2rem;
     width: 90%;
     align-self: center;
