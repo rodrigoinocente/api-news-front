@@ -8,7 +8,7 @@ export function NavbarHome() {
     const location = useLocation()
     const { bgImage, updateBackground } = useBackground()
 
-    const categories = ["Tecnologia", "Esportes", "Ciência", "Política", "Saúde", "Arte", "Outros"]
+    const categories = ["Tecnologia", "FakeNews", "Esportes", "Ciência", "Política", "Saúde", "Arte", "Outros"]
 
     const categoryClick = (category: string) => {
         navigate(`/category/${category}`)

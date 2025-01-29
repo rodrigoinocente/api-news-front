@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.section<{ type?: string }>`
-    display: flex;
+   display: flex;
     flex-direction: column;
     gap: 1rem;
     cursor: pointer;
+    flex: 1 0 12rem;
+    max-width: 15rem;
 
     img {
-        width: 100%;
         aspect-ratio: 4/3;
         object-fit: cover;
     }

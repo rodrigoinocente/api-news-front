@@ -96,9 +96,11 @@ export const FakeNewsSection = styled.div`
 
 export const FifthPart = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border-top: dashed 2px #CECECE;
     padding-top: 2rem;
-    gap: 4rem;
+    gap: 1rem;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
 `
