@@ -7,10 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { signinSchema } from "../../schemas/signinSchema";
 import { ErrorSpan } from "../../components/Navbar/NavbarStyled";
 import { signupSchema } from "../../schemas/signupSchema";
-import { singin, singup, userLogged } from "../../service/userService";
+import { singin, singup } from "../../service/userService";
 import Cookies from "js-cookie"
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../../Context/userCustomHook";
 
 export function Authentication() {
     const {
@@ -23,12 +22,12 @@ export function Authentication() {
         formState: { errors: errorsSignup }, } = useForm<AuthData>({ resolver: zodResolver(signupSchema) });
     const navigate = useNavigate()
 
-    const { setUser } = useUser()
-
-    async function findUserLogged() {
+    function upDateLocalStorage(name: string, username: string, email: string) {
         try {
-            const response = await userLogged()
-            setUser(response.data)
+            localStorage.setItem("name", name)
+            localStorage.setItem("email", email)
+            localStorage.setItem("username", username)
+            navigate("/")
         } catch (error) {
             console.log(error);
         }
@@ -37,9 +36,8 @@ export function Authentication() {
     async function inHandleSubmit(data: AuthData) {
         try {
             const response = await singin(data)
-            Cookies.set("token", response.data.token, { expires: 1 })
-            findUserLogged()
-            navigate("/")
+            Cookies.set("token", response.data.token, { expires: 1, secure: true, httpOnly: true })
+            upDateLocalStorage(response.data.user.name, response.data.user.username, response.data.user.email)
         } catch (error: unknown) {
             console.log(error);
         }
@@ -48,9 +46,8 @@ export function Authentication() {
     async function upHandleSubmit(data: AuthData) {
         try {
             const response = await singup(data)
-            Cookies.set("token", response.data.token, { expires: 1 })
-            findUserLogged()
-            navigate("/")
+            Cookies.set("token", response.data.token, { expires: 1, secure: true, httpOnly: true })
+            upDateLocalStorage(response.data.user.name, response.data.user.username, response.data.user.email)
         } catch (error: unknown) {
             console.log(error);
         }

@@ -3,13 +3,14 @@ import lupa from "../../images/icons/icon-lupa.png"
 import menu from "../../images/icons/icon-menu.png"
 import { ErrorSpan, InputSpace, MenuNav, Nav, RightNav, UserLoggedSpace } from "./NavbarStyled"
 import { useForm } from "react-hook-form"
-import { ISearchNews } from "../../vite-env"
+import { ISearchNews, IUser } from "../../vite-env"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../Button/Button"
 import { searchSchema } from "../../schemas/searchSchema"
 import Cookies from "js-cookie"
 import { useUser } from "../../Context/userCustomHook"
 import { useEffect } from "react"
+
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
@@ -36,12 +37,21 @@ export function Navbar() {
 
     function signout() {
         Cookies.remove("token")
+        localStorage.clear()
         setUser(null)
         navigate("/")
     }
 
     useEffect(() => {
         CurrentDate()
+        const name = localStorage.getItem("name");
+        const username = localStorage.getItem("username");
+        const email = localStorage.getItem("email");
+
+        if (name && username && email) {
+            const userData: IUser = { name, username, email };
+            setUser(userData);
+        }
     }, [])
 
     return (

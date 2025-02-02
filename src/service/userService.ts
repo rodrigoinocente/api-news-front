@@ -2,7 +2,7 @@ import axios from "axios"
 import { AuthData } from "../vite-env"
 import Cookies from "js-cookie"
 
-const baseUrl = "https://api-news-pzgk.onrender.com"
+const baseUrl = "http://localhost:3000"
 
 export function singup(data: AuthData) {
     delete data.confirmPassword
@@ -31,5 +31,6 @@ export function userLogged(){
             Authorization: `Bearer ${Cookies.get("token")}`
         }
     })
+    //TODO: USE FOR EDIT PROFILE
     return response
 }

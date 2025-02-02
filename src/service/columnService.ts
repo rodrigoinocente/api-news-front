@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://localhost:4000"
 
 export function getColumnByJournalist(journalistId: string, limit: number, offset: number) {
     const response = axios.get(`${baseUrl}/columnPublic/columnByJournalist/${journalistId}`, { params: { limit, offset } })
