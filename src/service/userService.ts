@@ -1,6 +1,5 @@
 import axios from "axios"
 import { AuthData } from "../vite-env"
-import Cookies from "js-cookie"
 
 const baseUrl = "http://localhost:3000"
 
@@ -21,16 +20,16 @@ function generateUsername(name: string) {
 }
 
 export function singin(data: AuthData) {
-    const response = axios.post(`${baseUrl}/auth`, data)
+    const response = axios.post(`${baseUrl}/auth`, data, { withCredentials: true })
     return response
 }
 
-export function userLogged(){
-    const response = axios.get(`${baseUrl}/user/me`, {
-        headers:{
-            Authorization: `Bearer ${Cookies.get("token")}`
-        }
-    })
-    //TODO: USE FOR EDIT PROFILE
+export function userLogged() {
+    const response = axios.get(`${baseUrl}/user/me`, { withCredentials: true })
+    return response
+}
+
+export function logout() {
+    const response = axios.delete(`${baseUrl}/auth/logout`, { withCredentials: true })
     return response
 }

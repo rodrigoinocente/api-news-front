@@ -8,7 +8,6 @@ import { signinSchema } from "../../schemas/signinSchema";
 import { ErrorSpan } from "../../components/Navbar/NavbarStyled";
 import { signupSchema } from "../../schemas/signupSchema";
 import { singin, singup } from "../../service/userService";
-import Cookies from "js-cookie"
 import { useNavigate } from "react-router-dom";
 
 export function Authentication() {
@@ -36,8 +35,7 @@ export function Authentication() {
     async function inHandleSubmit(data: AuthData) {
         try {
             const response = await singin(data)
-            Cookies.set("token", response.data.token, { expires: 1, secure: true, httpOnly: true })
-            upDateLocalStorage(response.data.user.name, response.data.user.username, response.data.user.email)
+            upDateLocalStorage(response.data.name, response.data.username, response.data.email)
         } catch (error: unknown) {
             console.log(error);
         }
@@ -46,7 +44,6 @@ export function Authentication() {
     async function upHandleSubmit(data: AuthData) {
         try {
             const response = await singup(data)
-            Cookies.set("token", response.data.token, { expires: 1, secure: true, httpOnly: true })
             upDateLocalStorage(response.data.user.name, response.data.user.username, response.data.user.email)
         } catch (error: unknown) {
             console.log(error);

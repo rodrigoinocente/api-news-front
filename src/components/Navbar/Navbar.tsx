@@ -7,10 +7,9 @@ import { ISearchNews, IUser } from "../../vite-env"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../Button/Button"
 import { searchSchema } from "../../schemas/searchSchema"
-import Cookies from "js-cookie"
 import { useUser } from "../../Context/userCustomHook"
 import { useEffect } from "react"
-
+import { logout } from "../../service/userService"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
@@ -30,13 +29,17 @@ export function Navbar() {
         return <p>{formattedDateWithCapitalizedWeekday}</p>;
     }
 
+    function profile() {
+        navigate("/profile")
+    }
+
     function onSearch(data: ISearchNews) {
         navigate(`/search/${data.title}`);
         reset();
     }
 
-    function signout() {
-        Cookies.remove("token")
+    async function signoutHandler() {
+        await logout()
         localStorage.clear()
         setUser(null)
         navigate("/")
@@ -63,7 +66,7 @@ export function Navbar() {
                 </MenuNav>
 
                 <CurrentDate />
-                
+
                 <RightNav>
                     <form onSubmit={handleSubmit(onSearch)}>
                         <InputSpace>
@@ -80,7 +83,8 @@ export function Navbar() {
                                 <h4>{`Olá, ${user.name}`}</h4>
                             </Link>
 
-                            <button onClick={signout}>sair</button>
+                            <button onClick={signoutHandler}>sair</button>
+                            <button onClick={profile}>editar</button>
                         </UserLoggedSpace>
 
                     ) :
