@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from "react-router-dom"
 import lupa from "../../images/icons/icon-lupa.png"
 import menu from "../../images/icons/icon-menu.png"
-import { ErrorSpan, InputSpace, MenuNav, Nav, RightNav, UserLoggedSpace } from "./NavbarStyled"
+import { ErrorSpan, InputSpace, MenuNav, Nav, RightNav } from "./NavbarStyled"
 import { useForm } from "react-hook-form"
 import { ISearchNews, IUser } from "../../vite-env"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -10,6 +10,7 @@ import { searchSchema } from "../../schemas/searchSchema"
 import { useUser } from "../../Context/userCustomHook"
 import { useEffect } from "react"
 import { logout } from "../../service/userService"
+import { UserAvatar } from "../UserAvatar/UserAvatar"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
@@ -29,10 +30,6 @@ export function Navbar() {
         return <p>{formattedDateWithCapitalizedWeekday}</p>;
     }
 
-    function profile() {
-        navigate("/profile")
-    }
-
     function onSearch(data: ISearchNews) {
         navigate(`/search/${data.title}`);
         reset();
@@ -50,9 +47,10 @@ export function Navbar() {
         const name = localStorage.getItem("name");
         const username = localStorage.getItem("username");
         const email = localStorage.getItem("email");
+        const profilePicture = localStorage.getItem("profilePicture");
 
         if (name && username && email) {
-            const userData: IUser = { name, username, email };
+            const userData: IUser = { name, username, email, profilePicture };
             setUser(userData);
         }
     }, [])
@@ -77,16 +75,13 @@ export function Navbar() {
                         </InputSpace>
                         {errors.title && <ErrorSpan>{errors.title.message}</ErrorSpan>}
                     </form>
+
                     {user ? (
-                        <UserLoggedSpace>
-                            <Link to="/profile">
-                                <h4>{`Olá, ${user.name}`}</h4>
-                            </Link>
-
+                        <>
+                            <UserAvatar user={user} />
+                            
                             <button onClick={signoutHandler}>sair</button>
-                            <button onClick={profile}>editar</button>
-                        </UserLoggedSpace>
-
+                        </>
                     ) :
                         <Link to="auth">
                             <Button type="button" text="Entrar"></Button>

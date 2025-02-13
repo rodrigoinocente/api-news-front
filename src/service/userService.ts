@@ -9,7 +9,7 @@ export function singup(data: AuthData) {
         ...data,
         username: generateUsername(data.name as string)
     }
-    const response = axios.post(`${baseUrl}/user`, body)
+    const response = axios.post(`${baseUrl}/user`, body, { withCredentials: true })
     return response
 }
 

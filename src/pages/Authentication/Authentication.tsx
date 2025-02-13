@@ -21,11 +21,12 @@ export function Authentication() {
         formState: { errors: errorsSignup }, } = useForm<AuthData>({ resolver: zodResolver(signupSchema) });
     const navigate = useNavigate()
 
-    function upDateLocalStorage(name: string, username: string, email: string) {
+    function upDateLocalStorage(name: string, username: string, email: string, profilePicture: string) {
         try {
             localStorage.setItem("name", name)
             localStorage.setItem("email", email)
             localStorage.setItem("username", username)
+            localStorage.setItem("profilePicture", profilePicture)
             navigate("/")
         } catch (error) {
             console.log(error);
@@ -35,7 +36,7 @@ export function Authentication() {
     async function inHandleSubmit(data: AuthData) {
         try {
             const response = await singin(data)
-            upDateLocalStorage(response.data.name, response.data.username, response.data.email)
+            upDateLocalStorage(response.data.name, response.data.username, response.data.email, response.data.profilePicture)
         } catch (error: unknown) {
             console.log(error);
         }
@@ -44,7 +45,7 @@ export function Authentication() {
     async function upHandleSubmit(data: AuthData) {
         try {
             const response = await singup(data)
-            upDateLocalStorage(response.data.user.name, response.data.user.username, response.data.user.email)
+            upDateLocalStorage(response.data.name, response.data.username, response.data.email, response.data.profilePicture)
         } catch (error: unknown) {
             console.log(error);
         }
