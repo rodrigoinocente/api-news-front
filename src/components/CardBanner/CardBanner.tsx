@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { CardBannerProps } from "../../vite-env";
 import { CardContainer, CardTitle, InfoPosition } from "./CardBannerStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
-import { reduceText } from "../../utils/textUtils";
+import { reduceText } from "../../utils/utils";
 
 export function CardBanner({ news, type, cardTitle, maxTitleLength, maxSubtitleLength }: CardBannerProps) {
     const navigate = useNavigate()

@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import lupa from "../../images/icons/icon-lupa.png"
 import menu from "../../images/icons/icon-menu.png"
 import { ErrorSpan, InputSpace, MenuNav, Nav, RightNav } from "./NavbarStyled"
@@ -8,14 +8,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../Button/Button"
 import { searchSchema } from "../../schemas/searchSchema"
 import { useUser } from "../../Context/userCustomHook"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { logout } from "../../service/userService"
 import { UserAvatar } from "../UserAvatar/UserAvatar"
+import { LoginModal } from "../Modals/LoginModal/LoginModal"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
     const navigate = useNavigate()
     const { user, setUser } = useUser()
+    const [showModal, setShowModal] = useState(false);
 
     function CurrentDate() {
         const currentDate = new Date();
@@ -79,13 +81,16 @@ export function Navbar() {
                     {user ? (
                         <>
                             <UserAvatar user={user} />
-                            
+
                             <button onClick={signoutHandler}>sair</button>
                         </>
                     ) :
-                        <Link to="auth">
-                            <Button type="button" text="Entrar"></Button>
-                        </Link>
+                        <>
+                        <div>
+                            <Button type="button" text="Entrar" onClick={() => setShowModal(true)} ></Button>
+                        </div>
+                            <LoginModal isOpenLogin={showModal} onCloseLogin={() => setShowModal(false)} />
+                        </>
                     }
                 </RightNav>
             </Nav>

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { CardBannerProps } from "../../vite-env";
 import { CardContainer, FakeNewsTag, InfoPosition } from "./FakeNewsCardStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
-import { reduceText } from "../../utils/textUtils";
+import { reduceText } from "../../utils/utils";
 import { useState } from "react";
 
 export function FakeNewsCard({ news, maxTitleLength, type }: CardBannerProps) {

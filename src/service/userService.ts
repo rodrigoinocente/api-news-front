@@ -3,7 +3,7 @@ import { AuthData } from "../vite-env"
 
 const baseUrl = "http://localhost:3000"
 
-export function singup(data: AuthData) {
+export function singUp(data: AuthData) {
     delete data.confirmPassword
     const body = {
         ...data,
@@ -19,7 +19,7 @@ function generateUsername(name: string) {
     return `${nameLowerCaseWithoutSpaces}-${randomNumber}`
 }
 
-export function singin(data: AuthData) {
+export function singIn(data: AuthData) {
     const response = axios.post(`${baseUrl}/auth`, data, { withCredentials: true })
     return response
 }
