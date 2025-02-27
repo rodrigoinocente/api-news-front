@@ -11,17 +11,17 @@ import { singUp } from "../../../service/userService";
 import { upDateLocalStorage } from '../../../utils/utils';
 
 interface SignUpModalProps {
-    isOpen: boolean;
-    onClose: () => void;
+    isOpenSignUp: boolean;
+    onCloseSignUp: () => void;
 }
 
-export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
+export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
     const {
         register: registerSignup,
         handleSubmit: handleSubmitSignup,
         formState: { errors: errorsSignup }, } = useForm<AuthData>({ resolver: zodResolver(signupSchema) });
 
-    if (!isOpen) return null;
+    if (!isOpenSignUp) return null;
 
     async function onSignUpSubmit(data: AuthData) {
         try {
@@ -35,11 +35,11 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
     }
 
     return ReactDOM.createPortal(
-        <Overlay onClick={onClose}>
+        <Overlay onClick={onCloseSignUp}>
             <Content onClick={(e) => e.stopPropagation()} className="modal-transition">
                 <HeadModal>
                     <h3>Criar Conta</h3>
-                    <span onClick={onClose}>X</span>
+                    <span onClick={onCloseSignUp}>X</span>
                 </HeadModal>
 
                 <SectionForm>

@@ -9,15 +9,16 @@ import { Button } from "../Button/Button"
 import { searchSchema } from "../../schemas/searchSchema"
 import { useUser } from "../../Context/userCustomHook"
 import { useEffect, useState } from "react"
-import { logout } from "../../service/userService"
 import { UserAvatar } from "../UserAvatar/UserAvatar"
 import { LoginModal } from "../Modals/LoginModal/LoginModal"
+import { UserAvatarModal } from "../Modals/UserAvatarModal/UserAvatarModal"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
     const navigate = useNavigate()
     const { user, setUser } = useUser()
-    const [showModal, setShowModal] = useState(false);
+    const [showModalLogin, setShowModalLogin] = useState(false);
+    const [showModalAvatar, setShowModalAvatar] = useState(false);
 
     function CurrentDate() {
         const currentDate = new Date();
@@ -35,13 +36,6 @@ export function Navbar() {
     function onSearch(data: ISearchNews) {
         navigate(`/search/${data.title}`);
         reset();
-    }
-
-    async function signoutHandler() {
-        await logout()
-        localStorage.clear()
-        setUser(null)
-        navigate("/")
     }
 
     useEffect(() => {
@@ -80,20 +74,19 @@ export function Navbar() {
 
                     {user ? (
                         <>
-                            <UserAvatar user={user} />
-
-                            <button onClick={signoutHandler}>sair</button>
+                            <div onClick={() => setShowModalAvatar(true)}>
+                                <UserAvatar user={user} />
+                            </div>
+                            <UserAvatarModal isOpenAvatar={showModalAvatar} onCloseAvatar={() => setShowModalAvatar(false)} />
                         </>
                     ) :
                         <>
-                        <div>
-                            <Button type="button" text="Entrar" onClick={() => setShowModal(true)} ></Button>
-                        </div>
-                            <LoginModal isOpenLogin={showModal} onCloseLogin={() => setShowModal(false)} />
+                            <Button type="button" text="Entrar" onClick={() => setShowModalLogin(true)} ></Button>
+                            <LoginModal isOpenLogin={showModalLogin} onCloseLogin={() => setShowModalLogin(false)} />
                         </>
                     }
                 </RightNav>
-            </Nav>
+            </Nav >
             <Outlet />
         </>
     )

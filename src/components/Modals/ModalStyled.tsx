@@ -6,21 +6,23 @@ export const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
 export const Content = styled.div`
+  position: absolute;
+  right: 11px;
+  top: 50px;
   display: flex;
   flex-direction: column;
   background: #fff;
-  padding: 2rem;
-  width: 30%;
+  padding: 1.5rem;
+  width: 25%;
   border-radius: 4px;
-  box-shadow: rgb(0, 0, 0) 0px 5px 15px;
-  
+  box-shadow: rgb(0, 0, 0) 0px 0px 251px 90px,inset rgb(0, 0, 0) 0px 0px 5px;
+
     section {
       align-self: center;
       color: blue;
@@ -34,14 +36,17 @@ export const HeadModal = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
+
     h3 {
       color: grey;
       font-size: 1.7rem;
     }
+
     span {
       cursor: pointer;
       position: absolute;
-      right: 0;
+      right: -17px;
+      top: -20px;
       font-size: 1.3rem;
     }
 `

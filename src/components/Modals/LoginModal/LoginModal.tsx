@@ -66,7 +66,7 @@ export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
 
         <section onClick={() => setSignUpOpen(true)}>Criar conta</section>
       </Content>
-      <SignUpModal isOpen={isSignUpOpen} onClose={handleCloseModals} />
+      <SignUpModal isOpenSignUp={isSignUpOpen} onCloseSignUp={handleCloseModals} />
     </Overlay>,
     document.getElementById("modal")!
   )
