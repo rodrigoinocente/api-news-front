@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const fadeInUp = keyframes`
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+`
 
 export const Overlay = styled.div`
   position: fixed; 
@@ -21,7 +30,8 @@ export const Content = styled.div`
   padding: 1.5rem;
   width: 25%;
   border-radius: 4px;
-  box-shadow: rgb(0, 0, 0) 0px 0px 251px 90px,inset rgb(0, 0, 0) 0px 0px 5px;
+  box-shadow: rgb(0, 0, 0) 0px 0px 183px 5px, inset rgb(0 0 0 / 64%) 0px 0px 5px;
+  animation: ${fadeInUp} 0.2s ease-out;
 
     section {
       align-self: center;
