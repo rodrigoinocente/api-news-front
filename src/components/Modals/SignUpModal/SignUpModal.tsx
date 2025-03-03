@@ -9,6 +9,8 @@ import { ErrorSpan } from '../../Navbar/NavbarStyled';
 import { Button } from '../../Button/Button';
 import { singUp } from "../../../service/userService";
 import { upDateLocalStorage } from '../../../utils/utils';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 interface SignUpModalProps {
     isOpenSignUp: boolean;
@@ -16,12 +18,19 @@ interface SignUpModalProps {
 }
 
 export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
+    const [emailError, setEmailError] = useState<string | null>(null)
+
     const {
         register: registerSignup,
         handleSubmit: handleSubmitSignup,
-        formState: { errors: errorsSignup }, } = useForm<AuthData>({ resolver: zodResolver(signupSchema) });
+        formState: { errors: errorsSignup },
+        watch } = useForm<AuthData>({ resolver: zodResolver(signupSchema) })
 
-    if (!isOpenSignUp) return null;
+    useEffect(() => {
+        setEmailError(null)
+    }, [watch("email")])
+
+    if (!isOpenSignUp) return null
 
     async function onSignUpSubmit(data: AuthData) {
         try {
@@ -30,7 +39,10 @@ export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
             window.location.reload()
 
         } catch (error: unknown) {
-            console.log(error);
+            if (axios.isAxiosError(error)) setEmailError(error.response?.data?.message || "Ocorreu um erro desconhecido")
+            else setEmailError("Ocorreu um erro desconhecido")
+
+            console.log(error)
         }
     }
 
@@ -50,6 +62,7 @@ export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
 
                         <Input type="email" placeholder="Email" name="email" register={registerSignup} />
                         {errorsSignup.email && <ErrorSpan>{errorsSignup.email.message}</ErrorSpan>}
+                        {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
 
                         <Input type="password" placeholder="Senha" name="password" register={registerSignup} />
                         {errorsSignup.password && <ErrorSpan>{errorsSignup.password.message}</ErrorSpan>}
@@ -64,5 +77,5 @@ export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
             </Content>
         </Overlay>,
         document.getElementById("modal")!
-    );
+    )
 }
