@@ -9,8 +9,9 @@ import { Input } from '../../Input/Input';
 import { ErrorSpan } from '../../Navbar/NavbarStyled';
 import { Button } from '../../Button/Button';
 import { SignUpModal } from '../SignUpModal/SignUpModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { upDateLocalStorage } from '../../../utils/utils';
+import axios from 'axios';
 
 interface ModalProps {
   isOpenLogin: boolean;
@@ -18,21 +19,30 @@ interface ModalProps {
 }
 
 export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
-  const [isSignUpOpen, setSignUpOpen] = useState(false);
+  const [isSignUpOpen, setSignUpOpen] = useState(false)
+  const [loginError, setLoginError] = useState<string | null>(null)
+
   const {
     register: registerSignin,
     handleSubmit: handleSubmitSignin,
-    formState: { errors: errorsSignin }, } = useForm<AuthData>({ resolver: zodResolver(signinSchema) });
-  if (!isOpenLogin) return null;
+    formState: { errors: errorsSignin },
+    watch } = useForm<AuthData>({ resolver: zodResolver(signinSchema) })
 
+  useEffect(() => {
+    setLoginError(null)
+  }, [watch("email"), watch("password")])
+
+  if (!isOpenLogin) return null
 
   async function inHandleSubmit(data: AuthData) {
     try {
       const response = await singIn(data)
       upDateLocalStorage(response.data)
       window.location.reload()
-
     } catch (error: unknown) {
+      if (axios.isAxiosError(error)) setLoginError(error.response?.data?.message || "Ocorreu um erro desconhecido")
+      else setLoginError("Ocorreu um erro desconhecido")
+
       console.log(error);
     }
   }
@@ -59,6 +69,7 @@ export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
 
             <Input type="password" placeholder="Senha" name="password" register={registerSignin} />
             {errorsSignin.password && <ErrorSpan>{errorsSignin.password.message}</ErrorSpan>}
+            {loginError && <ErrorSpan>{loginError}</ErrorSpan>}
 
             <Button type="submit" text="Entrar" />
           </form>
