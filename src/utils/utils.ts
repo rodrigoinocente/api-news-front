@@ -16,3 +16,14 @@ export function upDateLocalStorage(user: IUser) {
         console.log(error);
     }
 }
+
+export function constructUserFromLocalStorage(): IUser | null {
+    const name = localStorage.getItem("name")
+    const username = localStorage.getItem("username")
+    const email = localStorage.getItem("email")
+    const profilePicture = localStorage.getItem("profilePicture")
+
+    if (name && username && email) return { name, username, email, profilePicture }
+
+    return null
+}

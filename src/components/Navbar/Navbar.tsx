@@ -3,7 +3,7 @@ import lupa from "../../images/icons/icon-lupa.png"
 import menu from "../../images/icons/icon-menu.png"
 import { ErrorSpan, InputSpace, MenuNav, Nav, RightNav } from "./NavbarStyled"
 import { useForm } from "react-hook-form"
-import { ISearchNews, IUser } from "../../vite-env"
+import { ISearchNews } from "../../vite-env"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button } from "../Button/Button"
 import { searchSchema } from "../../schemas/searchSchema"
@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import { UserAvatar } from "../UserAvatar/UserAvatar"
 import { LoginModal } from "../Modals/LoginModal/LoginModal"
 import { UserAvatarModal } from "../Modals/UserAvatarModal/UserAvatarModal"
+import { constructUserFromLocalStorage } from "../../utils/utils"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
@@ -39,16 +40,7 @@ export function Navbar() {
     }
 
     useEffect(() => {
-        CurrentDate()
-        const name = localStorage.getItem("name");
-        const username = localStorage.getItem("username");
-        const email = localStorage.getItem("email");
-        const profilePicture = localStorage.getItem("profilePicture");
-
-        if (name && username && email) {
-            const userData: IUser = { name, username, email, profilePicture };
-            setUser(userData);
-        }
+        setUser(constructUserFromLocalStorage())
     }, [])
 
     return (
@@ -77,12 +69,18 @@ export function Navbar() {
                             <div onClick={() => setShowModalAvatar(true)}>
                                 <UserAvatar user={user} />
                             </div>
-                            <UserAvatarModal isOpenAvatar={showModalAvatar} onCloseAvatar={() => setShowModalAvatar(false)} />
+
+                            {showModalAvatar &&
+                                <UserAvatarModal isOpenAvatar={showModalAvatar} onCloseAvatar={() => setShowModalAvatar(false)} />
+                            }
                         </>
                     ) :
                         <>
                             <Button type="button" text="Entrar" onClick={() => setShowModalLogin(true)} ></Button>
-                            <LoginModal isOpenLogin={showModalLogin} onCloseLogin={() => setShowModalLogin(false)} />
+
+                            {showModalLogin &&
+                                <LoginModal isOpenLogin={showModalLogin} onCloseLogin={() => setShowModalLogin(false)} />
+                            }
                         </>
                     }
                 </RightNav>

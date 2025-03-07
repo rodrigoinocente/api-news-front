@@ -40,7 +40,7 @@ export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
       upDateLocalStorage(response.data)
       window.location.reload()
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) setLoginError(error.response?.data?.message || "Ocorreu um erro desconhecido")
+      if (axios.isAxiosError(error)) setLoginError(error.message || "Ocorreu um erro desconhecido")
       else setLoginError("Ocorreu um erro desconhecido")
 
       console.log(error);
@@ -77,7 +77,11 @@ export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
 
         <section onClick={() => setSignUpOpen(true)}>Criar conta</section>
       </Content>
-      <SignUpModal isOpenSignUp={isSignUpOpen} onCloseSignUp={handleCloseModals} />
+
+      {isSignUpOpen &&
+        <SignUpModal isOpenSignUp={isSignUpOpen} onCloseSignUp={handleCloseModals} />
+      }
+
     </Overlay>,
     document.getElementById("modal")!
   )

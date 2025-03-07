@@ -39,7 +39,7 @@ export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
             window.location.reload()
 
         } catch (error: unknown) {
-            if (axios.isAxiosError(error)) setEmailError(error.response?.data?.message || "Ocorreu um erro desconhecido")
+            if (axios.isAxiosError(error)) setEmailError(error.message || "Ocorreu um erro desconhecido")
             else setEmailError("Ocorreu um erro desconhecido")
 
             console.log(error)
