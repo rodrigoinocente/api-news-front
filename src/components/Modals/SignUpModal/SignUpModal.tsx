@@ -8,9 +8,10 @@ import { Input } from '../../Input/Input';
 import { ErrorSpan } from '../../Navbar/NavbarStyled';
 import { Button } from '../../Button/Button';
 import { singUp } from "../../../service/userService";
-import { upDateLocalStorage } from '../../../utils/utils';
+import { constructUserFromLocalStorage, upDateLocalStorage } from '../../../utils/utils';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useUser } from '../../../Context/userCustomHook';
 
 interface SignUpModalProps {
     isOpenSignUp: boolean;
@@ -19,6 +20,7 @@ interface SignUpModalProps {
 
 export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
     const [emailError, setEmailError] = useState<string | null>(null)
+    const { setUser } = useUser()
 
     const {
         register: registerSignup,
@@ -36,10 +38,10 @@ export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
         try {
             const response = await singUp(data)
             upDateLocalStorage(response.data)
-            window.location.reload()
+            setUser(constructUserFromLocalStorage())
 
         } catch (error: unknown) {
-            if (axios.isAxiosError(error)) setEmailError(error.message || "Ocorreu um erro desconhecido")
+            if (axios.isAxiosError(error)) setEmailError(error.response?.data.message || "Ocorreu um erro desconhecido")
             else setEmailError("Ocorreu um erro desconhecido")
 
             console.log(error)

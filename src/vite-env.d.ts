@@ -31,10 +31,11 @@ export interface ISearchNews {
 }
 
 export interface AuthData {
-  name?: string;
+  name: string;
   email: string;
   password: string;
   confirmPassword?: string;
+  profilePicture: string | null;
 }
 
 export interface UserContextProps {

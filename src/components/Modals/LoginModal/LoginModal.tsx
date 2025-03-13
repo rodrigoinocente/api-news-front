@@ -10,8 +10,9 @@ import { ErrorSpan } from '../../Navbar/NavbarStyled';
 import { Button } from '../../Button/Button';
 import { SignUpModal } from '../SignUpModal/SignUpModal';
 import { useEffect, useState } from 'react';
-import { upDateLocalStorage } from '../../../utils/utils';
+import { constructUserFromLocalStorage, upDateLocalStorage } from '../../../utils/utils';
 import axios from 'axios';
+import { useUser } from '../../../Context/userCustomHook';
 
 interface ModalProps {
   isOpenLogin: boolean;
@@ -21,6 +22,8 @@ interface ModalProps {
 export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
   const [isSignUpOpen, setSignUpOpen] = useState(false)
   const [loginError, setLoginError] = useState<string | null>(null)
+  const { setUser } = useUser()
+
 
   const {
     register: registerSignin,
@@ -38,9 +41,10 @@ export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
     try {
       const response = await singIn(data)
       upDateLocalStorage(response.data)
-      window.location.reload()
+      setUser(constructUserFromLocalStorage())
+
     } catch (error: unknown) {
-      if (axios.isAxiosError(error)) setLoginError(error.message || "Ocorreu um erro desconhecido")
+      if (axios.isAxiosError(error)) setLoginError(error.response?.data.message || "Ocorreu um erro desconhecido")
       else setLoginError("Ocorreu um erro desconhecido")
 
       console.log(error);
