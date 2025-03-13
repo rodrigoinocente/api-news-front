@@ -33,3 +33,8 @@ export function logout() {
     const response = axios.delete(`${baseUrl}/auth/logout`, { withCredentials: true })
     return response
 }
+
+export function updateUser(userId: string, data: Partial<AuthData>) {
+    const response = axios.patch(`${baseUrl}/user/${userId}`, data, { withCredentials: true })
+    return response
+}
