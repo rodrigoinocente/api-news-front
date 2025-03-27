@@ -74,8 +74,6 @@ export const HeadModal = styled.div`
     }
     
     img {
-      width: 6rem;
-      border-radius: 50%;
       cursor: unset;
     }
 `

@@ -66,8 +66,8 @@ export function Navbar() {
 
                     {user ? (
                         <>
-                            <div onClick={() => setShowModalAvatar(true)}>
-                                <UserAvatar user={user} />
+                            <div onClick={() => setShowModalAvatar(true)} >
+                                <UserAvatar user={user} size="2rem" />
                             </div>
 
                             {showModalAvatar &&

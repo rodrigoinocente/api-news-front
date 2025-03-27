@@ -33,7 +33,7 @@ export function UserAvatarModal({ isOpenAvatar, onCloseAvatar }: UserAvatarModal
                     {user ? (
                         <>
                             <p>{user.name}</p>
-                            <UserAvatar user={user} />
+                            <UserAvatar user={user} size="7rem"/>
                         </>
                     ) : (
                         <h1>Sem Usuário</h1>
