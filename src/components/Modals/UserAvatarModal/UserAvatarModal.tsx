@@ -41,7 +41,7 @@ export function UserAvatarModal({ isOpenAvatar, onCloseAvatar }: UserAvatarModal
 
                 </HeadModal>
                 <nav>
-                    <p onClick={() => navigate("profile")}>Conta</p>
+                    <p onClick={() => navigate("/profile")}>Conta</p>
                     <p onClick={signoutHandler}>Sair</p>
                 </nav>
             </Content>
