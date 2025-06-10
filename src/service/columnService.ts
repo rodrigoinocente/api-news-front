@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseUrl = "http://localhost:4000"
+const baseUrl = "http://localhost:8080/api-back"
 
 export function getColumnByJournalist(journalistId: string, limit: number, offset: number) {
     const response = axios.get(`${baseUrl}/columnPublic/columnByJournalist/${journalistId}`, { params: { limit, offset } })
