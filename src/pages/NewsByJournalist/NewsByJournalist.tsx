@@ -118,11 +118,8 @@ export function NewsByJournalist() {
                     <mark>ÚLTIMA NOTÍCIA</mark>
                     {news.length && (
                         <CardBanner
-                            title={news[0].title}
+                           news={news[0]}
                             key={news[0]._id}
-                            subtitle={news[0].subtitle}
-                            banner={news[0].banner}
-                            _id={news[0]._id}
                         />
                     )}
                 </LastNewsCard>
