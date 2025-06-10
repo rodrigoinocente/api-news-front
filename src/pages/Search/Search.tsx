@@ -38,7 +38,8 @@ export function Search() {
                             banner={newsItem.banner}
                             category={newsItem.category}
                             _id={newsItem._id}
-                        />
+                            publishedAt={newsItem.publishedAt}
+                            type={"news"} />
                     })}
                 </SearchNews>
             </ContainerResults>
