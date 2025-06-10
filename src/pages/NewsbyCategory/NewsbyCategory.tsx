@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { CategoryType, IColumn, INews } from "../../vite-env";
 import { Card } from "../../components/Card/Card";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
-import { BodyHead, CardsHead, Column, LoadCard, NewsAndColumn } from "./NewsbyCategoryStyled";
+import { BodyHead, CardsHead, LoadCard, NewsAndColumn } from "./NewsbyCategoryStyled";
 import { Spinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTopButton";
 import { CardBanner } from "../../components/CardBanner/CardBanner";
