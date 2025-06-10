@@ -7,14 +7,14 @@ interface IInputSpaceAuth {
     placeholder: string;
     register: UseFormRegister<AuthData>;
     name: keyof AuthData;
-    id: string;
+    id?: string;
     autoComplete?: string;
 }
 
-export function Input({ type, placeholder, register, name, id, autoComplete }: IInputSpaceAuth) {
+export function Input({ type, placeholder, register, name, autoComplete }: IInputSpaceAuth) {
     return (
         <>
-            <InputSpaceAuth type={type} placeholder={placeholder} {...register(name)} id={id} autoComplete={autoComplete} />
+            <InputSpaceAuth type={type} placeholder={placeholder} {...register(name)} autoComplete={autoComplete} />
         </>
     )
 }
