@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseUrl = "http://localhost:8080/api-back"
+const baseUrl = "https://api-news-interact.onrender.com/api-back"
 
 export function getDataHome() {
     const response = axios.get(`${baseUrl}/newsPublic/home`)
