@@ -1,7 +1,7 @@
 import axios from "axios"
 import { AuthData } from "../vite-env"
 
-const baseUrl = "https://api-news-interact.onrender.com/api-interact"
+const baseUrl = "https://nginx-75mn.onrender.com/api-interact"
 
 export function singUp(data: AuthData) {
     delete data.confirmPassword
