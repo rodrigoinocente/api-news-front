@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseUrl = "https://nginx-75mn.onrender.com/api-back"
+const baseUrl = import.meta.env.VITE_API_BACK_URL
 
 export function getDataHome() {
     const response = axios.get(`${baseUrl}/newsPublic/home`)
