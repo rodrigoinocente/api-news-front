@@ -5,7 +5,7 @@ export const Nav = styled.nav`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: .2rem 2rem;
+    padding: .2rem .2rem;
     position: fixed;
     top: 0;
     background-color: #fff;
@@ -26,6 +26,10 @@ export const MenuNav = styled.div`
 
         img {
             width: 1.5rem;
+        }
+
+        span {
+            display: none;
         }
 `
 

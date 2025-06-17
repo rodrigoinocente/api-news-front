@@ -1,16 +1,16 @@
 import { styled } from "styled-components";
 
 export const CardBody = styled.article`
-    display: flex; 
+    /* display: flex; ' */
     width: 100%;
-    height: 220px;
+    /* height: 220px; */
     border: solid 1px #CECECE;
     /* box-shadow: #0d0d0e5c 0px 7px 29px 0px; */
     border-radius: .5rem;
     cursor: pointer;
     
     img{
-        width: 250px;
+        width: 100%;
         border-radius: 0 .3rem .3rem 0;
         object-fit: cover;
     }

@@ -5,32 +5,32 @@ export const HomeBody = styled.section`
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    max-width: 80%;
+    /* max-width: 80%; */
     gap: 1rem;
 `
 
 export const HeaderSection = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    align-items: start;     
-    gap: 3rem;
+    /* display: grid; */
+    /* grid-template-columns: 2fr 1fr; */
+    /* align-items: start;      */
+    /* gap: 3rem; */
     margin: 0 auto;
     border-bottom: 1px solid #CECECE;
     padding-bottom: 1.5rem;
 `
 
 export const LittleBanner = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 0 2rem;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    /* grid-gap: 0 2rem; */
     border-bottom: 1px solid #CECECE;
     margin: .5rem 0;
     padding-bottom: 1rem;
 `
 
 export const ThirdPart = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 2fr; */
     gap: 2rem;
     border-bottom: 1px solid #CECECE;
     margin-bottom: 1rem;
@@ -52,12 +52,12 @@ export const BannerList = styled.div`
 
 export const FakeNewsSection = styled.div`
     padding-bottom: 2rem;
-    width: 90%;
+    /* width: 90%; */
     align-self: center;
 
 
     #topFake {
-        display: flex;
+        /* display: flex; */
         justify-content: space-between;
         align-items: center;
         background-color: #E2E2E2;
@@ -77,25 +77,25 @@ export const FakeNewsSection = styled.div`
     }
     
     #gridFake {
-        display: flex;
+        /* display: flex; */
         height: 30rem;
         gap: 3rem;
     }
 
     #vertical {
-        display: flex;
-        flex-direction: column;
+        /* display: flex; */
+        /* flex-direction: column; */
         align-items: center;
         gap: 1rem;
         justify-content: space-around;
-        width: 25rem;
+        /* width: 25rem; */
         padding-left: 1rem;
         border-left: solid 1px #CECECE;
     }
 `
 
 export const FifthPart = styled.div`
-    display: flex;
+    /* display: flex; */
     justify-content: space-evenly;
     border-top: dashed 2px #CECECE;
     padding-top: 2rem;

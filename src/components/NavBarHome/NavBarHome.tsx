@@ -24,9 +24,9 @@ export function NavbarHome() {
             <NavHome>
                 <LogoBanner>
                     <div style={{ backgroundImage: bgImage ? `url(${bgImage})` : undefined }}>
-                        <Link to="" onClick={logoClick}>
-                            <img src={logo} alt="Logo" />
-                        </Link>
+                        {/* <Link to="" onClick={logoClick}> */}
+                            <img src={logo} alt="Logo" onClick={logoClick} />
+                        {/* </Link> */}
                     </div>
                 </LogoBanner>
 
