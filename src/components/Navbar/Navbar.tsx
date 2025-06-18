@@ -15,11 +15,14 @@ import { UserAvatarModal } from "../Modals/UserAvatarModal/UserAvatarModal"
 import { constructUserFromLocalStorage } from "../../utils/utils"
 
 export function Navbar() {
-    const { register, handleSubmit, reset, formState: { errors }, } = useForm<ISearchNews>({ resolver: zodResolver(searchSchema) });
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<ISearchNews>({
+        resolver: zodResolver(searchSchema)
+    });
     const navigate = useNavigate()
     const { user, setUser } = useUser()
-    const [showModalLogin, setShowModalLogin] = useState(false);
-    const [showModalAvatar, setShowModalAvatar] = useState(false);
+    const [showModalLogin, setShowModalLogin] = useState(false)
+    const [showModalAvatar, setShowModalAvatar] = useState(false)
+    const [isSearch, setIsSearch] = useState(false)
 
     function CurrentDate() {
         const currentDate = new Date();
@@ -54,27 +57,33 @@ export function Navbar() {
                 <CurrentDate />
 
                 <RightNav>
-                    <form onSubmit={handleSubmit(onSearch)}>
-                        <InputSpace>
-                            <input {...register("title")} type="text" placeholder="Buscar" />
-                            <button type="submit">
-                                <img className="icon-lupa" src={lupa} alt="Logo Lupa" />
-                            </button>
-                        </InputSpace>
-                        {errors.title && <ErrorSpan>{errors.title.message}</ErrorSpan>}
-                    </form>
+                    <InputSpace>
+                        {isSearch ? (
+                            <form onSubmit={handleSubmit(onSearch)}>
+                                <input {...register("title")} type="text" placeholder="Buscar" autoFocus />
+                                <button type="submit"
+                                    onMouseDown={(e) => e.preventDefault()}
+                                >
+                                    <img className="lupa-submit" src={lupa} alt="Logo Lupa" />
+                                </button>
+                            </form>
+                        ) : (
+                            <img src={lupa} alt="Logo Lupa" onClick={() => setIsSearch(true)}
+                            />
+                        )}
+                    </InputSpace>
 
                     {user ? (
                         <>
                             <div onClick={() => setShowModalAvatar(true)} >
-                                <UserAvatar user={user} size="2rem" />
+                                <UserAvatar user={user} size="1.8rem" />
                             </div>
 
                             {showModalAvatar &&
                                 <UserAvatarModal isOpenAvatar={showModalAvatar} onCloseAvatar={() => setShowModalAvatar(false)} />
                             }
                         </>
-                    ) :
+                    ) : (
                         <>
                             <Button type="button" text="Entrar" onClick={() => setShowModalLogin(true)} ></Button>
 
@@ -82,9 +91,11 @@ export function Navbar() {
                                 <LoginModal isOpenLogin={showModalLogin} onCloseLogin={() => setShowModalLogin(false)} />
                             }
                         </>
-                    }
+                    )}
                 </RightNav>
-            </Nav >
+            </Nav>
+            {errors.title && <ErrorSpan>{errors.title.message}</ErrorSpan>}
+
             <Outlet />
         </>
     )

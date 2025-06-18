@@ -6,9 +6,8 @@ export const ButtonSpace = styled.button`
     font-weight: 600;
     border: none;
     font-size: 1rem;
-    padding: .4rem 2rem;
+    padding: .4rem .4rem;
     cursor: pointer;
-    /* border-radius: 1rem; */
     letter-spacing: .1rem;
     transition: all .6s ease-in-out;
     

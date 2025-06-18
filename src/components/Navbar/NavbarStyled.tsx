@@ -13,9 +13,10 @@ export const Nav = styled.nav`
     border-bottom: 1px dashed #c5c2c2;
 
     p {
-        transform: translateX(42%);
         font-size: .8rem;
         color: #575555;
+        position: relative; 
+        white-space: nowrap;
     }
 `
 
@@ -37,7 +38,7 @@ export const RightNav = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
 `
 
 export const InputSpace = styled.div`
@@ -46,17 +47,15 @@ export const InputSpace = styled.div`
 
     button {
         border: none;
-        cursor: pointer;
     }
 
-    img {
+    .lupa-submit{
     width: 1.6rem;
-    margin: -13px 5px 0 0 ;
+    margin: -16px 5px 0 0;
     position: absolute;
     right: 0;
-    color: #757575;
-    border: none;
     transition: transform 0.7s ease;
+    z-index: 11;
         &:hover{
             transform: rotate(360deg);
         }
@@ -73,15 +72,18 @@ export const InputSpace = styled.div`
 
         &:focus {
             border: 3px solid #16151536;
-            width: 15rem;
-        }    
+            width: 65vw;
+            position: absolute;
+            top: -5px;
+            right: 0;
+            z-index: 5;
+        }
     }
 `
 
 export const ErrorSpan = styled.span`
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     color: #b30505;
     font-size: .8rem;
-    margin-bottom: 0;
 `
