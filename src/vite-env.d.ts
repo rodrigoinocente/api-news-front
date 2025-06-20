@@ -124,15 +124,8 @@ export interface CardBannerProps {
   maxSubtitleLength?: number;
   maxTitleLength?: number;
   cardTitle?: string;
-  type?: "bigTitle" | "grey" | "noSubtitle";
-  news:
-  {
-    _id: string;
-    banner: string;
-    title: string;
-    subtitle?: string;
-    publishedAt: Date;
-  }
+  type?: "grey" | "noSubtitle";
+  news: INews
 }
 
 export interface IUser {

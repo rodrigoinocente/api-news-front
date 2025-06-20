@@ -46,13 +46,14 @@ export function Home() {
                 <HomeBody>
 
                     <HeaderSection>
-                        {data.bigHome && (
-                            <CardBanner
-                                news={data.bigHome[0]}
-                                key={data.bigHome[0]._id}
-                                type="bigTitle"
-                            />
-                        )}
+                        <div id="bigHome">
+                            {data.bigHome && (
+                                <CardBanner
+                                    news={data.bigHome[0]}
+                                    key={data.bigHome[0]._id}
+                                />
+                            )}
+                        </div>
 
                         {data.column && (
                             <ColumnList
@@ -67,7 +68,6 @@ export function Home() {
                             <CardBanner
                                 news={listItem}
                                 key={listItem._id}
-                                maxTitleLength={69}
                                 type="noSubtitle"
                             />
                         ))}
@@ -112,7 +112,6 @@ export function Home() {
                                 <div id="gridFake">
                                     <FakeNewsCard
                                         news={data.fakeNewsSection[0]}
-                                        type="bigTitle"
                                     />
 
                                     <div id="vertical">

@@ -40,12 +40,11 @@ export const InfoPosition = styled.div<{ type?: string }>`
     display: flex;
     flex-direction: column;
     gap: ${(props) => (props.type === "noSubtitle" ? "none" : ".6rem")};
-    margin: ${(props) => (props.type === "bigTitle" ? "-35px 0 0 25px" : "-25px 0 0 10px")};
+    margin: -30px 0 0 15px;
     width: 90%;
     
     h2 {
         letter-spacing: .04rem;
-        font-size: ${(props) => (props.type === "bigTitle" ? "2rem" : "1.2rem")};
         background-color: #fff;
         padding: .5rem 1rem;
         transition: transform 1s ease;

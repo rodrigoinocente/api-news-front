@@ -122,8 +122,6 @@ export function NewsbyCategory() {
                             <CardBanner
                                 news={newsItem}
                                 key={newsItem._id}
-                                maxTitleLength={69}
-                                maxSubtitleLength={100}
                             />
                         ))
                     )}

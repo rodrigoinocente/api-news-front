@@ -17,6 +17,10 @@ export const HeaderSection = styled.div`
     margin: 0 auto;
     border-bottom: 1px solid #CECECE;
     padding-bottom: 1.5rem;
+
+    #bigHome h2{
+        font-size: 1.8rem;
+    }
 `
 
 export const LittleBanner = styled.div`
