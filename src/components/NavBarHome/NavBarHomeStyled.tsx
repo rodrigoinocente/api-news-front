@@ -1,59 +1,74 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 export const NavHome = styled.nav`
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    /* align-items: center; */
-    /* align-items: center; */
-    /* margin: .5rem 0 1rem 0; */
 `
 
 export const LogoBanner = styled.div`
-    /* width: 100%; */
     cursor: pointer;
 
     div {
-        /* height: 8rem; */
-        /* width: 100%; */
         display: flex;
         justify-content: center;
         padding: .3rem;
-        /* justify-items: center; */
-        /* height: 100vh; */
-        
-        /* align-items: center; */
         background-size: cover;
     }
 
     img {
         width: 70%;
-        
-        /* margin-top: .3rem; */
         padding: .7rem 1rem;
         background-color: #fff;
         border-radius: 0 10px 0 10px;
     }
 `
 
-export const ButtonCategory = styled.div`
+const slideIn = keyframes`
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(+5%);
+  }
+
+  `
+export const Placart = styled.div`
+    overflow: scroll;
+    background-color: #e4e4e489;
+    margin-bottom: 0.5rem;
+    scrollbar-width:none;
+`
+export const ButtonCategory = styled.div<{ $animate?: boolean }>`
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: .6rem;
-    border-top: 1px solid #dbd8d8;
-    border-bottom: 1px solid #dbd8d8;
-    /* width: 90%; */
+    white-space: nowrap;
+    scrollbar-width:none;
+
+    ${({ $animate }) =>
+        $animate &&
+        css`
+            animation: ${slideIn} 20s linear infinite;
+            &:hover {
+                animation-play-state: paused;
+                    }
+            `
+        }
 
     button {
         cursor: pointer;
         border: none;
         background: none;
-        padding: .5rem;
+        padding: 0.5rem 1rem;
         transition: all 0.5s ease;
-        letter-spacing: .03rem;
-        
-        font-size: 1.2rem;
+        letter-spacing: .06rem;
+        font-size: 1.3rem;
+        text-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+
         &:hover {
             background: #000;
             color: #fff;
