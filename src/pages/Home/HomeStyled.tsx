@@ -21,12 +21,27 @@ export const HeaderSection = styled.div`
 `
 
 export const LittleBanner = styled.div`
-    /* display: grid; */
-    /* grid-template-columns: 1fr 1fr 1fr; */
-    /* grid-gap: 0 2rem; */
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width:none;
     border-bottom: 1px solid #CECECE;
-    margin: .5rem 0;
-    padding-bottom: 1rem;
+    padding: 1rem 1rem 2.5rem 1rem;
+
+    .little-banner {
+        flex-shrink: 0;
+        width: 20rem;
+        
+        h2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            padding: .5rem .5rem .1rem .5rem;
+            margin-bottom: .5rem;
+        }
+    }
 `
 
 export const ThirdPart = styled.div`

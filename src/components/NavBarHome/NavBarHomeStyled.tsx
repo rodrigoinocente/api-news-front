@@ -52,7 +52,7 @@ export const ButtonCategory = styled.div<{ $animate?: boolean }>`
     ${({ $animate }) =>
         $animate &&
         css`
-            animation: ${slideIn} 20s linear infinite;
+            animation: ${slideIn} 40s linear infinite;
             &:hover {
                 animation-play-state: paused;
                     }

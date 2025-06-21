@@ -63,13 +63,14 @@ export function Home() {
                         )}
                     </HeaderSection>
 
-                    <LittleBanner>
+                    <LittleBanner className="little-banner">
                         {data.littleBanner.map((listItem) => (
-                            <CardBanner
-                                news={listItem}
-                                key={listItem._id}
-                                type="noSubtitle"
-                            />
+                            <div className="little-banner" key={listItem._id}>
+                                <CardBanner
+                                    news={listItem}
+                                    type="noSubtitle"
+                                />
+                            </div>
                         ))}
                     </ LittleBanner>
 
