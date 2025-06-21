@@ -4,19 +4,16 @@ export const HomeBody = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 auto;
-    /* max-width: 80%; */
-    gap: 1rem;
 `
 
 export const HeaderSection = styled.div`
-    /* display: grid; */
-    /* grid-template-columns: 2fr 1fr; */
-    /* align-items: start;      */
-    /* gap: 3rem; */
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
     border-bottom: 1px solid #CECECE;
-    padding-bottom: 1.5rem;
+    padding-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
     #bigHome h2{
         font-size: 1.8rem;

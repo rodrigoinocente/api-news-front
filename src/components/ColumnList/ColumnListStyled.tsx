@@ -3,13 +3,14 @@ import styled from "styled-components";
 export const ColumnListContainer = styled.section`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
+    align-items: center;
+    width: 90%;
 
     mark {
         background-color: yellow;
         width: fit-content;
         padding: .5rem;
-        margin: 0 0 .5rem 1rem;
+        align-self: flex-start;
+        margin-left: -15px;
     }
 `

@@ -6,8 +6,7 @@ export const CardContainer = styled.div`
     gap: .5rem;
     max-width: 40rem;
     border-bottom: 1px solid #ddd;
-    padding: 5px 0;
-    margin-bottom: .7rem;
+    padding: 1rem 0;
     cursor: pointer;
     transition: all 0.3s ease;
     
