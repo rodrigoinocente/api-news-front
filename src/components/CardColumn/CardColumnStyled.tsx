@@ -14,13 +14,6 @@ export const CardContainer = styled.div`
         border-bottom: none;
     }
     
-    &:hover {
-        background-color: #E4E4E4;
-        border-radius: .5rem;
-        margin-left: .1rem;
-        padding-left: .5rem;
-    }
-    
     h2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;

@@ -64,9 +64,9 @@ export const InputSpace = styled.div`
     input {
     outline: none;
     font-size: 1rem;
-    padding: .6rem;
+    padding: .6rem 2rem .6rem .6rem;
     border: 1px solid #16151536;
-    width: 7rem;
+    width: 5rem;
     height: 2rem;
     transition: all .5s ease-in-out;
 

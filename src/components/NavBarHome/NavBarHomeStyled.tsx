@@ -67,12 +67,7 @@ export const ButtonCategory = styled.div<{ $animate?: boolean }>`
         transition: all 0.5s ease;
         letter-spacing: .06rem;
         font-size: 1.3rem;
-        text-shadow: 2px 2px 2px rgba(0,0,0,0.4);
-
-        &:hover {
-            background: #000;
-            color: #fff;
-        }
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
 
         &.active {
             background: #000;
