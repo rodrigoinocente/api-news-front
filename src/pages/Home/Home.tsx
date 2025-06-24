@@ -80,7 +80,6 @@ export function Home() {
                                 news={data.thirdPartLittle}
                                 title="MUNDO"
                             />
-
                         </div>
 
                         <BannerList>

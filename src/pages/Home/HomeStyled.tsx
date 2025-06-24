@@ -26,8 +26,7 @@ export const LittleBanner = styled.div`
     gap: 1rem;
     overflow-x: auto;
     scrollbar-width:none;
-    border-bottom: 1px solid #CECECE;
-    padding: 1rem 1rem 2.5rem 1rem;
+    padding: 0 1rem 1.5rem 1rem;
 
     .little-banner {
         flex-shrink: 0;
@@ -45,16 +44,13 @@ export const LittleBanner = styled.div`
 `
 
 export const ThirdPart = styled.div`
-    /* display: grid; */
-    /* grid-template-columns: 1fr 2fr; */
-    gap: 2rem;
-    border-bottom: 1px solid #CECECE;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    align-self: center;
+    gap: 1rem;
+    width: 90%;
+    margin-top: 2rem;
 
     .newsList {
-        border-right: solid 1px #CECECE;
-        padding-right: 1rem;
+        margin-bottom: 3rem;
     }
 `
 

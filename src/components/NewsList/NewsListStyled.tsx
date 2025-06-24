@@ -6,13 +6,25 @@ export const NewsListContainer = styled.section`
     justify-content: flex-start;
     gap: 1rem;
     width: 100%;
-    padding-bottom: 1rem;
 
+    #title {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-end;
+        justify-items: end;
+    }
+
+    #title span {
+        border-bottom: 1px solid #CECECE;
+        width: 100%;
+    }
+    
     mark {
         background-color: #E2E2E2;
         width: fit-content;
         padding: .5rem;
-        margin-left: 1rem;
+        align-self: flex-start;
+        margin-left: -15px;
     }
 `
 
