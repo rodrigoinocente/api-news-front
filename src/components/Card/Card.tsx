@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ICard } from "../../vite-env";
-import { CardBody, CardInfo, FooterCard } from "./CardStyled";
+import { CardBody, CardInfo } from "./CardStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
 
 export function Card({ title, subtitle, banner, _id, publishedAt, edited, journalistProfile, journalistName, type }: ICard) {
@@ -10,8 +10,8 @@ export function Card({ title, subtitle, banner, _id, publishedAt, edited, journa
         if (type === "column") {
             navigate(`/column/${_id}`)
             return
-        } 
-            navigate(`/news/${_id}`)
+        }
+        navigate(`/news/${_id}`)
     }
 
     return (
@@ -22,26 +22,31 @@ export function Card({ title, subtitle, banner, _id, publishedAt, edited, journa
 
             <CardInfo>
                 <h2>{title}</h2>
-                <p>{subtitle}</p>
+                <div id="underTitle">
+                    <section id="subtitleAndTimes">
 
-                <FooterCard>
-                    <NewsTimestamps
-                        publishedAt={publishedAt}
-                        edited={edited}
-                        type="card"
-                    />
+                        <p lang="pt-BR">{subtitle}</p>
+                        <NewsTimestamps
+                            publishedAt={publishedAt}
+                            edited={edited}
+                            type="card"
+                        />
 
-                    {type === "column" && (
-                        <div className="journalist">
+                        {type === "column" && (
+                            <div className="journalist">
 
-                            <p>Por:  <span>{journalistName}</span></p>
-                            <img src={journalistProfile} alt="Foto do jornalista" />
-                        </div>
-                    )}
+                                <p>Por:  <span>{journalistName}</span></p>
+                                <img src={journalistProfile} alt="Foto do jornalista" />
+                            </div>
+                        )}
 
-                </FooterCard>
+
+                    </section>
+
+
+                    <img src={banner} alt="Imagem da Notícia" />
+                </div>
             </CardInfo>
-            <img src={banner} alt="Imagem da Notícia" />
         </CardBody>
 
     )

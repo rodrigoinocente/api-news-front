@@ -1,20 +1,11 @@
 import { styled } from "styled-components";
 
 export const CardBody = styled.article`
-    /* display: flex; ' */
-    width: 100%;
-    /* height: 220px; */
-    border: solid 1px #CECECE;
-    /* box-shadow: #0d0d0e5c 0px 7px 29px 0px; */
+    box-shadow: rgba(99, 99, 99, 0.7) 0px 2px 8px 0px;
     border-radius: .5rem;
     cursor: pointer;
+    padding: .5rem;
     
-    img{
-        width: 100%;
-        border-radius: 0 .3rem .3rem 0;
-        object-fit: cover;
-    }
-
     .column {
         align-self: center;
         writing-mode: vertical-rl;
@@ -31,40 +22,34 @@ export const CardBody = styled.article`
 
 export const CardInfo = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1rem 1rem .5rem 1rem;
-    width: 100%;
+    flex-flow: column nowrap;
+    gap: 1rem;
+
+    #underTitle {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+
+        img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5%;
+        }
+
+        #subtitleAndTimes {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            gap: 1rem;
+
+            p {
+            hyphens: auto;
+            }
+        }
+    }
     
     h2 {
         font-size: 1.5rem;
-    }
-`
-
-export const CardHeader = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-`
-
-export const FooterCard = styled.footer`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    
-    img {
-        width: 30px;
-        border-radius: 50%;
-    }
-
-    .journalist {
-        display: flex;
-        align-items: center; 
-        gap: 1rem;
-    }
-
-    p span {
-        font-weight: bold;
     }
 `

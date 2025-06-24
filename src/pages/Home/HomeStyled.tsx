@@ -56,10 +56,10 @@ export const ThirdPart = styled.div`
 
 export const BannerList = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    flex-flow: column nowrap;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    width: 100%;
 `
 
 export const FakeNewsSection = styled.div`
