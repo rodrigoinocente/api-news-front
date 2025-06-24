@@ -10,11 +10,13 @@ import { NewsList } from "../../components/NewsList/NewsList";
 import { Card } from "../../components/Card/Card";
 import { VerticalCard } from "../../components/VerticalCard/VerticalCard";
 import { FakeNewsCard } from "../../components/ImageCard/FakeNewsCard";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
     const [data, setData] = useState<IDataHome>(
         { bigHome: [], littleBanner: [], thirdPartLittle: [], thirdPartWithBanner: [], fakeNewsSection: [], fifthPart: [], column: [] })
     const [loading, setLoading] = useState(true)
+    const navigate = useNavigate()
 
     async function findDataHome() {
         try {
@@ -106,25 +108,15 @@ export function Home() {
                             <>
                                 <div id="topFake">
                                     <h4>RADAR FAKE NEWS</h4>
-                                    <p>Ver mais</p>
+                                    <p onClick={()=> navigate("/category/FakeNews")}>Ver mais</p>
                                 </div>
 
-                                <div id="gridFake">
+                                {data.fakeNewsSection.map((newsItem) => (
                                     <FakeNewsCard
-                                        news={data.fakeNewsSection[0]}
+                                        key={newsItem._id}
+                                        news={newsItem}
                                     />
-
-                                    <div id="vertical">
-                                        {data.fakeNewsSection.slice(1).map((newsItem, index) => {
-                                            return (
-                                                <FakeNewsCard
-                                                    key={index}
-                                                    news={newsItem}
-                                                />
-                                            );
-                                        })}
-                                    </div>
-                                </div>
+                                ))}
                             </>
                         )}
                     </FakeNewsSection>

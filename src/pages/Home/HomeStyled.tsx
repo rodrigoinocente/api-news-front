@@ -55,27 +55,31 @@ export const ThirdPart = styled.div`
 `
 
 export const BannerList = styled.div`
+    justify-self: center;
     display: flex;
     flex-flow: column nowrap;
     gap: 2rem;
     margin-bottom: 3rem;
-    width: 100%;
+    width: 107%; 
 `
 
 export const FakeNewsSection = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.5rem;
     padding-bottom: 2rem;
-    /* width: 90%; */
+    width: 98%;
     align-self: center;
+    border-bottom: dashed 2px #CECECE;
 
 
     #topFake {
-        /* display: flex; */
+        display: flex;
         justify-content: space-between;
         align-items: center;
         background-color: #E2E2E2;
         padding: .5rem;
-        margin-bottom: 1rem;
-
+        margin-bottom: -1rem;
         h4 {
             font-size: 1.2rem;
             font-weight: normal;
@@ -88,28 +92,12 @@ export const FakeNewsSection = styled.div`
         }
     }
     
-    #gridFake {
-        /* display: flex; */
-        height: 30rem;
-        gap: 3rem;
-    }
-
-    #vertical {
-        /* display: flex; */
-        /* flex-direction: column; */
-        align-items: center;
-        gap: 1rem;
-        justify-content: space-around;
-        /* width: 25rem; */
-        padding-left: 1rem;
-        border-left: solid 1px #CECECE;
-    }
+   
 `
 
 export const FifthPart = styled.div`
     /* display: flex; */
     justify-content: space-evenly;
-    border-top: dashed 2px #CECECE;
     padding-top: 2rem;
     gap: 1rem;
     margin-bottom: 2rem;
