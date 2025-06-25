@@ -8,7 +8,7 @@ import { CardBanner } from "../../components/CardBanner/CardBanner";
 import { ColumnList } from "../../components/ColumnList/ColumnList";
 import { NewsList } from "../../components/NewsList/NewsList";
 import { Card } from "../../components/Card/Card";
-import { VerticalCard } from "../../components/VerticalCard/VerticalCard";
+import { HorizontalCard } from "../../components/VerticalCard/HorizontalCard";
 import { FakeNewsCard } from "../../components/ImageCard/FakeNewsCard";
 import { useNavigate } from "react-router-dom";
 
@@ -125,7 +125,7 @@ export function Home() {
                         {data && (
                             data.fifthPart.map((newsItem) => {
                                 return (
-                                    <VerticalCard
+                                    <HorizontalCard
                                         news={newsItem}
                                         key={newsItem._id}
                                     />

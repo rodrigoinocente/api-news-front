@@ -4,6 +4,7 @@ export const HomeBody = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 2rem;
 `
 
 export const HeaderSection = styled.div`
@@ -72,7 +73,6 @@ export const FakeNewsSection = styled.div`
     align-self: center;
     border-bottom: dashed 2px #CECECE;
 
-
     #topFake {
         display: flex;
         justify-content: space-between;
@@ -91,16 +91,13 @@ export const FakeNewsSection = styled.div`
             cursor: pointer;
         }
     }
-    
    
 `
-
 export const FifthPart = styled.div`
-    /* display: flex; */
-    justify-content: space-evenly;
+    display: flex;
+    flex-flow: column nowrap;
+    align-self: center;
     padding-top: 2rem;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1rem;
+    gap: 2rem;
+    width: 90%;
 `

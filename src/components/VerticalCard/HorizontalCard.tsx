@@ -1,10 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { CardBannerProps } from "../../vite-env";
-import { CardContainer } from "./VerticalCardStyled";
+import { CardContainer } from "./HorizontalCardStyled";
 import { NewsTimestamps } from "../NewsTimestamps/NewsTimestamps";
-import { reduceText } from "../../utils/utils";
 
-export function VerticalCard({ news, type, maxTitleLength, maxSubtitleLength }: CardBannerProps) {
+export function HorizontalCard({ news, type }: CardBannerProps) {
     const navigate = useNavigate()
 
     const handleClick = () => {
@@ -15,23 +14,13 @@ export function VerticalCard({ news, type, maxTitleLength, maxSubtitleLength }: 
         <CardContainer onClick={handleClick} type={type} key={news._id}>
             <img src={news.banner} alt="Imagem da Notícia" />
 
-            {maxTitleLength ? (
-                <h2>{reduceText(news.title, maxTitleLength)}</h2>
-            ) : (
-                <h2>{news.title}</h2>
-            )}
-
-            {news.subtitle && maxSubtitleLength ? (
-                <p>{reduceText(news.subtitle, maxSubtitleLength)}</p>
-            ) : (
-                <p>{news.subtitle}</p>
-            )}
-
+            <div id="info" lang="pt-BR">
+            <h2>{news.title}</h2>
             <NewsTimestamps
                 publishedAt={news.publishedAt}
                 type="card"
             />
-
+            </div>
         </CardContainer>
     )
 }
