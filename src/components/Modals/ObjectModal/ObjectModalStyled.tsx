@@ -54,15 +54,23 @@ export const Content = styled.div`
       padding: .4rem .9rem;
     }
 
-    span {
+    p {
       font-size: 1.3rem;
       color: #3b3939;
     }
 
-    span:last-of-type {
+    p:last-of-type {
       font-size: 1rem;
       color: red;
-  }
+    }
+
+    .errorSpanModal {
+      display: flex;
+      justify-content: center;
+      color: #b30505;
+      font-size: .8rem;
+      margin-top: -1rem;
+    }
 `
 
 export const HeadModal = styled.div`

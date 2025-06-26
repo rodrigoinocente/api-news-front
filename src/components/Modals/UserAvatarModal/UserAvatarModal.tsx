@@ -30,8 +30,8 @@ export function UserAvatarModal({ isOpenAvatar, onCloseModal }: UserAvatarModalP
                 <ObjectModal title={user.name} onCloseModal={onCloseModal}  >
                         <UserAvatar user={user} size="9rem" />
 
-                            <span onClick={() => navigate("/profile")}>Editar</span>
-                            <span onClick={signoutHandler}>Sair</span>
+                            <p onClick={() => navigate("/profile")}>Editar</p>
+                            <p onClick={signoutHandler}>Sair</p>
                 </ObjectModal>
             }
         </>,

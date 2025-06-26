@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signinSchema } from '../../../schemas/signinSchema';
 import { singIn } from '../../../service/userService';
 import { Input } from '../../Input/Input';
-import { ErrorSpan } from '../../Navbar/NavbarStyled';
 import { Button } from '../../Button/Button';
 import { useEffect, useState } from 'react';
 import { constructUserFromLocalStorage, upDateLocalStorage } from '../../../utils/utils';
@@ -57,11 +56,11 @@ export function LoginModal({ isOpenLogin, onOpenSignUp, onCloseModal }: ModalPro
 
         <form onSubmit={handleSubmitSignin(inHandleSubmit)}>
           <Input type="email" placeholder="Email" name="email" register={registerSignin} />
-          {errorsSignin.email && <ErrorSpan>{errorsSignin.email.message}</ErrorSpan>}
+          {errorsSignin.email && <span className="errorSpanModal">{errorsSignin.email.message}</span>}
 
           <Input type="password" placeholder="Senha" name="password" register={registerSignin} />
-          {errorsSignin.password && <ErrorSpan>{errorsSignin.password.message}</ErrorSpan>}
-          {loginError && <ErrorSpan>{loginError}</ErrorSpan>}
+          {errorsSignin.password && <span className="errorSpanModal">{errorsSignin.password.message}</span>}
+          {loginError && <span className="errorSpanModal">{loginError}</span>}
 
           <Button type="submit" text="Entrar" />
         </form>

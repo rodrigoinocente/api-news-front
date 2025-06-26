@@ -4,7 +4,6 @@ import { AuthData } from '../../../vite-env';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signupSchema } from '../../../schemas/signupSchema';
 import { Input } from '../../Input/Input';
-import { ErrorSpan } from '../../Navbar/NavbarStyled';
 import { Button } from '../../Button/Button';
 import { singUp } from "../../../service/userService";
 import { constructUserFromLocalStorage, upDateLocalStorage } from '../../../utils/utils';
@@ -55,17 +54,17 @@ export function SignUpModal({ isOpenSignUp, onCloseModal }: SignUpModalProps) {
 
                 <form onSubmit={handleSubmitSignup(onSignUpSubmit)}>
                     <Input type="text" placeholder="Nome" name="name" register={registerSignup} />
-                    {errorsSignup.name && <ErrorSpan>{errorsSignup.name.message}</ErrorSpan>}
+                    {errorsSignup.name && <span className="errorSpanModal" >{errorsSignup.name.message}</span>}
 
                     <Input type="email" placeholder="Email" name="email" register={registerSignup} />
-                    {errorsSignup.email && <ErrorSpan>{errorsSignup.email.message}</ErrorSpan>}
-                    {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
+                    {errorsSignup.email && <span className="errorSpanModal">{errorsSignup.email.message}</span>}
+                    {emailError && <span >{emailError}</span>}
 
                     <Input type="password" placeholder="Senha" name="password" register={registerSignup} />
-                    {errorsSignup.password && <ErrorSpan>{errorsSignup.password.message}</ErrorSpan>}
+                    {errorsSignup.password && <span className="errorSpanModal" >{errorsSignup.password.message}</span>}
 
                     <Input type="password" placeholder="Confirmar senha" name="confirmPassword" register={registerSignup} />
-                    {errorsSignup.confirmPassword && <ErrorSpan>{errorsSignup.confirmPassword.message}</ErrorSpan>}
+                    {errorsSignup.confirmPassword && <span className="errorSpanModal" >{errorsSignup.confirmPassword.message}</span>}
 
                     <Button type="submit" text="Cadastrar" />
                 </form>
