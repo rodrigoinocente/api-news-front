@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import { Content, HeadModal, Overlay, SectionForm } from '../ModalStyled';
 import { useForm } from 'react-hook-form';
 import { AuthData } from '../../../vite-env';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,13 +11,14 @@ import { constructUserFromLocalStorage, upDateLocalStorage } from '../../../util
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useUser } from '../../../Context/userCustomHook';
+import { ObjectModal } from '../ObjectModal/ObjectModal';
 
 interface SignUpModalProps {
     isOpenSignUp: boolean;
-    onCloseSignUp: () => void;
+    onCloseModal: () => void;
 }
 
-export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
+export function SignUpModal({ isOpenSignUp, onCloseModal }: SignUpModalProps) {
     const [emailError, setEmailError] = useState<string | null>(null)
     const { setUser } = useUser()
 
@@ -39,7 +39,8 @@ export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
             const response = await singUp(data)
             upDateLocalStorage(response.data)
             setUser(constructUserFromLocalStorage())
-
+            onCloseModal()
+            
         } catch (error: unknown) {
             if (axios.isAxiosError(error)) setEmailError(error.response?.data.message || "Ocorreu um erro desconhecido")
             else setEmailError("Ocorreu um erro desconhecido")
@@ -49,35 +50,28 @@ export function SignUpModal({ isOpenSignUp, onCloseSignUp }: SignUpModalProps) {
     }
 
     return ReactDOM.createPortal(
-        <Overlay onClick={onCloseSignUp}>
-            <Content onClick={(e) => e.stopPropagation()} className="modal-transition">
-                <HeadModal>
-                    <h3>Criar Conta</h3>
-                    <span onClick={onCloseSignUp}>X</span>
-                </HeadModal>
+        <>
+            <ObjectModal title={"Login"} onCloseModal={onCloseModal}  >
 
-                <SectionForm>
-                    <form onSubmit={handleSubmitSignup(onSignUpSubmit)}>
+                <form onSubmit={handleSubmitSignup(onSignUpSubmit)}>
+                    <Input type="text" placeholder="Nome" name="name" register={registerSignup} />
+                    {errorsSignup.name && <ErrorSpan>{errorsSignup.name.message}</ErrorSpan>}
 
-                        <Input type="text" placeholder="Nome" name="name" register={registerSignup} />
-                        {errorsSignup.name && <ErrorSpan>{errorsSignup.name.message}</ErrorSpan>}
+                    <Input type="email" placeholder="Email" name="email" register={registerSignup} />
+                    {errorsSignup.email && <ErrorSpan>{errorsSignup.email.message}</ErrorSpan>}
+                    {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
 
-                        <Input type="email" placeholder="Email" name="email" register={registerSignup} />
-                        {errorsSignup.email && <ErrorSpan>{errorsSignup.email.message}</ErrorSpan>}
-                        {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
+                    <Input type="password" placeholder="Senha" name="password" register={registerSignup} />
+                    {errorsSignup.password && <ErrorSpan>{errorsSignup.password.message}</ErrorSpan>}
 
-                        <Input type="password" placeholder="Senha" name="password" register={registerSignup} />
-                        {errorsSignup.password && <ErrorSpan>{errorsSignup.password.message}</ErrorSpan>}
+                    <Input type="password" placeholder="Confirmar senha" name="confirmPassword" register={registerSignup} />
+                    {errorsSignup.confirmPassword && <ErrorSpan>{errorsSignup.confirmPassword.message}</ErrorSpan>}
 
-                        <Input type="password" placeholder="Confirmar senha" name="confirmPassword" register={registerSignup} />
-                        {errorsSignup.confirmPassword && <ErrorSpan>{errorsSignup.confirmPassword.message}</ErrorSpan>}
+                    <Button type="submit" text="Cadastrar" />
+                </form>
 
-                        <Button type="submit" text="Cadastrar" />
-                    </form>
-                </SectionForm>
-
-            </Content>
-        </Overlay>,
+            </ObjectModal>
+        </>,
         document.getElementById("modal")!
     )
 }

@@ -1,16 +1,16 @@
 import ReactDOM from 'react-dom';
 import { useUser } from '../../../Context/userCustomHook';
-import { Content, HeadModal, Overlay } from './UserAvatarModalStyled';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../../service/userService';
 import { UserAvatar } from '../../UserAvatar/UserAvatar';
+import { ObjectModal } from '../ObjectModal/ObjectModal';
 
 interface UserAvatarModalProps {
     isOpenAvatar: boolean;
-    onCloseAvatar: () => void
+    onCloseModal: () => void
 }
 
-export function UserAvatarModal({ isOpenAvatar, onCloseAvatar }: UserAvatarModalProps) {
+export function UserAvatarModal({ isOpenAvatar, onCloseModal }: UserAvatarModalProps) {
     const { user, setUser } = useUser()
     const location = useLocation();
     const navigate = useNavigate()
@@ -21,31 +21,20 @@ export function UserAvatarModal({ isOpenAvatar, onCloseAvatar }: UserAvatarModal
         localStorage.clear()
         setUser(null)
         if (location.pathname === "/profile") navigate("/")
-        window.location.reload()
+        onCloseModal()
     }
 
     return ReactDOM.createPortal(
-        <Overlay onClick={onCloseAvatar}>
-            <Content onClick={(e) => e.stopPropagation()} className="modal-transition">
-                <HeadModal>
-                    <span onClick={onCloseAvatar}>X</span>
+        <>
+            {user &&
+                <ObjectModal title={user.name} onCloseModal={onCloseModal}  >
+                        <UserAvatar user={user} size="9rem" />
 
-                    {user ? (
-                        <>
-                            <p>{user.name}</p>
-                            <UserAvatar user={user} size="7rem"/>
-                        </>
-                    ) : (
-                        <h1>Sem Usuário</h1>
-                    )}
-
-                </HeadModal>
-                <nav>
-                    <p onClick={() => navigate("/profile")}>Conta</p>
-                    <p onClick={signoutHandler}>Sair</p>
-                </nav>
-            </Content>
-        </Overlay>,
+                            <span onClick={() => navigate("/profile")}>Editar</span>
+                            <span onClick={signoutHandler}>Sair</span>
+                </ObjectModal>
+            }
+        </>,
         document.getElementById("modal")!
     )
 }

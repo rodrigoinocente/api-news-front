@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import { Content, HeadModal, Overlay, SectionForm } from '../ModalStyled';
 import { useForm } from 'react-hook-form';
 import { AuthData } from '../../../vite-env';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,19 +7,19 @@ import { singIn } from '../../../service/userService';
 import { Input } from '../../Input/Input';
 import { ErrorSpan } from '../../Navbar/NavbarStyled';
 import { Button } from '../../Button/Button';
-import { SignUpModal } from '../SignUpModal/SignUpModal';
 import { useEffect, useState } from 'react';
 import { constructUserFromLocalStorage, upDateLocalStorage } from '../../../utils/utils';
 import axios from 'axios';
 import { useUser } from '../../../Context/userCustomHook';
+import { ObjectModal } from '../ObjectModal/ObjectModal';
 
 interface ModalProps {
   isOpenLogin: boolean;
-  onCloseLogin: () => void;
+  onOpenSignUp: () => void;
+  onCloseModal: () => void;
 }
 
-export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
-  const [isSignUpOpen, setSignUpOpen] = useState(false)
+export function LoginModal({ isOpenLogin, onOpenSignUp, onCloseModal }: ModalProps) {
   const [loginError, setLoginError] = useState<string | null>(null)
   const { setUser } = useUser()
 
@@ -42,6 +41,7 @@ export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
       const response = await singIn(data)
       upDateLocalStorage(response.data)
       setUser(constructUserFromLocalStorage())
+      onCloseModal()
 
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) setLoginError(error.response?.data.message || "Ocorreu um erro desconhecido")
@@ -51,42 +51,25 @@ export function LoginModal({ isOpenLogin, onCloseLogin }: ModalProps) {
     }
   }
 
-  function handleCloseModals() {
-    onCloseLogin()
-    setSignUpOpen(false)
-  }
-
   return ReactDOM.createPortal(
-    <Overlay onClick={onCloseLogin} >
+    <>
+      <ObjectModal title={"Login"} onCloseModal={onCloseModal}  >
 
-      <Content onClick={(e) => e.stopPropagation()}>
-        <HeadModal>
-          <h3>Login</h3>
-          <span onClick={onCloseLogin}>X</span>
-        </HeadModal>
+        <form onSubmit={handleSubmitSignin(inHandleSubmit)}>
+          <Input type="email" placeholder="Email" name="email" register={registerSignin} />
+          {errorsSignin.email && <ErrorSpan>{errorsSignin.email.message}</ErrorSpan>}
 
-        <SectionForm>
-          <form onSubmit={handleSubmitSignin(inHandleSubmit)}>
+          <Input type="password" placeholder="Senha" name="password" register={registerSignin} />
+          {errorsSignin.password && <ErrorSpan>{errorsSignin.password.message}</ErrorSpan>}
+          {loginError && <ErrorSpan>{loginError}</ErrorSpan>}
 
-            <Input type="email" placeholder="Email" name="email" register={registerSignin} />
-            {errorsSignin.email && <ErrorSpan>{errorsSignin.email.message}</ErrorSpan>}
+          <Button type="submit" text="Entrar" />
+        </form>
 
-            <Input type="password" placeholder="Senha" name="password" register={registerSignin} />
-            {errorsSignin.password && <ErrorSpan>{errorsSignin.password.message}</ErrorSpan>}
-            {loginError && <ErrorSpan>{loginError}</ErrorSpan>}
+        <section onClick={() => onOpenSignUp()}>Criar conta</section>
 
-            <Button type="submit" text="Entrar" />
-          </form>
-        </SectionForm>
-
-        <section onClick={() => setSignUpOpen(true)}>Criar conta</section>
-      </Content>
-
-      {isSignUpOpen &&
-        <SignUpModal isOpenSignUp={isSignUpOpen} onCloseSignUp={handleCloseModals} />
-      }
-
-    </Overlay>,
+      </ObjectModal>
+    </>,
     document.getElementById("modal")!
   )
 }
