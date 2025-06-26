@@ -13,6 +13,7 @@ import { UserAvatar } from "../UserAvatar/UserAvatar"
 import { LoginModal } from "../Modals/LoginModal/LoginModal"
 import { UserAvatarModal } from "../Modals/UserAvatarModal/UserAvatarModal"
 import { constructUserFromLocalStorage } from "../../utils/utils"
+import { SignUpModal } from "../Modals/SignUpModal/SignUpModal"
 
 export function Navbar() {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<ISearchNews>({
@@ -21,6 +22,7 @@ export function Navbar() {
     const navigate = useNavigate()
     const { user, setUser } = useUser()
     const [showModalLogin, setShowModalLogin] = useState(false)
+    const [showModalSignUp, setShowModalSignUp] = useState(false)
     const [showModalAvatar, setShowModalAvatar] = useState(false)
     const [isSearch, setIsSearch] = useState(false)
 
@@ -80,7 +82,8 @@ export function Navbar() {
                             </div>
 
                             {showModalAvatar &&
-                                <UserAvatarModal isOpenAvatar={showModalAvatar} onCloseAvatar={() => setShowModalAvatar(false)} />
+                                <UserAvatarModal isOpenAvatar={showModalAvatar} onCloseModal={() =>
+                                    setShowModalAvatar(false)} />
                             }
                         </>
                     ) : (
@@ -88,8 +91,20 @@ export function Navbar() {
                             <Button type="button" text="Entrar" onClick={() => setShowModalLogin(true)} ></Button>
 
                             {showModalLogin &&
-                                <LoginModal isOpenLogin={showModalLogin} onCloseLogin={() => setShowModalLogin(false)} />
+                                <LoginModal isOpenLogin={showModalLogin}
+                                    onOpenSignUp={() => {
+                                        setShowModalLogin(false)
+                                        setShowModalSignUp(true)
+                                    }}
+                                    onCloseModal={() =>
+                                        setShowModalLogin(false)
+                                    } />
                             }
+                            {showModalSignUp &&
+                                <SignUpModal isOpenSignUp={showModalSignUp}
+                                    onCloseModal={() =>
+                                        setShowModalSignUp(false)
+                                    } />}
                         </>
                     )}
                 </RightNav>
