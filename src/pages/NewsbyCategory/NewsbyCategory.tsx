@@ -107,12 +107,14 @@ export function NewsbyCategory() {
                             cardTitle="ÚLTIMA NOTÍCIA"
                         />
                     )}
+                    <div id="columList">
+                        <ColumnList
+                            columns={column}
+                            title="COLUNA"
+                        />
 
-                    <ColumnList
-                        columns={column}
-                        title="COLUNA"
-                    />
                     <Button type="button" text={"Ver mais"} onClick={handleClick} />
+                    </div>
 
                 </NewsAndColumn>
 

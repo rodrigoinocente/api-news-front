@@ -1,21 +1,16 @@
 import styled from "styled-components";
 
 export const BodyHead = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    width: 90%;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    border-bottom: 1px dashed #c5c2c2;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
+    margin: 2rem 0;
 `
 
 export const CardsHead = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1.5rem 3rem;
-    margin: 0 auto;
-    padding: 2rem; 
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
 `
 
 export const NewsAndColumn = styled.div`
@@ -23,21 +18,29 @@ export const NewsAndColumn = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    border-right: 1px dashed #c5c2c2;
-    padding: 2rem;
 
-    button {
-        align-self: flex-start;
-        margin-top: -2rem;
+    #columList {
+        display: flex;
+        flex-flow: column nowrap;
+        width: 90%;
+        border-bottom: dashed 2px #CECECE;
+        border-top: dashed 2px #CECECE;
+        padding: .5rem;
+    
+        button {
+        align-self: flex-end;
+        margin: -.7rem -15px 0 0;
+        color: blue;
+        padding: .5rem;
+        }
     }
 `
 
 export const LoadCard = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-flow: column nowrap;
     gap: 1.5rem;
-    width: 70%;
-    align-content: center;
+    width: 95%;
     margin: 0 auto;
     padding-top: 3rem;
 `
