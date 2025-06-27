@@ -7,11 +7,11 @@ import { ScrollToTopButton } from "../../components/ScrollToTopButton/ScrollToTo
 import { Card } from "../../components/Card/Card"
 import { Navbar } from "../../components/Navbar/Navbar"
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome"
-import { Column, InfoHead, JournlisSection, LastNewsCard, LoadCard } from "./NewsByJournalistStyled"
+import { Column, Container, InfoHead, JournlisSection, LoadCard } from "./NewsByJournalistStyled"
 import { getColumnByJournalist } from "../../service/columnService"
-import { CardColumn } from "../../components/CardColumn/CardColumn"
 import { CardBanner } from "../../components/CardBanner/CardBanner"
 import arrowDown from "../../images/icons/icon-arrowDown.png"
+import { ColumnList } from "../../components/ColumnList/ColumnList"
 
 export function NewsByJournalist() {
     const { journalistId } = useParams<{ journalistId: string }>()
@@ -101,72 +101,64 @@ export function NewsByJournalist() {
         <>
             <Navbar />
             <NavbarHome />
+            <Container>
 
-            {journalist && (
-                <JournlisSection>
-                    <img src={journalist.profilePicture} alt="Foto do Jornalista" />
+                {journalist && (
+                    <JournlisSection>
+                        <img src={journalist.profilePicture} alt="Foto do Jornalista" />
 
-                    <div>
-                        <h2>{journalist.name}</h2>
-                        <p>{journalist.bio}</p>
-                    </div>
-                </JournlisSection>
-            )}
-
-            <InfoHead>
-                <LastNewsCard>
-                    <mark>ÚLTIMA NOTÍCIA</mark>
-                    {news.length && (
-                        <CardBanner
-                           news={news[0]}
-                            key={news[0]._id}
-                        />
-                    )}
-                </LastNewsCard>
-                <Column>
-                    <h3>Coluna</h3>
-
-                    {column.length && (
-                        column.map((columnItem) => (
-                            <CardColumn
-                                title={columnItem.title}
-                                key={columnItem._id}
-                                _id={columnItem._id}
-                                publishedAt={columnItem.publishedAt}
-                            />
-                        ))
-                    )}
-                    {hasMoreColumn && (
-                        <img src={arrowDown} alt="Imagem de uma seta para baixo. Para carregamento de mais Colunas"
-                            onClick={() => loadColumn(journalistId as string, offsetColumn)} />
-                    )}
-                    {!hasMoreColumn && <span>Não há mais Coluna.</span>}
-                </Column>
-            </InfoHead>
-
-            <LoadCard>
-                <span>Publicações</span>
-
-                {news.length && (
-                    news.slice(1).map((newsItem) => (
-                        <Card
-                            title={newsItem.title}
-                            key={newsItem._id}
-                            subtitle={newsItem.subtitle}
-                            banner={newsItem.banner}
-                            _id={newsItem._id}
-                            publishedAt={newsItem.publishedAt}
-                            edited={newsItem.edited}
-                            type="news"
-                        />
-                    ))
+                        <div>
+                            <h2>{journalist.name}</h2>
+                            <p>{journalist.bio}</p>
+                        </div>
+                    </JournlisSection>
                 )}
 
-            </LoadCard>
+                <InfoHead>
+                    {news.length > 0 && (
+                        <CardBanner
+                            news={news[0]}
+                            key={news[0]._id}
+                            type="grey"
+                            cardTitle="ÚLTIMA NOTÍCIA"
+                        />
+                    )}
 
-            {isLoading && <Spinner />}
-            {!hasMoreNews && <span>Não há mais notícias.</span>}
-            <ScrollToTopButton />
+                    <Column>
+                        {column.length > 0 &&
+
+                            <ColumnList columns={column} title="COLUNA" />
+                        }
+                        {hasMoreColumn && (
+                            <img src={arrowDown} alt="Imagem de uma seta para baixo. Para carregamento de mais Colunas"
+                                onClick={() => loadColumn(journalistId as string, offsetColumn)} />
+                        )}
+                        {!hasMoreColumn && <span>Não há mais Coluna.</span>}
+                    </Column>
+                </InfoHead>
+
+                {news.length > 0 && (
+                    <LoadCard>
+                        <span>Publicações</span>
+                        {news.slice(1).map((newsItem) => (
+                            <Card
+                                title={newsItem.title}
+                                key={newsItem._id}
+                                subtitle={newsItem.subtitle}
+                                banner={newsItem.banner}
+                                _id={newsItem._id}
+                                publishedAt={newsItem.publishedAt}
+                                edited={newsItem.edited}
+                                type="news"
+                            />
+                        ))}
+                    </LoadCard>
+                )}
+
+                {isLoading && <Spinner />}
+                {!hasMoreNews && <span>Não há mais notícias.</span>}
+            </Container>
+                <ScrollToTopButton />
         </>
     )
 }

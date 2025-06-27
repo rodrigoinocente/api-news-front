@@ -1,16 +1,25 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+`
+
 export const JournlisSection = styled.section`
-    width: 50%;
+    width: 90%;
     display: flex;
     align-items: center;
     margin: 0 auto;
     gap: 1.5rem;
-    margin-bottom: 4rem;
 
     img {
-        width: 200px;
-        border-radius: 10%;
+        width: 25%;
+        object-fit: cover;
+        border-radius: 50%;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
 
@@ -18,35 +27,36 @@ export const JournlisSection = styled.section`
         display: flex;
         flex-direction: column;
         gap: 1rem;
+
+        p {
+            font-size: 1.1rem;
+        }
     }
 `
 
 export const InfoHead = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 8rem;
-    margin-bottom: 4rem;
+    flex-flow: column nowrap;
+    gap: 2rem;
 `
 
 export const Column = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-flow: column nowrap;
+    align-items: center;
 
     h3 {
         font-size: 1.8rem;
         margin-bottom: 2rem;
         text-align: center;
-        background: #E4E4E4;
         padding: .5rem;
     }
 
     img {
         cursor: pointer;
         width: 3rem;
-        margin: 0 auto;
-        position: relative;
-        margin-top: -25px;
+        align-self: end;
+        margin: -1.5rem 1.5rem 0 0 ;
         background-color: #ffffff;
         transition: transform 0.3s ease;
         
@@ -61,32 +71,15 @@ export const LoadCard = styled.section`
     flex-direction: column;
     gap: 1rem;
     margin: 0 auto;
-    width: 70%;
-
+    width: 95%;
+    
     span {
+        background: #6d84eb;
         align-self: center;
         text-align: center;
         font-size: 2rem;
-        color: #555;
-        width: 12rem;
+        width: 90%;
         padding: .5rem;
-        margin-bottom: 1rem;
-        background-color: #E4E4E4;
-    }
-`
-
-export const LastNewsCard = styled.div`
-    justify-items: center;    
-    align-content: center;
-    
-    section {
-        padding: 1rem;
-        background-color: #E4E4E4;
-    }
-
-    mark {
-        margin-left: -9rem;
-        text-align: justify;
-        padding: .5rem;
+        border-radius: 5px;
     }
 `

@@ -25,13 +25,11 @@ export const CardContainer = styled.section<{ type?: string }>`
 `
 
 export const CardTitle = styled.div`
-    margin-bottom: 1rem;
-    margin-top: -25px;
-    
     mark {
-        position: absolute;
+        position: relative;
         z-index: 1;
-        margin-top: -1rem;
+        top: 5px;
+        left: 10px;
         padding: .5rem; 
     }
 `
