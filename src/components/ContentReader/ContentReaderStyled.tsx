@@ -1,34 +1,33 @@
 import styled from "styled-components"
 
 export const PublicationBody = styled.div`
+    margin: 0 auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    width: 70%;
-    margin: 0 auto ;
-    margin-top: 1rem;
+    margin: 1rem 0 3rem 0;
     line-height: 1.5;
 `
 
 export const PublicationHead = styled.header`
     display: flex;
     flex-direction: column;
-    gap: .5rem;
-    width: 80%;
+    gap: 1rem;
+    width: 90%;
     
     h1 {
-        line-height: 1.3; 
+        line-height: 1.3;
     }
 
     .subtitle {
-        font-size: .9rem;
         color: #3a3939;
-        margin-bottom: 1rem;
+        hyphens: auto;
     }
 
     .columnCategory {
-        width: 100%;
+        /* width: 100%; */
         background-color: #6d84eb;
         text-align: center;
         padding: .5rem;
@@ -46,17 +45,19 @@ export const PublicationHead = styled.header`
 
 export const ImagePublication = styled.div`
     figure img {
-        margin: 0 auto;
-        width: 60vw;
-        margin: 0rem 0 2rem ;
+        width: 100%;
+        aspect-ratio: 7/4;
+        object-fit: cover;
+        object-fit: cover;
     }
 
     figcaption {
-        margin-top: -2.4rem;
-        font-size: .8rem;
+        font-size: .9rem;
         color: #4f5257;
         text-align: end;
-        margin-right: 1rem;
+        margin: 0 1rem 1rem 0;
+        width: 95%;
+        line-height: 1rem;
     }
 `
 
@@ -64,12 +65,15 @@ export const PublicationContent = styled.div`
     div {
         display: flex;
         flex-direction: column;
-        margin: 0 auto;
+        justify-self: center;
         gap: 1.5rem;
-        width: 80%;
+        width: 90%;
 
         p {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
+            hyphens: auto;
+        text-align: justify;
+
         }
     }
 `

@@ -22,7 +22,7 @@ export const JournalistSectionStyled = styled.section`
     div {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: .5rem;
     }
 
     p {
