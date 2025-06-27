@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const StyledScrollButton = styled.button<{ $isVisible: boolean }>`
   position: fixed;
-  bottom: 20px;
-  left: 16vh;
+  bottom: 5px;
+  left: 5px;
   background: none;
   border: none;
   cursor: pointer;
