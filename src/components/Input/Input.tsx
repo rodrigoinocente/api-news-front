@@ -11,10 +11,10 @@ interface IInputSpaceAuth {
     autoComplete?: string;
 }
 
-export function Input({ type, placeholder, register, name, autoComplete }: IInputSpaceAuth) {
+export function Input({ type, placeholder, register, name, autoComplete, id }: IInputSpaceAuth) {
     return (
         <>
-            <InputSpaceAuth type={type} placeholder={placeholder} {...register(name)} autoComplete={autoComplete} />
+            <InputSpaceAuth type={type} placeholder={placeholder} {...register(name)} autoComplete={autoComplete} id={id} />
         </>
     )
 }
