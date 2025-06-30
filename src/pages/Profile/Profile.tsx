@@ -5,12 +5,11 @@ import { updateUser, userLogged } from "../../service/userService";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { UserAvatar } from "../../components/UserAvatar/UserAvatar";
 import axios from "axios";
-import { IconCancel, IconConfirm, IconEdit, ProfileContainer } from "./ProfileStyled";
+import { ContainerForm, ContainerInput, Icon, Initial, ProfileContainer } from "./ProfileStyled";
 import { useForm } from "react-hook-form";
 import { AuthData } from "../../vite-env";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateProfilePictureSchema, updateEmailSchema, updateNameSchema, updatePasswordSchema } from "../../schemas/updateUser";
-import { SectionForm } from "./ProfileStyled";
 import { Input } from "../../components/Input/Input";
 import { ErrorSpan } from "../../components/Navbar/NavbarStyled";
 import iconEdit from "../../images/icons/icon-edit.png";
@@ -102,148 +101,184 @@ export function Profile() {
                 <ProfileContainer>
                     {user ? (
                         <>
-                            <SectionForm>
-                                {updateResults &&
-                                    <h3>{updateResults}</h3>
-                                }
-                                {networkError &&
-                                    <h3>{networkError}</h3>
-                                }
+                            {updateResults &&
+                                <h3>{updateResults}</h3>
+                            }
+                            {networkError &&
+                                <h3>{networkError}</h3>
+                            }
 
-                                <h1>Conta</h1>
-                                <UserAvatar user={user} size="7rem" />
+                            <h1>Conta</h1>
+                            <UserAvatar user={user} size="7rem" />
 
-                                {!isEditingProfilePicture ? (
-                                    <>
-                                        <IconEdit className="icon-update-picture" onClick={() => setIsEditingProfilePicture(true)}>
-                                            <img src={iconEdit} alt="Ícone para atualizar a foto de perfil" />
-                                        </IconEdit>
-                                    </>
-                                ) : (
+                            {!isEditingProfilePicture ? (
+                                <Icon id="icon-update-picture" >
+                                    <button type="button" className="edit" onClick={() => setIsEditingProfilePicture(true)}>
+                                        <img src={iconEdit} alt="Ícone para atualizar a foto de perfil" />
+                                    </button>
+                                </Icon>
+                            ) : (
+                                <ContainerForm>
                                     <form onSubmit={handleSubmitupdateProfilePicture((data) => onUpdateSubmit(data, resetUpdateProfilePicture, setIsEditingProfilePicture))}>
-                                        <label htmlFor="profilePicture">Atualizar foto de Perfil</label>
-                                        <Input type="text" placeholder="Insira a URL da imagem" name="profilePicture" id="profilePicture" register={registerUpdateProfilePicture} />
-                                        {errorsupdatProfilePicture.profilePicture && <ErrorSpan>{errorsupdatProfilePicture.profilePicture.message}</ErrorSpan>}
+                                        <label htmlFor="profilePicture">Foto de Perfil</label>
 
-                                        <IconConfirm typeof="submit">
-                                            <button type="submit">
-                                                <img src={iconConfirm} alt="Ícone para atualizar o nome do usuario" />
-                                            </button>
-                                        </IconConfirm>
+                                        <ContainerInput>
+                                            <Input type="text" placeholder="Insira a URL da imagem" name="profilePicture" id="profilePicture" register={registerUpdateProfilePicture} />
 
-                                        <IconCancel>
-                                            <button type="button" onClick={() => {
-                                                setIsEditingProfilePicture(false)
-                                                resetUpdateProfilePicture()
-                                            }}>
-                                                <img src={iconCancel} alt="Ícone para cancelar a atualização" />
-                                            </button>
-                                        </IconCancel>
-                                    </form>
-                                )}
-
-                                {!isEditingName ? (
-                                    <>
-                                        <span>Nome: {user.name}</span>
-                                        <IconEdit onClick={() => setIsEditingName(true)}>
-                                            <img src={iconEdit} alt="Ícone para atualizar a foto de perfil" />
-                                        </IconEdit>
-                                    </>
-                                ) : (
-                                    <form onSubmit={handleSubmitupdateName((data) => onUpdateSubmit(data, resetUpdateName, setIsEditingName))}>
-                                        <label htmlFor="name">Nome: </label>
-                                        <Input type="text" placeholder={user.name} name="name" id="name" autoComplete="name" register={registerUpdateName} />
-                                        {errorsupdateName.name && <ErrorSpan>{errorsupdateName.name.message}</ErrorSpan>}
-
-                                        <IconConfirm typeof="submit">
-                                            <button type="submit" >
-                                                <img src={iconConfirm} alt="Ícone para atualizar o nome do usuario" />
-                                            </button>
-                                        </IconConfirm>
-
-                                        <IconCancel>
-                                            <button type="button" onClick={() => {
-                                                setIsEditingName(false)
-                                                resetUpdateName()
-                                            }}>
-                                                <img src={iconCancel} alt="Ícone para cancelar a atualização" />
-                                            </button>
-                                        </IconCancel>
-                                    </form>
-                                )}
-
-                                {!isEditingEmail ? (
-                                    <>
-                                        <span>Email: {user.email}</span>
-
-                                        <IconEdit onClick={() => {
-                                            setIsEditingEmail(true)
-                                        }}>
-                                            <img src={iconEdit} alt="Ícone para atualizar a foto de perfil" />
-                                        </IconEdit>
-                                    </>
-                                ) : (
-                                    <form onSubmit={handleSubmitupdateEmail((data) => onUpdateSubmit(data, resetUpdateUpdateEmail, setIsEditingEmail))}>
-                                        <label htmlFor="email">Email: </label>
-                                        <Input type="email" placeholder={user.email} name="email" id="email" autoComplete="email" register={registerUpdateEmail} />
-                                        {errorsupdateEmail.email && <ErrorSpan>{errorsupdateEmail.email.message}</ErrorSpan>}
-                                        {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
-
-                                        <IconConfirm typeof="submit">
-                                            <button type="submit">
-                                                <img src={iconConfirm} alt="Ícone para atualizar o nome do usuario" />
-                                            </button>
-                                        </IconConfirm>
-
-                                        <IconCancel>
-                                            <button type="button" onClick={() => {
-                                                setIsEditingEmail(false)
-                                                resetUpdateUpdateEmail()
-                                            }}>
-                                                <img src={iconCancel} alt="Ícone para cancelar a atualização" />
-                                            </button>
-                                        </IconCancel>
-                                    </form>
-                                )}
-
-                                {!isEditingPassword ? (
-                                    <h5 onClick={() => {
-                                        setIsEditingPassword(true)
-                                    }}>Atualizar Senha</h5>
-                                ) : (
-                                    <>
-                                        <h5>Cadastrar nova senha</h5>
-                                        <form onSubmit={handleSubmitupdatePassword((data) => onUpdateSubmit(data, resetUpdateUpdatePassword, setIsEditingPassword))}>
-                                            <label htmlFor="password">Digite a nova senha </label>
-                                            <Input type="password" placeholder="Senha" name="password" id="password" autoComplete="new-password" register={registerUpdatePassword} />
-                                            {errorsupdatePassword.password && <ErrorSpan>{errorsupdatePassword.password.message}</ErrorSpan>}
-
-                                            <label htmlFor="confirmPassword">Digite novamente a nova senha </label>
-                                            <Input type="password" placeholder="Confirmar senha" name="confirmPassword" id="confirmPassword" autoComplete="new-password" register={registerUpdatePassword} />
-                                            {errorsupdatePassword.confirmPassword && <ErrorSpan>{errorsupdatePassword.confirmPassword.message}</ErrorSpan>}
-
-                                            <IconConfirm typeof="submit">
-                                                <button type="submit">
+                                            <Icon typeof="submit">
+                                                <button type="submit" className="confirm">
                                                     <img src={iconConfirm} alt="Ícone para atualizar o nome do usuario" />
                                                 </button>
-                                            </IconConfirm>
+                                            </Icon>
 
-                                            <IconCancel>
-                                                <button type="button" onClick={() => {
-                                                    setIsEditingPassword(false)
-                                                    resetUpdateUpdatePassword()
+                                            <Icon>
+                                                <button type="button" className="cancel" onClick={() => {
+                                                    setIsEditingProfilePicture(false)
+                                                    resetUpdateProfilePicture()
                                                 }}>
                                                     <img src={iconCancel} alt="Ícone para cancelar a atualização" />
                                                 </button>
-                                            </IconCancel>
-                                        </form>
-                                    </>
-                                )}
+                                            </Icon>
+                                        </ContainerInput>
+                                        {errorsupdatProfilePicture.profilePicture && <ErrorSpan className="zodError">{errorsupdatProfilePicture.profilePicture.message}</ErrorSpan>}
+                                    </form>
+                                </ContainerForm>
 
-                                {loginError &&
-                                    <h3>{loginError}</h3>
-                                }
-                            </SectionForm>
+                            )}
+
+                            {!isEditingName ? (
+                                <Initial>
+                                    <span>Nome:</span> {user.name}
+                                    <Icon >
+                                        <button type="button" className="edit" onClick={() => setIsEditingName(true)}>
+                                            <img src={iconEdit} alt="Ícone para atualizar a foto de perfil" />
+
+                                        </button>
+                                    </Icon>
+                                </Initial>
+                            ) : (
+                                <ContainerForm>
+                                    <form onSubmit={handleSubmitupdateName((data) => onUpdateSubmit(data, resetUpdateName, setIsEditingName))}>
+                                        <label htmlFor="name">Nome: </label>
+
+                                        <ContainerInput>
+                                            <Input type="text" placeholder={user.name} name="name" id="name" autoComplete="name" register={registerUpdateName} />
+
+                                            <Icon typeof="submit">
+                                                <button type="submit" className="confirm" >
+                                                    <img src={iconConfirm} alt="Ícone para atualizar o nome do usuario" />
+                                                </button>
+                                            </Icon>
+
+                                            <Icon>
+                                                <button type="button" className="cancel" onClick={() => {
+                                                    setIsEditingName(false)
+                                                    resetUpdateName()
+                                                }}>
+                                                    <img src={iconCancel} alt="Ícone para cancelar a atualização" />
+                                                </button>
+                                            </Icon>
+
+                                        </ContainerInput>
+                                        {errorsupdateName.name && <ErrorSpan className="zodError">{errorsupdateName.name.message}</ErrorSpan>}
+                                    </form>
+                                </ContainerForm>
+                            )}
+
+                            {!isEditingEmail ? (
+                                <Initial>
+                                    <span>Email:</span>{user.email}
+                                    <Icon >
+                                        <button type="button" className="edit" onClick={() => { setIsEditingEmail(true) }}>
+                                            <img src={iconEdit} alt="Ícone para atualizar a foto de perfil" />
+                                        </button>
+                                    </Icon>
+
+                                </Initial>
+                            ) : (
+
+                                <ContainerForm>
+                                    <label htmlFor="email">Email: </label>
+                                    <form onSubmit={handleSubmitupdateEmail((data) => onUpdateSubmit(data, resetUpdateUpdateEmail, setIsEditingEmail))}>
+
+                                        <ContainerInput>
+                                            <Input type="email" placeholder={user.email} name="email" id="email" autoComplete="email" register={registerUpdateEmail} />
+                                            {emailError && <ErrorSpan>{emailError}</ErrorSpan>}
+
+                                            <Icon typeof="submit" >
+                                                <button type="submit" className="confirm">
+                                                    <img src={iconConfirm} alt="Ícone para atualizar o nome do usuario" />
+                                                </button>
+                                            </Icon>
+
+                                            <Icon>
+                                                <button type="button" className="cancel" onClick={() => {
+                                                    setIsEditingEmail(false)
+                                                    resetUpdateUpdateEmail()
+                                                }}>
+                                                    <img src={iconCancel} alt="Ícone para cancelar a atualização" />
+                                                </button>
+                                            </Icon>
+
+                                        </ContainerInput>
+                                        {errorsupdateEmail.email && <ErrorSpan className="zodError">{errorsupdateEmail.email.message}</ErrorSpan>}
+                                    </form>
+                                </ContainerForm>
+                            )}
+
+                            {!isEditingPassword ? (
+                                <Initial>
+                                    <h4 id="initialPassword" onClick={() => {
+                                        setIsEditingPassword(true)
+                                    }}>Atualizar Senha</h4>
+                                </Initial>
+                            ) : (
+                                <ContainerForm>
+                                    <form onSubmit={handleSubmitupdatePassword((data) => onUpdateSubmit(data, resetUpdateUpdatePassword, setIsEditingPassword))}>
+                                        <ContainerInput>
+                                            <div id="containerPassword">
+                                                <h4>Cadastrar nova senha</h4>
+
+                                                <section>
+                                                    <label htmlFor="password">Digite a nova senha </label>
+                                                    <Input type="password" placeholder="Senha" name="password" id="password" autoComplete="new-password" register={registerUpdatePassword} />
+                                                    {errorsupdatePassword.password && <ErrorSpan className="zodError">{errorsupdatePassword.password.message}</ErrorSpan>}
+                                                </section>
+
+                                                <section>
+                                                    <label htmlFor="confirmPassword">Digite novamente a nova senha </label>
+                                                    <Input type="password" placeholder="Confirmar senha" name="confirmPassword" id="confirmPassword" autoComplete="new-password" register={registerUpdatePassword} />
+                                                    {errorsupdatePassword.confirmPassword && <ErrorSpan className="zodError">{errorsupdatePassword.confirmPassword.message}</ErrorSpan>}
+                                                </section>
+
+                                                <div id="iconPassword">
+                                                    <Icon typeof="submit">
+                                                        <button type="submit" className="confirm">
+                                                            <img src={iconConfirm} alt="Ícone para atualizar o nome do usuario" />
+                                                        </button>
+                                                    </Icon>
+
+                                                    <Icon>
+                                                        <button type="button" className="cancel" onClick={() => {
+                                                            setIsEditingPassword(false)
+                                                            resetUpdateUpdatePassword()
+                                                        }}>
+                                                            <img src={iconCancel} alt="Ícone para cancelar a atualização" />
+                                                        </button>
+                                                    </Icon>
+
+                                                </div>
+
+
+                                            </div>
+                                        </ContainerInput>
+                                    </form>
+                                </ContainerForm>
+                            )}
+
+                            {loginError &&
+                                <h3>{loginError}</h3>
+                            }
                         </>
                     ) : (
                         <h3>Sem Usuário</h3>
@@ -253,9 +288,3 @@ export function Profile() {
         </>
     )
 }
-
-//TODO=> VALIDAR O E-MAIL EM TEMPO DE DIGITAÇÃO, SEM PRECISAR FAZER O SUBMIT
-//      HTML AJUSTADO OS FORMULARIOS ESTÃO FUNCIONANDO, FALTA ADICIONAR A ESTILIZAÇÃO.
-//      O EFEITO DO INPU DO NAME ESTÁ IMPLEMENTADO O EFEITO VISUAL
-
-//TODO: PREPARA MENSAFGEM DE COMMIT DAS ALTERAÇÕES DA PAGINA PROFILE
