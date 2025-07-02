@@ -134,3 +134,12 @@ export interface IUser {
   email: string;
   profilePicture: string | null;
 };
+
+export interface ICardColumnPost {
+    title: string;
+    banner: string;
+    _id: string;
+    publishedAt: Date;
+    journalistProfile: string;
+    journalistName: string;
+}
