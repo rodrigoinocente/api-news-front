@@ -53,10 +53,7 @@ export interface ICard {
   banner: string;
   _id: string;
   publishedAt: Date;
-  edited?: Date | null;
-  type: "news" | "column";
-  journalistProfile?: string;
-  journalistName?: string;
+  edited: Date | null;
   category?: string;
 }
 

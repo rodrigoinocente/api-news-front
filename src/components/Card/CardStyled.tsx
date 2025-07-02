@@ -5,19 +5,6 @@ export const CardBody = styled.article`
     border-radius: .5rem;
     cursor: pointer;
     padding: .5rem;
-    
-    .column {
-        align-self: center;
-        writing-mode: vertical-rl;
-        text-orientation: upright;
-        letter-spacing: .4rem;
-        text-align: center;
-        background-color: #6d84eb;
-        color: #fff;
-        font-weight: bold;
-        height: 100%;
-        border-radius: .3rem 0 0 .3rem;
-    }
 `
 
 export const CardInfo = styled.div`
