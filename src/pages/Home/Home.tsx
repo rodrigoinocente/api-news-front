@@ -94,9 +94,8 @@ export function Home() {
                                             banner={newsItem.banner}
                                             publishedAt={newsItem.publishedAt}
                                             subtitle={newsItem.subtitle}
-                                            title={newsItem.title}
-                                            type="news"
-                                        />
+                                            title={newsItem.title} 
+                                            edited={newsItem.edited}                                        />
                                     )
                                 })
                             )}

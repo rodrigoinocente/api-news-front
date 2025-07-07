@@ -141,7 +141,6 @@ export function NewsbyCategory() {
                             _id={newsItem._id}
                             publishedAt={newsItem.publishedAt}
                             edited={newsItem.edited}
-                            type="news"
                         />
                     ))
                 )}
