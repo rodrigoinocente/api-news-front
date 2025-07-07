@@ -133,10 +133,22 @@ export interface IUser {
 };
 
 export interface ICardColumnPost {
-    title: string;
-    banner: string;
-    _id: string;
-    publishedAt: Date;
-    journalistProfile: string;
-    journalistName: string;
+  title: string;
+  banner: string;
+  _id: string;
+  publishedAt: Date;
+  journalistProfile: string;
+  journalistName: string;
+}
+
+
+export interface ApiCommentData {
+  content: string;
+  createdAt: string;
+  dataLikeId: string | null;
+  dataReplyId: string | null;
+  likeCount: number;
+  replyCount: number;
+  _id: string;
+  user: IUser
 }
