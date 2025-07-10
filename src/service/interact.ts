@@ -15,3 +15,8 @@ export function sendComment(newsId: string, data: ISendComment) {
     const response = axios.post(`${baseUrl}/comment/${newsId}`, data, { withCredentials: true })
     return response
 }
+
+export function deleteComment(dataCommentId: string, comnentId: string) {
+    const response = axios.delete(`${baseUrl}/comment/deleteComment/${dataCommentId}/${comnentId}`, { withCredentials: true })
+    return response
+}
