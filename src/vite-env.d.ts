@@ -152,4 +152,5 @@ export interface ApiCommentData {
   replyCount: number;
   _id: string;
   user: IUser
+  documentId: string;
 }

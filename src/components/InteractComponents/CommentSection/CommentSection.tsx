@@ -6,10 +6,11 @@ import { interactSchema } from '../../../schemas/interactSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { getComments, sendComment } from "../../../service/interact";
+import { deleteComment, getComments, sendComment } from "../../../service/interact";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { ApiCommentData } from "../../../vite-env";
+import { CommentItem } from "../CommentItem/CommentItem";
 
 export interface ICommentCard {
     publicationId: string;
@@ -45,7 +46,7 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
             setComments(prev => [
                 ...(offset === 0 ? [] : prev),
                 ...response.data.comments
-            ]);
+            ])
             setHasMoreComments(response.data.hasMore)
             setOffset(response.data.nextOffset)
 
@@ -67,9 +68,20 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
         } catch (error: unknown) {
             if (axios.isAxiosError(error)) setCommentError(error.response?.data.message || "Ocorreu um erro desconhecido")
             else setCommentError("Ocorreu um erro desconhecido")
-            console.error(error);
+            console.error(error)
         } finally {
             setSendComments(false)
+        }
+    }
+
+    const inhandleDelete = async (dataCommentId: string, commentId: string) => {
+        try {
+            await deleteComment(dataCommentId, commentId)
+            setComments(prev => prev.filter(c => c._id !== commentId))
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error)) setCommentError(error.response?.data.message || "Ocorreu um erro desconhecido")
+            else setCommentError("Ocorreu um erro desconhecido")
+            console.error(error)
         }
     }
 
@@ -89,16 +101,11 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
 
             ) : (
                 <>
+                    {comments.length === 0 && !loadComments && <p>Seja o primeiro a comentar!</p>}
                     <div >
 
-                        {comments.map((commentItem) => (
-                            <div key={commentItem._id}>
-                                <p>{commentItem.user.name}</p>
-                                <strong>{commentItem.content}</strong>
-
-                                <p>{commentItem._id}</p>
-                                <br />
-                            </div>
+                        {comments.map((comment) => (
+                            <CommentItem comment={comment} key={comment._id} onDelete={inhandleDelete} />
                         ))}
 
                         {loadComments && <p>Carregando ...</p>}
