@@ -16,7 +16,12 @@ export function sendComment(newsId: string, data: ISendComment) {
     return response
 }
 
-export function deleteComment(dataCommentId: string, comnentId: string) {
-    const response = axios.delete(`${baseUrl}/comment/deleteComment/${dataCommentId}/${comnentId}`, { withCredentials: true })
+export function deleteComment(dataCommentId: string, commentId: string) {
+    const response = axios.delete(`${baseUrl}/comment/deleteComment/${dataCommentId}/${commentId}`, { withCredentials: true })
     return response
 }
+
+export function likeComment(dataCommentId: string, commentId: string) {
+    const response = axios.post(`${baseUrl}/comment/likeComment/${dataCommentId}/${commentId}`,{}, { withCredentials: true })
+    return response
+} 
