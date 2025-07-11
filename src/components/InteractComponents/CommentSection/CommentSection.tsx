@@ -6,7 +6,7 @@ import { interactSchema } from '../../../schemas/interactSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { deleteComment, getComments, sendComment } from "../../../service/interact";
+import { deleteComment, getComments, likeComment, sendComment } from "../../../service/interact";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { ApiCommentData } from "../../../vite-env";
@@ -74,11 +74,46 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
         }
     }
 
-    const inhandleDelete = async (dataCommentId: string, commentId: string) => {
+    const inHandleDeleteComment = async (dataCommentId: string, commentId: string) => {
         try {
             await deleteComment(dataCommentId, commentId)
             setComments(prev => prev.filter(c => c._id !== commentId))
         } catch (error: unknown) {
+            if (axios.isAxiosError(error)) setCommentError(error.response?.data.message || "Ocorreu um erro desconhecido")
+            else setCommentError("Ocorreu um erro desconhecido")
+            console.error(error)
+        }
+    }
+
+    const inHandleLikeComment = async (dataCommentId: string, commentId: string) => {
+        setComments((prev) =>
+            prev.map((comment) =>
+                comment._id === commentId
+                    ? {
+                        ...comment,
+                        isLiked: !comment.isLiked,
+                        likeCount: comment.isLiked ? comment.likeCount-- : comment.likeCount++
+                    }
+                    : comment
+            )
+        )
+
+        try {
+            await likeComment(dataCommentId, commentId)
+
+        } catch (error: unknown) {
+            setComments((prev) =>
+                prev.map((comment) =>
+                    comment._id === commentId
+                        ? {
+                            ...comment,
+                            isLiked: !comment.isLiked,
+                            likeCount: comment.isLiked ? comment.likeCount-- : comment.likeCount++
+                        }
+                        : comment
+                )
+            )
+
             if (axios.isAxiosError(error)) setCommentError(error.response?.data.message || "Ocorreu um erro desconhecido")
             else setCommentError("Ocorreu um erro desconhecido")
             console.error(error)
@@ -105,7 +140,7 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
                     <div >
 
                         {comments.map((comment) => (
-                            <CommentItem comment={comment} key={comment._id} onDelete={inhandleDelete} />
+                            <CommentItem comment={comment} key={comment._id} onDeleteComment={inHandleDeleteComment} onLikeComment={inHandleLikeComment} />
                         ))}
 
                         {loadComments && <p>Carregando ...</p>}
