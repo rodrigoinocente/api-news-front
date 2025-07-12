@@ -6,6 +6,7 @@ export interface ISendComment {
     content: string;
 }
 
+////////COMMENT////////
 export function getComments(newsId: string, limit: number, offset: number) {
     const response = axios.get(`${baseUrl}/comment/commentPage/${newsId}`, { params: { limit, offset }, withCredentials: true })
     return response
@@ -22,6 +23,12 @@ export function deleteComment(dataCommentId: string, commentId: string) {
 }
 
 export function likeComment(dataCommentId: string, commentId: string) {
-    const response = axios.post(`${baseUrl}/comment/likeComment/${dataCommentId}/${commentId}`,{}, { withCredentials: true })
+    const response = axios.post(`${baseUrl}/comment/likeComment/${dataCommentId}/${commentId}`, {}, { withCredentials: true })
     return response
-} 
+}
+
+////////REPLY////////
+export function sendReply(dataCommentId: string, commentId: string, data: ISendComment) {
+    const response = axios.post(`${baseUrl}/reply/${dataCommentId}/${commentId}`, data, { withCredentials: true })
+    return response
+}
