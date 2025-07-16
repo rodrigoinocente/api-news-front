@@ -1,4 +1,4 @@
-import { ApiCommentData } from "../../../vite-env";
+import { ApiCommentData, ApiReplyData } from "../../../vite-env";
 import { NewsTimestamps } from "../../NewsTimestamps/NewsTimestamps";
 import { UserAvatar } from "../../UserAvatar/UserAvatar";
 import iconLike from "../../../images/icons/icon-like.png";
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { interactSchema } from "../../../schemas/interactSchema";
 import { z } from "zod";
-import { sendReply } from "../../../service/interact";
+import { getReplies, sendReply } from "../../../service/interact";
 import { Button } from "../../Button/Button";
 import axios from "axios";
 
@@ -30,6 +30,11 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment }: Comment
 	const [showReplyInput, setShowReplyInput] = useState(false)
 	const [isSendReply, setIsSendReply] = useState(false)
 	const [replyError, setReplyError] = useState<string | null>(null)
+	const [replies, setReplies] = useState<ApiReplyData[]>([])
+	const limitReplies = 6
+	const [offset, setOffset] = useState(0)
+	const [hasMoreReplies, setHasMoreReplies] = useState(false)
+	const [loadReplies, setLoadReplies] = useState(false)
 
 	const {
 		register,
@@ -42,10 +47,9 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment }: Comment
 		setIsSendReply(true)
 		try {
 			const response = await sendReply(comment.documentId, comment._id, data)
-			console.log("reponseSenReply: ", response);
 			reset()
+			setReplies((prevReplies) => [response.data.reply.reply[0], ...prevReplies ])
 			setShowReplyInput(false)
-
 
 		} catch (error: unknown) {
 			if (axios.isAxiosError(error)) setReplyError(error.response?.data.message || "Ocorreu um erro desconhecido")
@@ -53,6 +57,27 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment }: Comment
 			console.error(error)
 		} finally {
 			setIsSendReply(false)
+		}
+	}
+
+	const findReplies = async (dataCommentId: string, commentId: string) => {
+		setLoadReplies(true)
+
+		try {
+			const response = await getReplies(dataCommentId, commentId, limitReplies, offset)
+			setReplies(prev => [
+				...(offset === 0 ? [] : prev),
+				...response.data.replies
+			])
+			setHasMoreReplies(response.data.hasMore)
+			setOffset(response.data.nextOffset)
+
+		} catch (error: unknown) {
+			if (axios.isAxiosError(error)) setReplyError(error.response?.data.message || "Ocorreu um erro desconhecido")
+			else setReplyError("Ocorreu um erro desconhecido")
+
+		} finally {
+			setLoadReplies(false)
 		}
 	}
 
@@ -99,15 +124,31 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment }: Comment
 				</div>
 
 				{comment.replyCount > 0 &&
-					<span>Ver repostas</span>
-					// TODO: FAZER MESAGEM DE COMMIT
-					// FAZER  GET DAS RESPOSTAS PAGINADSS E VERIFICAÇÃO SE O USUARIO LOGADO JÁ CURTIU OU NÃO A REPOSTA
+					<span onClick={() => findReplies(comment.documentId, comment._id)}>Ver repostas</span>
 				}
 
-				<span onClick={() =>  setShowReplyInput(prev => !prev)}>
+				<span onClick={() => setShowReplyInput(prev => !prev)}>
 					<strong>Responder</strong>
 				</span>
 			</Footer>
+
+			<div>
+				{replies.map((reply) => (
+					<div key={reply._id}>
+						<br />
+						<p>{reply.user.username}</p>
+						<h3>{reply.content}</h3>
+						<p>{reply.likeCount}</p>
+
+					</div>
+				))}
+
+			</div>
+			
+			{loadReplies && <p> Carregando respostas ...</p>}
+			{hasMoreReplies &&
+				<button type="button" onClick={() => findReplies(comment.documentId, comment._id)}> ver mais respostas</button>
+			}
 
 			{showReplyInput &&
 				<section>

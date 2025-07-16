@@ -32,3 +32,8 @@ export function sendReply(dataCommentId: string, commentId: string, data: ISendC
     const response = axios.post(`${baseUrl}/reply/${dataCommentId}/${commentId}`, data, { withCredentials: true })
     return response
 }
+
+export function getReplies(dataCommentId: string, commentId: string, limit: number, offset:number) {
+    const response = axios.get(`${baseUrl}/reply/replyPage/${dataCommentId}/${commentId}`, { params: { limit, offset }, withCredentials: true })
+    return response
+}
