@@ -20,11 +20,12 @@ interface CommentItemProps {
 	comment: ApiCommentData;
 	onDeleteComment: (dataCommentId: string, commentId: string) => void;
 	onLikeComment: (dataCommentId: string, commentId: string) => void;
+	onReplyComment: ( commentId: string) => void;
 }
 
 type IReply = z.infer<typeof interactSchema>;
 
-export function CommentItem({ comment, onDeleteComment, onLikeComment }: CommentItemProps) {
+export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyComment }: CommentItemProps) {
 	const { user } = useUser()
 	const isOwner = user?._id === comment.user._id;
 	const [showReplyInput, setShowReplyInput] = useState(false)
@@ -49,6 +50,7 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment }: Comment
 			const response = await sendReply(comment.documentId, comment._id, data)
 			reset()
 			setReplies((prevReplies) => [response.data.reply.reply[0], ...prevReplies ])
+			onReplyComment(comment._id)
 			setShowReplyInput(false)
 
 		} catch (error: unknown) {
