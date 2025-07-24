@@ -42,3 +42,8 @@ export function deleteReply(dataReplyId: string, replyId: string) {
     const response = axios.delete(`${baseUrl}/reply/deleteReply/${dataReplyId}/${replyId}`, { withCredentials: true })
     return response
 }
+
+export function likeReply(dataReplyId: string, replyId: string) {
+    const response = axios.post(`${baseUrl}/reply/likeReply/${dataReplyId}/${replyId}`, {}, { withCredentials: true })
+    return response
+}

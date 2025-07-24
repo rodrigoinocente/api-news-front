@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { interactSchema } from "../../../schemas/interactSchema";
 import { z } from "zod";
-import { deleteReply, getReplies, sendReply } from "../../../service/interact";
+import { deleteReply, getReplies, likeReply, sendReply } from "../../../service/interact";
 import { Button } from "../../Button/Button";
 import axios from "axios";
 import { ReplyItem } from "../ReplyItem/ReplyItem";
@@ -95,9 +95,37 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 		}
 	}
 
+	const inHandleLikeReply = async (dataReplyId: string, replyId: string) => {
+		const toggleLikeReplyLocally = () => {
+			setReplies((prev) =>
+				prev.map((reply) =>
+					reply._id === replyId
+						? {
+							...reply,
+							isLiked: !reply.isLiked,
+							likeCount: reply.isLiked ? reply.likeCount - 1 : reply.likeCount + 1,
+						}
+						: reply
+				)
+			)
+		}
+		toggleLikeReplyLocally()
+
+		try {
+			await likeReply(dataReplyId, replyId)
+
+		} catch (error: unknown) {
+			toggleLikeReplyLocally();
+
+			if (axios.isAxiosError(error)) setReplyError(error.response?.data.message || "Ocorreu um erro desconhecido")
+			else setReplyError("Ocorreu um erro desconhecido")
+			console.error(error)
+		}
+	}
+
 	return (
 		<Container>
-			<Header>
+			<Header> 	
 				<div id="right">
 					<UserAvatar user={comment.user} size="2.5rem" />
 
@@ -148,7 +176,9 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 			<div>
 				{replies.map((reply) => (
 					<ReplyItem reply={reply} key={reply._id}
-						onDeleteReply={inHandleDeleteReply} />
+						onDeleteReply={inHandleDeleteReply}
+						onLikeReply={inHandleLikeReply}
+					/>
 				))}
 			</div>
 
