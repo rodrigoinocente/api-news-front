@@ -37,3 +37,8 @@ export function getReplies(dataCommentId: string, commentId: string, limit: numb
     const response = axios.get(`${baseUrl}/reply/replyPage/${dataCommentId}/${commentId}`, { params: { limit, offset }, withCredentials: true })
     return response
 }
+
+export function deleteReply(dataReplyId: string, replyId: string) {
+    const response = axios.delete(`${baseUrl}/reply/deleteReply/${dataReplyId}/${replyId}`, { withCredentials: true })
+    return response
+}

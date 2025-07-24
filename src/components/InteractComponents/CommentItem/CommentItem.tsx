@@ -12,15 +12,16 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { interactSchema } from "../../../schemas/interactSchema";
 import { z } from "zod";
-import { getReplies, sendReply } from "../../../service/interact";
+import { deleteReply, getReplies, sendReply } from "../../../service/interact";
 import { Button } from "../../Button/Button";
 import axios from "axios";
+import { ReplyItem } from "../ReplyItem/ReplyItem";
 
 interface CommentItemProps {
 	comment: ApiCommentData;
 	onDeleteComment: (dataCommentId: string, commentId: string) => void;
 	onLikeComment: (dataCommentId: string, commentId: string) => void;
-	onReplyComment: ( commentId: string) => void;
+	onReplyComment: (commentId: string) => void;
 }
 
 type IReply = z.infer<typeof interactSchema>;
@@ -49,7 +50,7 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 		try {
 			const response = await sendReply(comment.documentId, comment._id, data)
 			reset()
-			setReplies((prevReplies) => [response.data.reply.reply[0], ...prevReplies ])
+			setReplies((prevReplies) => [response.data.reply.reply[0], ...prevReplies])
 			onReplyComment(comment._id)
 			setShowReplyInput(false)
 
@@ -83,8 +84,18 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 		}
 	}
 
-	return (
+	const inHandleDeleteReply = async (dataReplyId: string, replyId: string) => {
+		try {
+			await deleteReply(dataReplyId, replyId)
+			setReplies(prev => prev.filter(r => r._id !== replyId))
+		} catch (error: unknown) {
+			if (axios.isAxiosError(error)) setReplyError(error.response?.data.message || "Ocorreu um erro desconhecido")
+			else setReplyError("Ocorreu um erro desconhecido")
+			console.error(error)
+		}
+	}
 
+	return (
 		<Container>
 			<Header>
 				<div id="right">
@@ -136,17 +147,11 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 
 			<div>
 				{replies.map((reply) => (
-					<div key={reply._id}>
-						<br />
-						<p>{reply.user.username}</p>
-						<h3>{reply.content}</h3>
-						<p>{reply.likeCount}</p>
-
-					</div>
+					<ReplyItem reply={reply} key={reply._id}
+						onDeleteReply={inHandleDeleteReply} />
 				))}
-
 			</div>
-			
+
 			{loadReplies && <p> Carregando respostas ...</p>}
 			{hasMoreReplies &&
 				<button type="button" onClick={() => findReplies(comment.documentId, comment._id)}> ver mais respostas</button>
@@ -170,7 +175,6 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 
 				</section>
 			}
-			
 		</Container>
 	)
 }
