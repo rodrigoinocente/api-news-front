@@ -37,6 +37,7 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 	const [offset, setOffset] = useState(0)
 	const [hasMoreReplies, setHasMoreReplies] = useState(false)
 	const [loadReplies, setLoadReplies] = useState(false)
+	const [showReplies, setShowReplies] = useState(false)
 
 	const {
 		register,
@@ -47,6 +48,7 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 
 	const inHandleSubmit = async (data: IReply) => {
 		setIsSendReply(true)
+		setShowReplies(true)
 		try {
 			const response = await sendReply(comment.documentId, comment._id, data)
 			reset()
@@ -65,6 +67,7 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 
 	const findReplies = async (dataCommentId: string, commentId: string) => {
 		setLoadReplies(true)
+		setShowReplies(true)
 
 		try {
 			const response = await getReplies(dataCommentId, commentId, limitReplies, offset)
@@ -123,9 +126,14 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 		}
 	}
 
+	const handleToggleReplies = () => {
+		if (showReplies) setShowReplies(false)
+		else findReplies(comment.documentId, comment._id)
+	}
+
 	return (
 		<Container>
-			<Header> 	
+			<Header>
 				<div id="right">
 					<UserAvatar user={comment.user} size="2.5rem" />
 
@@ -157,15 +165,16 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 						<span>{comment.likeCount}</span>
 					</div>
 
-					<div className="countsIcon">
+					<div className="countsIcon" onClick={() => { if (comment.replyCount > 0) findReplies(comment.documentId, comment._id) }}>
 						<img src={iconComments} alt="Ícone para responder o comentário" />
 						<span>{comment.replyCount}</span>
-
 					</div>
 				</div>
 
 				{comment.replyCount > 0 &&
-					<span onClick={() => findReplies(comment.documentId, comment._id)}>Ver repostas</span>
+					<span onClick={handleToggleReplies}>
+						{showReplies ? "Ocultar respostas" : "Ver respostas"}
+					</span>
 				}
 
 				<span onClick={() => setShowReplyInput(prev => !prev)}>
@@ -174,7 +183,7 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 			</Footer>
 
 			<div>
-				{replies.map((reply) => (
+				{showReplies && replies.map((reply) => (
 					<ReplyItem reply={reply} key={reply._id}
 						onDeleteReply={inHandleDeleteReply}
 						onLikeReply={inHandleLikeReply}
