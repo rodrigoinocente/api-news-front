@@ -153,4 +153,15 @@ export interface ApiCommentData {
   _id: string;
   user: IUser
   documentId: string;
+  isLiked: boolean
+}
+
+export interface ApiReplyData {
+  content: string;
+  createdAt: string;
+  dataLikeId: string | null;
+  likeCount: number;
+  _id: string;
+  user: IUser;
+  documentId: string;
 }
