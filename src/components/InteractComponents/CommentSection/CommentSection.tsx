@@ -86,33 +86,26 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
 	}
 
 	const inHandleLikeComment = async (dataCommentId: string, commentId: string) => {
-		setComments((prev) =>
-			prev.map((comment) =>
-				comment._id === commentId
-					? {
-						...comment,
-						isLiked: !comment.isLiked,
-						likeCount: comment.isLiked ? comment.likeCount-- : comment.likeCount++
-					}
-					: comment
-			)
-		)
-
-		try {
-			await likeComment(dataCommentId, commentId)
-
-		} catch (error: unknown) {
+		const toggleCommentReplyLocally = () => {
 			setComments((prev) =>
 				prev.map((comment) =>
 					comment._id === commentId
 						? {
 							...comment,
 							isLiked: !comment.isLiked,
-							likeCount: comment.isLiked ? comment.likeCount-- : comment.likeCount++
+							likeCount: comment.isLiked ? comment.likeCount - 1 : comment.likeCount + 1
 						}
 						: comment
 				)
 			)
+		}
+		toggleCommentReplyLocally()
+
+		try {
+			await likeComment(dataCommentId, commentId)
+
+		} catch (error: unknown) {
+			toggleCommentReplyLocally()
 
 			if (axios.isAxiosError(error)) setCommentError(error.response?.data.message || "Ocorreu um erro desconhecido")
 			else setCommentError("Ocorreu um erro desconhecido")
