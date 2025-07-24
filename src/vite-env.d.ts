@@ -164,4 +164,5 @@ export interface ApiReplyData {
   _id: string;
   user: IUser;
   documentId: string;
+  isLiked: boolean
 }

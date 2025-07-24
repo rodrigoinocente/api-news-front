@@ -5,13 +5,15 @@ import { UserAvatar } from "../../UserAvatar/UserAvatar";
 import { Container, Footer, Header } from "./ReplyItemStyled";
 import iconTrash from "../../../images/icons/icon-trash.png";
 import iconLike from "../../../images/icons/icon-like.png";
+import iconLikeCheck from "../../../images/icons/icon-likeCheck.png";
 
 interface ReplyItemProps {
   reply: ApiReplyData;
   onDeleteReply: (dataReplyId: string, replyId: string) => void;
+  onLikeReply: (dataReplyId: string, replyId: string) => void;
 }
 
-export function ReplyItem({ reply, onDeleteReply }: ReplyItemProps) {
+export function ReplyItem({ reply, onDeleteReply, onLikeReply }: ReplyItemProps) {
   const { user } = useUser()
   const isOwner = user?._id === reply.user._id;
 
@@ -38,8 +40,12 @@ export function ReplyItem({ reply, onDeleteReply }: ReplyItemProps) {
         <p>{reply.content}</p>
       </div>
 
-      <Footer>
-          <img src={iconLike} alt="Ícone para curtir o comentário" />
+      <Footer onClick={() => onLikeReply(reply.documentId, reply._id)}>
+          {!reply.isLiked ?
+            <img src={iconLike} alt="Ícone para curtir o comentário" />
+            :
+            <img src={iconLikeCheck} alt="Ícone do comentário curtido" />
+          }
           <span>{reply.likeCount}</span>
       </Footer>
     </Container>
