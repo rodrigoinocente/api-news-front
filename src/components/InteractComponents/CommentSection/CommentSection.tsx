@@ -1,16 +1,16 @@
-import { Container } from "./CommentSectionStyled";
+import { Container, TextareaSection } from "./CommentSectionStyled";
 import iconCommett from "../../../images/icons/icon-comments.png";
 import { useUser } from "../../../Context/userCustomHook"
-import { Button } from "../../Button/Button";
 import { interactSchema } from '../../../schemas/interactSchema';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { deleteComment, getComments, likeComment, sendComment } from "../../../service/interact";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { ApiCommentData } from "../../../vite-env";
 import { CommentItem } from "../CommentItem/CommentItem";
+import iconSend from "../../../images/icons/icon-send.png"
 
 export interface ICommentCard {
 	publicationId: string;
@@ -28,7 +28,6 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
 	const limitComments = 6
 	const [loadComments, setLoadComments] = useState(false)
 	const [sendComments, setSendComments] = useState(false)
-	const commentsTopRef = useRef<HTMLDivElement>(null)
 
 	const {
 		register,
@@ -63,7 +62,10 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
 			const response = await sendComment(publicationId, data)
 			reset()
 			setComments((prevComments) => [response.data.comment.comment[0], ...prevComments])
-			commentsTopRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+
+			setTimeout(() => {
+				window.scrollBy({ top: 150, behavior: "smooth", })
+			}, 300)
 
 		} catch (error: unknown) {
 			if (axios.isAxiosError(error)) setCommentError(error.response?.data.message || "Ocorreu um erro desconhecido")
@@ -126,13 +128,19 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
 		)
 	}
 
+	const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		const textarea = e.target;
+		textarea.style.height = "auto";
+		textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
+	}
+
 	useEffect(() => {
 		findComments(publicationId)
 	}, [publicationId, user])
 
 	return (
 		<Container>
-			<div id="comments" ref={commentsTopRef}>
+			<div id="comments">
 				<img src={iconCommett} alt="Ícone de comentario" />
 				<h4>{commentCount} comentários</h4>
 			</div>
@@ -142,9 +150,25 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
 
 			) : (
 				<>
-					{comments.length === 0 && !loadComments && <p>Seja o primeiro a comentar!</p>}
-					<div >
+					<TextareaSection>
+						{comments.length === 0 && !loadComments && <p>Seja o primeiro a comentar!</p>}
+						<form onSubmit={handleSubmit(inHandleSubmit)}>
+							<textarea
+								{...register("content")}
+								placeholder="Escreva seu comentário..."
+								onChange={handleTextareaChange}
+							/>
 
+							{errors.content && <span>{errors.content.message}</span>}
+							{commentError && <span>{commentError} </span>}
+
+							<button type="submit">
+								<img src={iconSend} alt="Ícone para enviar o comentário" />
+							</button >
+						</form>
+					</TextareaSection>
+
+					<div >
 						{comments.map((comment) => (
 							<CommentItem
 								comment={comment}
@@ -162,19 +186,6 @@ export function CommentSection({ publicationId, commentCount }: ICommentCard) {
 							</button>
 						}
 					</div>
-
-					<form onSubmit={handleSubmit(inHandleSubmit)}>
-						<textarea
-							{...register("content")}
-							placeholder="Escreva seu comentário..."
-							rows={4}
-						/>
-
-						{errors.content && <span>{errors.content.message}</span>}
-						{commentError && <span>{commentError} </span>}
-
-						<Button text="Enviar" type="submit" />
-					</form>
 				</>
 			)}
 		</Container>
