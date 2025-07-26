@@ -5,17 +5,17 @@ import iconLike from "../../../images/icons/icon-like.png";
 import iconLikeCheck from "../../../images/icons/icon-likeCheck.png";
 import iconComments from "../../../images/icons/icon-comments.png";
 import iconTrash from "../../../images/icons/icon-trash.png";
-import { Container, Footer, Header } from "./CommentItemStyled";
+import { Container, Footer, Header, TextareaSection } from "./CommentItemStyled";
 import { useUser } from "../../../Context/userCustomHook";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { interactSchema } from "../../../schemas/interactSchema";
 import { z } from "zod";
 import { deleteReply, getReplies, likeReply, sendReply } from "../../../service/interact";
-import { Button } from "../../Button/Button";
 import axios from "axios";
 import { ReplyItem } from "../ReplyItem/ReplyItem";
+import iconSend from "../../../images/icons/icon-send.png"
 
 interface CommentItemProps {
 	comment: ApiCommentData;
@@ -54,7 +54,10 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 			reset()
 			setReplies((prevReplies) => [response.data.reply.reply[0], ...prevReplies])
 			onReplyComment(comment._id)
-			setShowReplyInput(false)
+
+			setTimeout(() => {
+				window.scrollBy({ top: 150, behavior: "smooth", })
+			}, 300)
 
 		} catch (error: unknown) {
 			if (axios.isAxiosError(error)) setReplyError(error.response?.data.message || "Ocorreu um erro desconhecido")
@@ -127,8 +130,17 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 	}
 
 	const handleToggleReplies = () => {
-		if (showReplies) setShowReplies(false)
-		else findReplies(comment.documentId, comment._id)
+		if (replies.length === 0) findReplies(comment.documentId, comment._id)
+		else {
+			setShowReplyInput((prev) => !prev)
+			setShowReplies((prev) => !prev)
+		}
+	}
+
+	const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+		const textarea = e.target;
+		textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
+		e.preventDefault()
 	}
 
 	return (
@@ -182,6 +194,27 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 				</span>
 			</Footer>
 
+			{showReplyInput &&
+
+				<TextareaSection>
+					{isSendReply && <p>Enviando ...</p>}
+					<form onSubmit={handleSubmit(inHandleSubmit)}>
+						<textarea
+							{...register("content")}
+							onChange={handleTextareaChange}
+							placeholder="Escreva sua resposta..."
+
+						/>
+						{errors.content && <span>{errors.content.message}</span>}
+						{replyError && <span>{replyError} </span>}
+						<button type="submit">
+							<img src={iconSend} alt="Ícone para enviar a resposta" />
+						</button >
+					</form>
+				</TextareaSection>
+
+			}
+
 			<div>
 				{showReplies && replies.map((reply) => (
 					<ReplyItem reply={reply} key={reply._id}
@@ -196,24 +229,6 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 				<button type="button" onClick={() => findReplies(comment.documentId, comment._id)}> ver mais respostas</button>
 			}
 
-			{showReplyInput &&
-				<section>
-					{isSendReply && <p>Enviando ...</p>}
-					<form onSubmit={handleSubmit(inHandleSubmit)}>
-						<textarea
-							{...register("content")}
-							placeholder="Escreva sua resposta..."
-							rows={4}
-						/>
-
-						{errors.content && <span>{errors.content.message}</span>}
-						{replyError && <span>{replyError} </span>}
-
-						<Button text="Enviar" type="submit" />
-					</form>
-
-				</section>
-			}
 		</Container>
 	)
 }

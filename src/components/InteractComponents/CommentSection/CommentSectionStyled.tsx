@@ -32,7 +32,7 @@ export const TextareaSection = styled.section`
     }
 
     img {
-        width: 40px;
+        width: 30px;
     }
 
     button {
@@ -40,6 +40,6 @@ export const TextareaSection = styled.section`
         position: absolute;
         right: 20px;
         align-self: flex-end;
-        margin: 0 5px 5px 0;
+        margin: 0 5px 10px 0;
     }
 `

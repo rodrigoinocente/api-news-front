@@ -65,3 +65,31 @@ export const Footer = styled.section`
 			}
 		}
 `
+
+export const TextareaSection = styled.section`
+    text-align: center;
+    width: 100%;
+    position: relative;
+
+    textarea {
+        width: 90%;
+        border-radius: 10px;
+        padding: 10px 40px 10px 10px;
+        height: 35px;
+        overflow-y: hidden;
+        resize: none;
+    }
+
+    img {
+        width: 30px;
+    }
+
+    button {
+        all: unset;
+        position: absolute;
+        right: 24px;
+				/* top: 2px;c */
+        align-self: flex-end;
+				margin-bottom: 3px;
+    }
+`
