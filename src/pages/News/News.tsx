@@ -6,12 +6,15 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { NavbarHome } from "../../components/NavBarHome/NavBarHome";
 import { useBackground } from "../../Context/useBackgroundCustomHook";
 import { ContentRead } from "../../components/ContentReader/ContentReader";
+import { Container } from "./NewsStyled";
+import {CommentSection} from "../../components/InteractComponents/CommentSection/CommentSection"
 
 export function News() {
     const { newsId } = useParams<{ newsId: string }>()
     const [news, setNews] = useState<INews | null>()
     const [journalist, setJournalist] = useState<IJournalist | null>(null)
     const { updateBackground } = useBackground()
+
 
     const findNews = async () => {
         if (!newsId) return console.error("newsId is undefined")
@@ -35,11 +38,17 @@ export function News() {
             <Navbar />
             <NavbarHome />
             {news && journalist && (
-                <ContentRead
-                    publication={news}
-                    journalist={journalist}
-                    type="news"
-                />
+                <Container>
+                    <ContentRead
+                        publication={news}
+                        journalist={journalist}
+                        type="news"
+                    />
+
+                    <CommentSection publicationId={news._id} commentCount={news.commentCount}/>
+
+                </Container>
+
             )}
         </>
     )

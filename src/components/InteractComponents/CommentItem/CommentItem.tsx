@@ -70,7 +70,8 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 
 	const findReplies = async (dataCommentId: string, commentId: string) => {
 		setLoadReplies(true)
-		setShowReplies(true)
+		// setShowReplies(true)
+		// setShowReplyInput(true)
 
 		try {
 			const response = await getReplies(dataCommentId, commentId, limitReplies, offset)
@@ -131,10 +132,9 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 
 	const handleToggleReplies = () => {
 		if (replies.length === 0) findReplies(comment.documentId, comment._id)
-		else {
-			setShowReplyInput((prev) => !prev)
-			setShowReplies((prev) => !prev)
-		}
+		if (showReplies && !showReplyInput) setShowReplyInput((prev) => !prev)
+		setShowReplies((prev) => !prev)
+		setShowReplyInput((prev) => !prev)
 	}
 
 	const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
