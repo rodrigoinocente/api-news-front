@@ -70,8 +70,6 @@ export function CommentItem({ comment, onDeleteComment, onLikeComment, onReplyCo
 
 	const findReplies = async (dataCommentId: string, commentId: string) => {
 		setLoadReplies(true)
-		// setShowReplies(true)
-		// setShowReplyInput(true)
 
 		try {
 			const response = await getReplies(dataCommentId, commentId, limitReplies, offset)
